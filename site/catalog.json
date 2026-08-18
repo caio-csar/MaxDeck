@@ -95,7 +95,7 @@
     "file": "Remover USRP Button.user.js",
     "description": "",
     "category": "Outros",
-    "enabled": true,
+    "enabled": false,
     "featured": false
   },
   {
@@ -158,7 +158,7 @@
     "file": "TendiChat - Botão Código AnyDesk.user.js",
     "description": "",
     "category": "TendiChat",
-    "enabled": true,
+    "enabled": false,
     "featured": false
   },
   {
@@ -194,7 +194,7 @@
     "file": "TendiChat - Cabeçalho Organizado + Telefone.user.js",
     "description": "",
     "category": "TendiChat",
-    "enabled": true,
+    "enabled": false,
     "featured": false
   },
   {
@@ -212,7 +212,7 @@
     "file": "TendiChat - Layout Vertical 20%.user.js",
     "description": "",
     "category": "TendiChat",
-    "enabled": true,
+    "enabled": false,
     "featured": false
   },
   {
@@ -221,7 +221,7 @@
     "file": "TendiChat - Lista em cima e conversa embaixo.user.js",
     "description": "",
     "category": "TendiChat",
-    "enabled": true,
+    "enabled": false,
     "featured": false
   },
   {
@@ -276,7 +276,7 @@
     "description": "",
     "category": "TendiChat",
     "enabled": true,
-    "featured": false
+    "featured": true
   },
   {
     "name": "Tipo Suporte Interno",
