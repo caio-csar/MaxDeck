@@ -59,6 +59,7 @@ async function github(path, init = {}) {
     headers: {
       Accept: "application/vnd.github+json",
       Authorization: `Bearer ${GITHUB_TOKEN}`,
+      "User-Agent": "MaxDeck-Admin/1.0 (https://github.com/caio-csar/MaxDeck)",
       "X-GitHub-Api-Version": "2022-11-28",
       ...(init.headers || {}),
     },
@@ -66,8 +67,15 @@ async function github(path, init = {}) {
   if (!response.ok) {
     let details = `GitHub respondeu ${response.status}`;
     try {
-      const payload = await response.json();
-      details = payload.message || details;
+      const payload = await response.text();
+      if (payload) {
+        try {
+          const parsed = JSON.parse(payload);
+          details = parsed.message || details;
+        } catch {
+          details = payload.trim() || details;
+        }
+      }
     } catch {}
     throw new Error(details);
   }
