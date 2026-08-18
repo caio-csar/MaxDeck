@@ -27,7 +27,8 @@
       const group=n=>/TendiChat|Tendichat/.test(n)?"TendiChat":/Max|Maxdata/.test(n)?"MaxAtendimento":"Outros";
       let all=[],current="Todos";const filters=document.querySelector('#filters'),grid=document.querySelector('#grid'),count=document.querySelector('#count'),empty=document.querySelector('#empty');
       function render(){const q=document.querySelector('#search').value.toLowerCase();const list=all.filter(x=>(current==="Todos"||group(x.name)===current)&&x.name.toLowerCase().includes(q)).sort((a,b)=>favorites.includes(b.name)-favorites.includes(a.name));count.textContent=`${list.length} scripts disponíveis`;grid.innerHTML=list.map(x=>`<article class="card ${favorites.includes(x.name)?'featured':''}"><div class="head"><span class="tag">${group(x.name)}</span>${favorites.includes(x.name)?'<span class="main">PRINCIPAL</span>':''}</div><h3>${x.name.replace(/^z+_?/,"")}</h3><p>Versão ${x.version}</p><a href="scripts/${encodeURIComponent(x.file)}">Instalar script <span>→</span></a></article>`).join('');empty.hidden=Boolean(list.length)}
-      ["Todos","TendiChat","MaxAtendimento","Outros"].forEach(x=>{const b=document.createElement('button');b.textContent=x;b.className=x===current?'active':'';b.onclick=()=>{current=x;[...filters.children].forEach(y=>y.classList.toggle('active',y===b));render()};filters.append(b)});document.querySelector('#search').oninput=render;fetch('catalog.json').then(r=>r.json()).then(data=>{all=data;render()});
+      ["Todos","TendiChat","MaxAtendimento","Outros"].forEach(x=>{const b=document.createElement('button');b.textContent=x;b.className=x===current?'active':'';b.onclick=()=>{current=x;[...filters.children].forEach(y=>y.classList.toggle('active',y===b));render()};filters.append(b)});document.querySelector('#search').oninput=render;fetch('catalog.json').then(r=>r.json()).then(data=>{all=data.filter(x=>x.enabled!==false);render()});
     </script>
   </body>
 </html>
+

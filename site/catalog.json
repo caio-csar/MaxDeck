@@ -2,211 +2,337 @@
   {
     "name": "Autocorretor TendiChat",
     "version": "2.0.0",
-    "file": "Autocorretor TendiChat.user.js"
+    "file": "Autocorretor TendiChat.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   },
   {
     "name": "Max Painel - Ultra Modern UI (Stripe Style)",
     "version": "3.0",
-    "file": "Max Painel - Ultra Modern UI (Stripe Style).user.js"
+    "file": "Max Painel - Ultra Modern UI (Stripe Style).user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "MaxAtendimento"
   },
   {
     "name": "MaxAtendimento - Botao Contato Simples",
     "version": "1.7",
-    "file": "MaxAtendimento - Botao Contato Simples.user.js"
+    "file": "MaxAtendimento - Botao Contato Simples.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "MaxAtendimento"
   },
   {
     "name": "MaxAtendimento - Disponibilidade Flex",
     "version": "1.0",
-    "file": "MaxAtendimento - Disponibilidade Flex.user.js"
+    "file": "MaxAtendimento - Disponibilidade Flex.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "MaxAtendimento"
   },
   {
     "name": "MaxAtendimento - Extrair Título OS",
     "version": "1.7",
-    "file": "MaxAtendimento - Extrair Título OS.user.js"
+    "file": "MaxAtendimento - Extrair Título OS.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "MaxAtendimento"
   },
   {
     "name": "MaxAtendimento - Frases Prontas Cancelamento",
     "version": "1.5",
-    "file": "MaxAtendimento - Frases Prontas Cancelamento.user.js"
+    "file": "MaxAtendimento - Frases Prontas Cancelamento.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "MaxAtendimento"
   },
   {
     "name": "MaxAtendimento - Remover Itens",
     "version": "1.4",
-    "file": "MaxAtendimento - Remover Itens.user.js"
+    "file": "MaxAtendimento - Remover Itens.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "MaxAtendimento"
   },
   {
     "name": "MaxAtendimento - Turbinar Relato GPT",
     "version": "1.2",
-    "file": "MaxAtendimento - Turbinar Relato GPT.user.js"
+    "file": "MaxAtendimento - Turbinar Relato GPT.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "MaxAtendimento"
   },
   {
     "name": "MaxAtendimento -> TendiChat Busca Contato",
     "version": "3.0",
-    "file": "MaxAtendimento -_ TendiChat Busca Contato.user.js"
+    "file": "MaxAtendimento -_ TendiChat Busca Contato.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   },
   {
     "name": "Painel Maxdata - Boneco Pendentes Estavel",
     "version": "5.1",
-    "file": "Painel Maxdata - Boneco Pendentes Estavel.user.js"
+    "file": "Painel Maxdata - Boneco Pendentes Estavel.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "MaxAtendimento"
   },
   {
     "name": "Remover USRP Button",
     "version": "1.0",
-    "file": "Remover USRP Button.user.js"
+    "file": "Remover USRP Button.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "Outros"
   },
   {
     "name": "TendiChat - Abrir Atendimento por CNPJ",
     "version": "1.7",
-    "file": "TendiChat - Abrir Atendimento por CNPJ.user.js"
+    "file": "TendiChat - Abrir Atendimento por CNPJ.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   },
   {
     "name": "TendiChat - Alerta de CNPJ por Tempo",
     "version": "1.0.0",
-    "file": "TendiChat - Alerta de CNPJ por Tempo.user.js"
+    "file": "TendiChat - Alerta de CNPJ por Tempo.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   },
   {
     "name": "TendiChat - Atendente e Setor Padrão v2",
     "version": "2.0.0",
-    "file": "TendiChat - Atendente e Setor Padrão v2.user.js"
+    "file": "TendiChat - Atendente e Setor Padrão v2.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   },
   {
     "name": "TendiChat - Atendente e Setor Padrão",
     "version": "1.5",
-    "file": "TendiChat - Atendente e Setor Padrão.user.js"
+    "file": "TendiChat - Atendente e Setor Padrão.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   },
   {
     "name": "TendiChat - Auto Abrir MAXDATA Suporte",
     "version": "1.1",
-    "file": "TendiChat - Auto Abrir MAXDATA Suporte.user.js"
+    "file": "TendiChat - Auto Abrir MAXDATA Suporte.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   },
   {
     "name": "TendiChat - Balões AnyDesk Flutuantes",
     "version": "2.0",
-    "file": "TendiChat - Balões AnyDesk Flutuantes.user.js"
+    "file": "TendiChat - Balões AnyDesk Flutuantes.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   },
   {
     "name": "TendiChat - Botão Código AnyDesk",
     "version": "1.0",
-    "file": "TendiChat - Botão Código AnyDesk.user.js"
+    "file": "TendiChat - Botão Código AnyDesk.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   },
   {
     "name": "TendiChat - Botão Contatos Permanente",
     "version": "1.1.0",
-    "file": "TendiChat - Botão Contatos Permanente.user.js"
+    "file": "TendiChat - Botão Contatos Permanente.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   },
   {
     "name": "TendiChat - Busca Telas Manager PRO",
     "version": "2.0",
-    "file": "TendiChat - Busca Telas Manager PRO.user.js"
+    "file": "TendiChat - Busca Telas Manager PRO.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   },
   {
     "name": "TendiChat - Busca Telas Manager",
     "version": "1.0",
-    "file": "TendiChat - Busca Telas Manager.user.js"
+    "file": "TendiChat - Busca Telas Manager.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   },
   {
     "name": "TendiChat - Cabeçalho Organizado + Telefone",
     "version": "2.0",
-    "file": "TendiChat - Cabeçalho Organizado + Telefone.user.js"
+    "file": "TendiChat - Cabeçalho Organizado + Telefone.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   },
   {
     "name": "TendiChat - Diagnóstico de Estrutura",
     "version": "1.0.0",
-    "file": "TendiChat - Diagnóstico de Estrutura.user.js"
+    "file": "TendiChat - Diagnóstico de Estrutura.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   },
   {
     "name": "TendiChat - Layout Vertical 20%",
     "version": "2.0.0",
-    "file": "TendiChat - Layout Vertical 20%.user.js"
+    "file": "TendiChat - Layout Vertical 20%.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   },
   {
     "name": "TendiChat - Lista em cima e conversa embaixo",
     "version": "1.0",
-    "file": "TendiChat - Lista em cima e conversa embaixo.user.js"
+    "file": "TendiChat - Lista em cima e conversa embaixo.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   },
   {
     "name": "TendiChat - Menus Sempre Abertos",
     "version": "1.0.0",
-    "file": "TendiChat - Menus Sempre Abertos.user.js"
+    "file": "TendiChat - Menus Sempre Abertos.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   },
   {
     "name": "TendiChat - Relato GPT",
     "version": "6.9",
-    "file": "TendiChat - Relato GPT.user.js"
+    "file": "TendiChat - Relato GPT.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   },
   {
     "name": "TendiChat - Saudação Automática",
     "version": "1.0",
-    "file": "TendiChat - Saudação Automática.user.js"
+    "file": "TendiChat - Saudação Automática.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   },
   {
     "name": "TendiChat - Selecionar Suporte Interno ao Fechar",
     "version": "1.0",
-    "file": "TendiChat - Selecionar Suporte Interno ao Fechar.user.js"
+    "file": "TendiChat - Selecionar Suporte Interno ao Fechar.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   },
   {
     "name": "TendiChat - Semáforo de CNPJ por Ticket",
     "version": "2.3.0",
-    "file": "TendiChat - Semáforo de CNPJ por Ticket.user.js"
+    "file": "TendiChat - Semáforo de CNPJ por Ticket.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   },
   {
     "name": "TendiChat + ChatGPT - Relato OS",
     "version": "1.2.0",
-    "file": "TendiChat + ChatGPT - Relato OS.user.js"
+    "file": "TendiChat + ChatGPT - Relato OS.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   },
   {
     "name": "Tipo Suporte Interno",
     "version": "1.2",
-    "file": "Tipo Suporte Interno.user.js"
+    "file": "Tipo Suporte Interno.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "Outros"
   },
   {
     "name": "Wiki Centrium - Exportar Artigo PDF",
     "version": "1.0",
-    "file": "Wiki Centrium - Exportar Artigo PDF.user.js"
+    "file": "Wiki Centrium - Exportar Artigo PDF.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "Outros"
   },
   {
     "name": "Yuki - Liberar IA React Forte",
     "version": "1.4",
-    "file": "Yuki - Liberar IA React Forte.user.js"
+    "file": "Yuki - Liberar IA React Forte.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "Outros"
   },
   {
     "name": "zDrop TendiBase Logo",
     "version": "1.0",
-    "file": "zDrop TendiBase Logo.user.js"
+    "file": "zDrop TendiBase Logo.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "Outros"
   },
   {
     "name": "zMaxAtendimento - Horario FLEX solo",
     "version": "1.2",
-    "file": "zMaxAtendimento - Horario FLEX solo.user.js"
+    "file": "zMaxAtendimento - Horario FLEX solo.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "MaxAtendimento"
   },
   {
     "name": "zPainel Maxdata - Teste Posição Boneco",
     "version": "1.0",
-    "file": "zPainel Maxdata - Teste Posição Boneco.user.js"
+    "file": "zPainel Maxdata - Teste Posição Boneco.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "MaxAtendimento"
   },
   {
     "name": "zZZ_MaxAtendimento - Horario FLEX",
     "version": "1.3",
-    "file": "zZZ_MaxAtendimento - Horario FLEX.user.js"
+    "file": "zZZ_MaxAtendimento - Horario FLEX.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "MaxAtendimento"
   },
   {
     "name": "ZZZ_TendiChat - Bot Transferir por Contato",
     "version": "3.0",
-    "file": "ZZZ_TendiChat - Bot Transferir por Contato.user.js"
+    "file": "ZZZ_TendiChat - Bot Transferir por Contato.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   },
   {
     "name": "ZZZ_TendiChat - Diagnóstico de Layout",
     "version": "1.0.0",
-    "file": "ZZZ_TendiChat - Diagnóstico de Layout.user.js"
+    "file": "ZZZ_TendiChat - Diagnóstico de Layout.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   },
   {
     "name": "ZZZ_Tendichat - GPT AutoPaste",
     "version": "2.0",
-    "file": "ZZZ_Tendichat - GPT AutoPaste.user.js"
+    "file": "ZZZ_Tendichat - GPT AutoPaste.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   },
   {
     "name": "ZZZTendiChat - Layout Fixo",
     "version": "1.0.0",
-    "file": "ZZZTendiChat - Layout Fixo.user.js"
+    "file": "ZZZTendiChat - Layout Fixo.user.js",
+    "enabled": true,
+    "featured": false,
+    "category": "TendiChat"
   }
 ]
