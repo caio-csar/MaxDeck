@@ -24,7 +24,7 @@
     "description": "",
     "category": "MaxAtendimento",
     "enabled": true,
-    "featured": false
+    "featured": true
   },
   {
     "name": "MaxAtendimento - Disponibilidade Flex",
