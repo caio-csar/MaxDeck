@@ -239,7 +239,7 @@
     "file": "TendiChat - Relato GPT.user.js",
     "description": "",
     "category": "TendiChat",
-    "enabled": true,
+    "enabled": false,
     "featured": false
   },
   {
