@@ -176,7 +176,7 @@
     "file": "TendiChat - Busca Telas Manager PRO.user.js",
     "description": "",
     "category": "TendiChat",
-    "enabled": true,
+    "enabled": false,
     "featured": false
   },
   {
@@ -185,7 +185,7 @@
     "file": "TendiChat - Busca Telas Manager.user.js",
     "description": "",
     "category": "TendiChat",
-    "enabled": true,
+    "enabled": false,
     "featured": false
   },
   {
@@ -203,7 +203,7 @@
     "file": "TendiChat - Diagnóstico de Estrutura.user.js",
     "description": "",
     "category": "TendiChat",
-    "enabled": true,
+    "enabled": false,
     "featured": false
   },
   {
