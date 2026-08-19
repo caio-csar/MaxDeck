@@ -6,7 +6,8 @@
     "description": "",
     "category": "TendiChat",
     "enabled": false,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "Max Painel - Ultra Modern UI (Stripe Style)",
@@ -15,7 +16,8 @@
     "description": "",
     "category": "MaxAtendimento",
     "enabled": false,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "MaxAtendimento - Botao Contato Simples",
@@ -24,7 +26,8 @@
     "description": "",
     "category": "MaxAtendimento",
     "enabled": true,
-    "featured": true
+    "featured": true,
+    "media": []
   },
   {
     "name": "MaxAtendimento - Disponibilidade Flex",
@@ -33,7 +36,8 @@
     "description": "",
     "category": "MaxAtendimento",
     "enabled": true,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "MaxAtendimento - Extrair Título OS",
@@ -42,7 +46,8 @@
     "description": "",
     "category": "MaxAtendimento",
     "enabled": true,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "MaxAtendimento - Frases Prontas Cancelamento",
@@ -51,7 +56,8 @@
     "description": "",
     "category": "MaxAtendimento",
     "enabled": true,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "MaxAtendimento - Remover Itens",
@@ -60,7 +66,8 @@
     "description": "",
     "category": "MaxAtendimento",
     "enabled": false,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "MaxAtendimento - Turbinar Relato GPT",
@@ -69,7 +76,8 @@
     "description": "",
     "category": "MaxAtendimento",
     "enabled": false,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "MaxAtendimento -> TendiChat Busca Contato",
@@ -78,7 +86,8 @@
     "description": "",
     "category": "TendiChat",
     "enabled": true,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "Painel Maxdata - Boneco Pendentes Estavel",
@@ -87,7 +96,8 @@
     "description": "",
     "category": "MaxAtendimento",
     "enabled": false,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "Remover USRP Button",
@@ -96,7 +106,8 @@
     "description": "",
     "category": "Outros",
     "enabled": false,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "TendiChat - Abrir Atendimento por CNPJ",
@@ -105,7 +116,8 @@
     "description": "",
     "category": "TendiChat",
     "enabled": true,
-    "featured": false
+    "featured": true,
+    "media": []
   },
   {
     "name": "TendiChat - Alerta de CNPJ por Tempo",
@@ -114,7 +126,8 @@
     "description": "",
     "category": "TendiChat",
     "enabled": true,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "TendiChat - Atendente e Setor Padrão v2",
@@ -123,7 +136,8 @@
     "description": "",
     "category": "TendiChat",
     "enabled": true,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "TendiChat - Atendente e Setor Padrão",
@@ -132,7 +146,8 @@
     "description": "",
     "category": "TendiChat",
     "enabled": true,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "TendiChat - Auto Abrir MAXDATA Suporte",
@@ -141,7 +156,8 @@
     "description": "",
     "category": "TendiChat",
     "enabled": true,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "TendiChat - Balões AnyDesk Flutuantes",
@@ -150,7 +166,8 @@
     "description": "",
     "category": "TendiChat",
     "enabled": true,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "TendiChat - Botão Código AnyDesk",
@@ -159,7 +176,8 @@
     "description": "",
     "category": "TendiChat",
     "enabled": false,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "TendiChat - Botão Contatos Permanente",
@@ -168,7 +186,8 @@
     "description": "",
     "category": "TendiChat",
     "enabled": true,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "TendiChat - Busca Telas Manager PRO",
@@ -177,7 +196,8 @@
     "description": "",
     "category": "TendiChat",
     "enabled": false,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "TendiChat - Busca Telas Manager",
@@ -186,7 +206,8 @@
     "description": "",
     "category": "TendiChat",
     "enabled": false,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "TendiChat - Cabeçalho Organizado + Telefone",
@@ -195,7 +216,8 @@
     "description": "",
     "category": "TendiChat",
     "enabled": false,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "TendiChat - Diagnóstico de Estrutura",
@@ -204,7 +226,8 @@
     "description": "",
     "category": "TendiChat",
     "enabled": false,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "TendiChat - Layout Vertical 20%",
@@ -213,7 +236,8 @@
     "description": "",
     "category": "TendiChat",
     "enabled": false,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "TendiChat - Lista em cima e conversa embaixo",
@@ -222,7 +246,8 @@
     "description": "",
     "category": "TendiChat",
     "enabled": false,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "TendiChat - Menus Sempre Abertos",
@@ -231,7 +256,8 @@
     "description": "",
     "category": "TendiChat",
     "enabled": true,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "TendiChat - Relato GPT",
@@ -240,7 +266,8 @@
     "description": "",
     "category": "TendiChat",
     "enabled": false,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "TendiChat - Saudação Automática",
@@ -249,7 +276,8 @@
     "description": "",
     "category": "TendiChat",
     "enabled": true,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "TendiChat - Selecionar Suporte Interno ao Fechar",
@@ -258,7 +286,8 @@
     "description": "",
     "category": "TendiChat",
     "enabled": true,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "TendiChat - Semáforo de CNPJ por Ticket",
@@ -267,7 +296,8 @@
     "description": "",
     "category": "TendiChat",
     "enabled": true,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "TendiChat + ChatGPT - Relato OS",
@@ -276,7 +306,8 @@
     "description": "",
     "category": "TendiChat",
     "enabled": true,
-    "featured": true
+    "featured": true,
+    "media": []
   },
   {
     "name": "Tipo Suporte Interno",
@@ -285,7 +316,8 @@
     "description": "",
     "category": "Outros",
     "enabled": true,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "Wiki Centrium - Exportar Artigo PDF",
@@ -294,7 +326,8 @@
     "description": "",
     "category": "Outros",
     "enabled": false,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "Yuki - Liberar IA React Forte",
@@ -303,7 +336,8 @@
     "description": "",
     "category": "Outros",
     "enabled": false,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "zDrop TendiBase Logo",
@@ -312,7 +346,8 @@
     "description": "",
     "category": "Outros",
     "enabled": false,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "zMaxAtendimento - Horario FLEX solo",
@@ -321,7 +356,8 @@
     "description": "",
     "category": "MaxAtendimento",
     "enabled": false,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "zPainel Maxdata - Teste Posição Boneco",
@@ -330,7 +366,8 @@
     "description": "",
     "category": "MaxAtendimento",
     "enabled": false,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "zZZ_MaxAtendimento - Horario FLEX",
@@ -339,7 +376,8 @@
     "description": "",
     "category": "MaxAtendimento",
     "enabled": false,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "ZZZ_TendiChat - Bot Transferir por Contato",
@@ -348,7 +386,8 @@
     "description": "",
     "category": "TendiChat",
     "enabled": false,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "ZZZ_TendiChat - Diagnóstico de Layout",
@@ -357,7 +396,8 @@
     "description": "",
     "category": "TendiChat",
     "enabled": false,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "ZZZ_Tendichat - GPT AutoPaste",
@@ -366,7 +406,8 @@
     "description": "",
     "category": "TendiChat",
     "enabled": false,
-    "featured": false
+    "featured": false,
+    "media": []
   },
   {
     "name": "ZZZTendiChat - Layout Fixo",
@@ -375,6 +416,7 @@
     "description": "",
     "category": "TendiChat",
     "enabled": false,
-    "featured": false
+    "featured": false,
+    "media": []
   }
 ]
