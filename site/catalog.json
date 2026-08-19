@@ -86,7 +86,7 @@
     "description": "",
     "category": "TendiChat",
     "enabled": true,
-    "featured": false,
+    "featured": true,
     "media": []
   },
   {
