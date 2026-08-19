@@ -220,7 +220,7 @@
     "file": "TendiChat - Botão Contatos Permanente.user.js",
     "description": "",
     "category": "TendiChat",
-    "enabled": true,
+    "enabled": false,
     "featured": false,
     "media": []
   },
