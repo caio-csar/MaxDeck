@@ -136,7 +136,7 @@
     "description": "",
     "category": "TendiChat",
     "enabled": true,
-    "featured": false,
+    "featured": true,
     "media": []
   },
   {
@@ -145,8 +145,8 @@
     "file": "TendiChat - Atendente e Setor Padrão.user.js",
     "description": "",
     "category": "TendiChat",
-    "enabled": true,
-    "featured": false,
+    "enabled": false,
+    "featured": true,
     "media": []
   },
   {
