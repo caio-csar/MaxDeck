@@ -104,7 +104,13 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": true,
-    "media": []
+    "media": [
+      {
+        "path": "media/maxatendimento-tendichat-busca-contato/6a8f0cbe-e27f-4d1c-b3b2-fb5aeb2a7189.gif",
+        "alt": "",
+        "type": "image/gif"
+      }
+    ]
   },
   {
     "name": "Painel Maxdata - Boneco Pendentes Estavel",
