@@ -39,11 +39,22 @@
     "name": "MaxAtendimento - Disponibilidade Flex",
     "version": "1.0",
     "file": "MaxAtendimento - Disponibilidade Flex.user.js",
-    "description": "",
+    "description": "Altera disponibilidade com 1 clique",
     "category": "MaxAtendimento",
     "enabled": true,
     "featured": false,
-    "media": []
+    "media": [
+      {
+        "path": "media/maxatendimento-disponibilidade-flex/21bfe645-97ff-40d9-8ee5-0eb700908b02.png",
+        "alt": "",
+        "type": "image/png"
+      },
+      {
+        "path": "media/maxatendimento-disponibilidade-flex/b58a4604-c976-445b-bc21-e39d882542ca.png",
+        "alt": "",
+        "type": "image/png"
+      }
+    ]
   },
   {
     "name": "MaxAtendimento - Extrair Título OS",
@@ -119,11 +130,17 @@
     "name": "TendiChat - Abrir Atendimento por CNPJ",
     "version": "1.7",
     "file": "TendiChat - Abrir Atendimento por CNPJ.user.js",
-    "description": "",
+    "description": "Identifica CNPJ valido e abre OS  ou  OS acesso adm skytins",
     "category": "TendiChat",
     "enabled": true,
     "featured": true,
-    "media": []
+    "media": [
+      {
+        "path": "media/tendichat-abrir-atendimento-por-cnpj/879eac27-9ab9-4b6a-8591-712dbe851d80.png",
+        "alt": "",
+        "type": "image/png"
+      }
+    ]
   },
   {
     "name": "TendiChat - Alerta de CNPJ por Tempo",
@@ -291,7 +308,7 @@
     "file": "TendiChat - Selecionar Suporte Interno ao Fechar.user.js",
     "description": "",
     "category": "TendiChat",
-    "enabled": true,
+    "enabled": false,
     "featured": false,
     "media": []
   },
