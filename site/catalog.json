@@ -338,11 +338,22 @@
     "name": "TendiChat + ChatGPT - Relato OS",
     "version": "1.2.0",
     "file": "TendiChat + ChatGPT - Relato OS.user.js",
-    "description": "",
+    "description": "Gera relato no gpt a partir da conversa no tendichat",
     "category": "TendiChat",
     "enabled": true,
     "featured": true,
-    "media": []
+    "media": [
+      {
+        "path": "media/tendichat-chatgpt-relato-os/26da40cb-a35f-4380-b929-b71bc0c868c8.png",
+        "alt": "",
+        "type": "image/png"
+      },
+      {
+        "path": "media/tendichat-chatgpt-relato-os/6d60ecf1-d558-41cc-a591-3ffceb3a690a.png",
+        "alt": "",
+        "type": "image/png"
+      }
+    ]
   },
   {
     "name": "Tipo Suporte Interno",
