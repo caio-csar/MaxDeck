@@ -89,7 +89,7 @@
     "name": "MaxAtendimento -> TendiChat Busca Contato",
     "version": "3.0",
     "file": "MaxAtendimento -_ TendiChat Busca Contato.user.js",
-    "description": "",
+    "description": "2 cliques no botao de contato --->  localiza numero no tendichat",
     "category": "TendiChat",
     "enabled": true,
     "featured": true,
