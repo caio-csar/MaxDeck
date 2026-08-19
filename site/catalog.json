@@ -156,11 +156,17 @@
     "name": "TendiChat - Atendente e Setor Padrão v2",
     "version": "2.0.0",
     "file": "TendiChat - Atendente e Setor Padrão v2.user.js",
-    "description": "",
+    "description": "Seleciona automaticamente suporte - permite buscar atendente por nome",
     "category": "TendiChat",
     "enabled": true,
     "featured": true,
-    "media": []
+    "media": [
+      {
+        "path": "media/tendichat-atendente-e-setor-padrao-v2/dfc51734-4491-496d-b684-e7480cabf59a.png",
+        "alt": "",
+        "type": "image/png"
+      }
+    ]
   },
   {
     "name": "TendiChat - Atendente e Setor Padrão",
