@@ -23,11 +23,17 @@
     "name": "MaxAtendimento - Botao Contato Simples",
     "version": "1.7",
     "file": "MaxAtendimento - Botao Contato Simples.user.js",
-    "description": "",
+    "description": "Organiza e copia números de contato",
     "category": "MaxAtendimento",
     "enabled": true,
     "featured": true,
-    "media": []
+    "media": [
+      {
+        "path": "media/maxatendimento-botao-contato-simples/c5330d8d-4579-43b9-aa8f-3d73b08f344d.gif",
+        "alt": "",
+        "type": "image/gif"
+      }
+    ]
   },
   {
     "name": "MaxAtendimento - Disponibilidade Flex",
