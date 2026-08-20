@@ -464,5 +464,15 @@
     "enabled": false,
     "featured": false,
     "media": []
+  },
+  {
+    "name": "TendiChat - Solicitar chat",
+    "version": "1.0.0",
+    "file": "TendiChat - Solicitar chat.user.js",
+    "description": "Solicita chat no tendichat",
+    "category": "TendiChat",
+    "enabled": true,
+    "featured": false,
+    "media": []
   }
 ]
