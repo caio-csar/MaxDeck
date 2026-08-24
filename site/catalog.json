@@ -1,5 +1,6 @@
 [
   {
+    "id": "S001",
     "name": "Autocorretor TendiChat",
     "version": "2.0.0",
     "file": "Autocorretor TendiChat.user.js",
@@ -7,9 +8,11 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 1
   },
   {
+    "id": "S002",
     "name": "Max Painel - Ultra Modern UI (Stripe Style)",
     "version": "3.0",
     "file": "Max Painel - Ultra Modern UI (Stripe Style).user.js",
@@ -17,9 +20,11 @@
     "category": "MaxAtendimento",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 2
   },
   {
+    "id": "S003",
     "name": "MaxAtendimento - Botao Contato Simples",
     "version": "1.7",
     "file": "MaxAtendimento - Botao Contato Simples.user.js",
@@ -33,9 +38,11 @@
         "alt": "",
         "type": "image/gif"
       }
-    ]
+    ],
+    "displayOrder": 1
   },
   {
+    "id": "S004",
     "name": "MaxAtendimento - Disponibilidade Flex",
     "version": "1.0",
     "file": "MaxAtendimento - Disponibilidade Flex.user.js",
@@ -54,9 +61,11 @@
         "alt": "",
         "type": "image/png"
       }
-    ]
+    ],
+    "displayOrder": 3
   },
   {
+    "id": "S005",
     "name": "MaxAtendimento - Extrair Título OS",
     "version": "1.7",
     "file": "MaxAtendimento - Extrair Título OS.user.js",
@@ -64,9 +73,11 @@
     "category": "MaxAtendimento",
     "enabled": true,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 4
   },
   {
+    "id": "S006",
     "name": "MaxAtendimento - Frases Prontas Cancelamento",
     "version": "1.5",
     "file": "MaxAtendimento - Frases Prontas Cancelamento.user.js",
@@ -74,9 +85,11 @@
     "category": "MaxAtendimento",
     "enabled": true,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 5
   },
   {
+    "id": "S007",
     "name": "MaxAtendimento - Remover Itens",
     "version": "1.4",
     "file": "MaxAtendimento - Remover Itens.user.js",
@@ -84,9 +97,11 @@
     "category": "MaxAtendimento",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 6
   },
   {
+    "id": "S008",
     "name": "MaxAtendimento - Turbinar Relato GPT",
     "version": "1.2",
     "file": "MaxAtendimento - Turbinar Relato GPT.user.js",
@@ -94,9 +109,11 @@
     "category": "MaxAtendimento",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 7
   },
   {
+    "id": "S009",
     "name": "MaxAtendimento -> TendiChat Busca Contato",
     "version": "3.0",
     "file": "MaxAtendimento -_ TendiChat Busca Contato.user.js",
@@ -110,9 +127,11 @@
         "alt": "",
         "type": "image/gif"
       }
-    ]
+    ],
+    "displayOrder": 2
   },
   {
+    "id": "S010",
     "name": "Painel Maxdata - Boneco Pendentes Estavel",
     "version": "5.1",
     "file": "Painel Maxdata - Boneco Pendentes Estavel.user.js",
@@ -120,9 +139,11 @@
     "category": "MaxAtendimento",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 8
   },
   {
+    "id": "S011",
     "name": "Remover USRP Button",
     "version": "1.0",
     "file": "Remover USRP Button.user.js",
@@ -130,9 +151,11 @@
     "category": "Outros",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 9
   },
   {
+    "id": "S012",
     "name": "TendiChat - Abrir Atendimento por CNPJ",
     "version": "1.7",
     "file": "TendiChat - Abrir Atendimento por CNPJ.user.js",
@@ -146,9 +169,11 @@
         "alt": "",
         "type": "image/png"
       }
-    ]
+    ],
+    "displayOrder": 3
   },
   {
+    "id": "S013",
     "name": "TendiChat - Alerta de CNPJ por Tempo",
     "version": "1.0.0",
     "file": "TendiChat - Alerta de CNPJ por Tempo.user.js",
@@ -156,9 +181,11 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 10
   },
   {
+    "id": "S014",
     "name": "TendiChat - Atendente e Setor Padrão v2",
     "version": "2.0.0",
     "file": "TendiChat - Atendente e Setor Padrão v2.user.js",
@@ -172,9 +199,11 @@
         "alt": "",
         "type": "image/gif"
       }
-    ]
+    ],
+    "displayOrder": 5
   },
   {
+    "id": "S015",
     "name": "TendiChat - Atendente e Setor Padrão",
     "version": "1.5",
     "file": "TendiChat - Atendente e Setor Padrão.user.js",
@@ -182,9 +211,11 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": true,
-    "media": []
+    "media": [],
+    "displayOrder": 4
   },
   {
+    "id": "S016",
     "name": "TendiChat - Auto Abrir MAXDATA Suporte",
     "version": "1.1",
     "file": "TendiChat - Auto Abrir MAXDATA Suporte.user.js",
@@ -192,9 +223,11 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 11
   },
   {
+    "id": "S017",
     "name": "TendiChat - Balões AnyDesk Flutuantes",
     "version": "2.0",
     "file": "TendiChat - Balões AnyDesk Flutuantes.user.js",
@@ -202,9 +235,11 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 12
   },
   {
+    "id": "S018",
     "name": "TendiChat - Botão Código AnyDesk",
     "version": "1.0",
     "file": "TendiChat - Botão Código AnyDesk.user.js",
@@ -212,9 +247,11 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 13
   },
   {
+    "id": "S019",
     "name": "TendiChat - Botão Contatos Permanente",
     "version": "1.1.0",
     "file": "TendiChat - Botão Contatos Permanente.user.js",
@@ -222,9 +259,11 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 14
   },
   {
+    "id": "S020",
     "name": "TendiChat - Busca Telas Manager PRO",
     "version": "2.0",
     "file": "TendiChat - Busca Telas Manager PRO.user.js",
@@ -232,9 +271,11 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 16
   },
   {
+    "id": "S021",
     "name": "TendiChat - Busca Telas Manager",
     "version": "1.0",
     "file": "TendiChat - Busca Telas Manager.user.js",
@@ -242,9 +283,11 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 15
   },
   {
+    "id": "S022",
     "name": "TendiChat - Cabeçalho Organizado + Telefone",
     "version": "2.0",
     "file": "TendiChat - Cabeçalho Organizado + Telefone.user.js",
@@ -252,9 +295,11 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 17
   },
   {
+    "id": "S023",
     "name": "TendiChat - Diagnóstico de Estrutura",
     "version": "1.0.0",
     "file": "TendiChat - Diagnóstico de Estrutura.user.js",
@@ -262,9 +307,11 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 18
   },
   {
+    "id": "S024",
     "name": "TendiChat - Layout Vertical 20%",
     "version": "2.0.0",
     "file": "TendiChat - Layout Vertical 20%.user.js",
@@ -272,9 +319,11 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 19
   },
   {
+    "id": "S025",
     "name": "TendiChat - Lista em cima e conversa embaixo",
     "version": "1.0",
     "file": "TendiChat - Lista em cima e conversa embaixo.user.js",
@@ -282,9 +331,11 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 20
   },
   {
+    "id": "S026",
     "name": "TendiChat - Menus Sempre Abertos",
     "version": "1.0.0",
     "file": "TendiChat - Menus Sempre Abertos.user.js",
@@ -292,9 +343,11 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 21
   },
   {
+    "id": "S027",
     "name": "TendiChat - Relato GPT",
     "version": "6.9",
     "file": "TendiChat - Relato GPT.user.js",
@@ -302,9 +355,11 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 22
   },
   {
+    "id": "S028",
     "name": "TendiChat - Saudação Automática",
     "version": "1.0",
     "file": "TendiChat - Saudação Automática.user.js",
@@ -312,9 +367,11 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 23
   },
   {
+    "id": "S029",
     "name": "TendiChat - Selecionar Suporte Interno ao Fechar",
     "version": "1.0",
     "file": "TendiChat - Selecionar Suporte Interno ao Fechar.user.js",
@@ -322,9 +379,11 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 24
   },
   {
+    "id": "S030",
     "name": "TendiChat - Semáforo de CNPJ por Ticket",
     "version": "2.3.0",
     "file": "TendiChat - Semáforo de CNPJ por Ticket.user.js",
@@ -332,9 +391,11 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 25
   },
   {
+    "id": "S031",
     "name": "TendiChat + ChatGPT - Relato OS",
     "version": "1.2.0",
     "file": "TendiChat + ChatGPT - Relato OS.user.js",
@@ -353,9 +414,11 @@
         "alt": "",
         "type": "image/png"
       }
-    ]
+    ],
+    "displayOrder": 6
   },
   {
+    "id": "S032",
     "name": "Tipo Suporte Interno",
     "version": "1.2",
     "file": "Tipo Suporte Interno.user.js",
@@ -363,9 +426,11 @@
     "category": "Outros",
     "enabled": true,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 27
   },
   {
+    "id": "S033",
     "name": "Wiki Centrium - Exportar Artigo PDF",
     "version": "1.0",
     "file": "Wiki Centrium - Exportar Artigo PDF.user.js",
@@ -373,9 +438,11 @@
     "category": "Outros",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 28
   },
   {
+    "id": "S034",
     "name": "Yuki - Liberar IA React Forte",
     "version": "1.4",
     "file": "Yuki - Liberar IA React Forte.user.js",
@@ -383,9 +450,11 @@
     "category": "Outros",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 29
   },
   {
+    "id": "S035",
     "name": "zDrop TendiBase Logo",
     "version": "1.0",
     "file": "zDrop TendiBase Logo.user.js",
@@ -393,9 +462,11 @@
     "category": "Outros",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 30
   },
   {
+    "id": "S036",
     "name": "zMaxAtendimento - Horario FLEX solo",
     "version": "1.2",
     "file": "zMaxAtendimento - Horario FLEX solo.user.js",
@@ -403,9 +474,11 @@
     "category": "MaxAtendimento",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 31
   },
   {
+    "id": "S037",
     "name": "zPainel Maxdata - Teste Posição Boneco",
     "version": "1.0",
     "file": "zPainel Maxdata - Teste Posição Boneco.user.js",
@@ -413,9 +486,11 @@
     "category": "MaxAtendimento",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 32
   },
   {
+    "id": "S038",
     "name": "zZZ_MaxAtendimento - Horario FLEX",
     "version": "1.3",
     "file": "zZZ_MaxAtendimento - Horario FLEX.user.js",
@@ -423,9 +498,11 @@
     "category": "MaxAtendimento",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 33
   },
   {
+    "id": "S039",
     "name": "ZZZ_TendiChat - Bot Transferir por Contato",
     "version": "3.0",
     "file": "ZZZ_TendiChat - Bot Transferir por Contato.user.js",
@@ -433,9 +510,11 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 34
   },
   {
+    "id": "S040",
     "name": "ZZZ_TendiChat - Diagnóstico de Layout",
     "version": "1.0.0",
     "file": "ZZZ_TendiChat - Diagnóstico de Layout.user.js",
@@ -443,9 +522,11 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 35
   },
   {
+    "id": "S041",
     "name": "ZZZ_Tendichat - GPT AutoPaste",
     "version": "2.0",
     "file": "ZZZ_Tendichat - GPT AutoPaste.user.js",
@@ -453,9 +534,11 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 36
   },
   {
+    "id": "S042",
     "name": "ZZZTendiChat - Layout Fixo",
     "version": "1.0.0",
     "file": "ZZZTendiChat - Layout Fixo.user.js",
@@ -463,9 +546,11 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 37
   },
   {
+    "id": "S043",
     "name": "TendiChat - Solicitar chat",
     "version": "1.0.0",
     "file": "TendiChat - Solicitar chat.user.js",
@@ -473,6 +558,7 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": false,
-    "media": []
+    "media": [],
+    "displayOrder": 26
   }
 ]

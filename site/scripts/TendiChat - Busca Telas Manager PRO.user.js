@@ -1,4 +1,4 @@
-6392994853// ==UserScript==
+// ==UserScript==
 // @name         TendiChat - Busca Telas Manager PRO
 // @namespace    http://tampermonkey.net/
 // @version      2.0
