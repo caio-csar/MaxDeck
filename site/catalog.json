@@ -554,11 +554,17 @@
     "name": "TendiChat - Solicitar chat",
     "version": "1.0.0",
     "file": "TendiChat - Solicitar chat.user.js",
-    "description": "Solicita chat no tendichat",
+    "description": "FOOD - Solicita transferência de chat ao digitar o numero na pesquisa do chat interno e dar enter",
     "category": "TendiChat",
     "enabled": true,
     "featured": false,
     "displayOrder": 10,
-    "media": []
+    "media": [
+      {
+        "path": "media/tendichat-solicitar-chat/ce9dce7a-281c-4a57-8bf6-f809258c9bb4.png",
+        "alt": "",
+        "type": "image/png"
+      }
+    ]
   }
 ]
