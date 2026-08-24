@@ -8,8 +8,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 1
+    "displayOrder": 1,
+    "media": []
   },
   {
     "id": "S002",
@@ -20,8 +20,8 @@
     "category": "MaxAtendimento",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 2
+    "displayOrder": 2,
+    "media": []
   },
   {
     "id": "S003",
@@ -32,14 +32,14 @@
     "category": "MaxAtendimento",
     "enabled": true,
     "featured": true,
+    "displayOrder": 2,
     "media": [
       {
         "path": "media/maxatendimento-botao-contato-simples/f676cd96-7024-429e-b1d5-33fcee041f11.gif",
         "alt": "",
         "type": "image/gif"
       }
-    ],
-    "displayOrder": 1
+    ]
   },
   {
     "id": "S004",
@@ -50,6 +50,7 @@
     "category": "MaxAtendimento",
     "enabled": true,
     "featured": false,
+    "displayOrder": 2,
     "media": [
       {
         "path": "media/maxatendimento-disponibilidade-flex/21bfe645-97ff-40d9-8ee5-0eb700908b02.png",
@@ -61,8 +62,7 @@
         "alt": "",
         "type": "image/png"
       }
-    ],
-    "displayOrder": 3
+    ]
   },
   {
     "id": "S005",
@@ -73,8 +73,8 @@
     "category": "MaxAtendimento",
     "enabled": true,
     "featured": false,
-    "media": [],
-    "displayOrder": 4
+    "displayOrder": 3,
+    "media": []
   },
   {
     "id": "S006",
@@ -85,8 +85,8 @@
     "category": "MaxAtendimento",
     "enabled": true,
     "featured": false,
-    "media": [],
-    "displayOrder": 5
+    "displayOrder": 4,
+    "media": []
   },
   {
     "id": "S007",
@@ -97,8 +97,8 @@
     "category": "MaxAtendimento",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 6
+    "displayOrder": 6,
+    "media": []
   },
   {
     "id": "S008",
@@ -109,8 +109,8 @@
     "category": "MaxAtendimento",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 7
+    "displayOrder": 7,
+    "media": []
   },
   {
     "id": "S009",
@@ -121,14 +121,14 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": true,
+    "displayOrder": 3,
     "media": [
       {
         "path": "media/maxatendimento-tendichat-busca-contato/763dd50e-ed9f-44f6-93bc-5b1dcc688138.gif",
         "alt": "",
         "type": "image/gif"
       }
-    ],
-    "displayOrder": 2
+    ]
   },
   {
     "id": "S010",
@@ -139,8 +139,8 @@
     "category": "MaxAtendimento",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 8
+    "displayOrder": 8,
+    "media": []
   },
   {
     "id": "S011",
@@ -151,8 +151,8 @@
     "category": "Outros",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 9
+    "displayOrder": 9,
+    "media": []
   },
   {
     "id": "S012",
@@ -163,14 +163,14 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": true,
+    "displayOrder": 4,
     "media": [
       {
         "path": "media/tendichat-abrir-atendimento-por-cnpj/879eac27-9ab9-4b6a-8591-712dbe851d80.png",
         "alt": "",
         "type": "image/png"
       }
-    ],
-    "displayOrder": 3
+    ]
   },
   {
     "id": "S013",
@@ -181,8 +181,8 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": false,
-    "media": [],
-    "displayOrder": 10
+    "displayOrder": 5,
+    "media": []
   },
   {
     "id": "S014",
@@ -193,14 +193,14 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": true,
+    "displayOrder": 5,
     "media": [
       {
         "path": "media/tendichat-atendente-e-setor-padrao-v2/e43972fb-c1b8-4f6a-b14b-9510fb3aace5.gif",
         "alt": "",
         "type": "image/gif"
       }
-    ],
-    "displayOrder": 5
+    ]
   },
   {
     "id": "S015",
@@ -211,8 +211,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": true,
-    "media": [],
-    "displayOrder": 4
+    "displayOrder": 4,
+    "media": []
   },
   {
     "id": "S016",
@@ -223,8 +223,8 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": false,
-    "media": [],
-    "displayOrder": 11
+    "displayOrder": 6,
+    "media": []
   },
   {
     "id": "S017",
@@ -235,8 +235,8 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": false,
-    "media": [],
-    "displayOrder": 12
+    "displayOrder": 1,
+    "media": []
   },
   {
     "id": "S018",
@@ -247,8 +247,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 13
+    "displayOrder": 13,
+    "media": []
   },
   {
     "id": "S019",
@@ -259,8 +259,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 14
+    "displayOrder": 14,
+    "media": []
   },
   {
     "id": "S020",
@@ -271,8 +271,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 16
+    "displayOrder": 16,
+    "media": []
   },
   {
     "id": "S021",
@@ -283,8 +283,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 15
+    "displayOrder": 15,
+    "media": []
   },
   {
     "id": "S022",
@@ -295,8 +295,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 17
+    "displayOrder": 17,
+    "media": []
   },
   {
     "id": "S023",
@@ -307,8 +307,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 18
+    "displayOrder": 18,
+    "media": []
   },
   {
     "id": "S024",
@@ -319,8 +319,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 19
+    "displayOrder": 19,
+    "media": []
   },
   {
     "id": "S025",
@@ -331,8 +331,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 20
+    "displayOrder": 20,
+    "media": []
   },
   {
     "id": "S026",
@@ -343,8 +343,8 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": false,
-    "media": [],
-    "displayOrder": 21
+    "displayOrder": 7,
+    "media": []
   },
   {
     "id": "S027",
@@ -355,8 +355,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 22
+    "displayOrder": 22,
+    "media": []
   },
   {
     "id": "S028",
@@ -367,8 +367,8 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": false,
-    "media": [],
-    "displayOrder": 23
+    "displayOrder": 8,
+    "media": []
   },
   {
     "id": "S029",
@@ -379,8 +379,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 24
+    "displayOrder": 24,
+    "media": []
   },
   {
     "id": "S030",
@@ -391,8 +391,8 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": false,
-    "media": [],
-    "displayOrder": 25
+    "displayOrder": 9,
+    "media": []
   },
   {
     "id": "S031",
@@ -403,6 +403,7 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": true,
+    "displayOrder": 1,
     "media": [
       {
         "path": "media/tendichat-chatgpt-relato-os/26da40cb-a35f-4380-b929-b71bc0c868c8.png",
@@ -414,8 +415,7 @@
         "alt": "",
         "type": "image/png"
       }
-    ],
-    "displayOrder": 6
+    ]
   },
   {
     "id": "S032",
@@ -426,8 +426,8 @@
     "category": "Outros",
     "enabled": true,
     "featured": false,
-    "media": [],
-    "displayOrder": 27
+    "displayOrder": 11,
+    "media": []
   },
   {
     "id": "S033",
@@ -438,8 +438,8 @@
     "category": "Outros",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 28
+    "displayOrder": 28,
+    "media": []
   },
   {
     "id": "S034",
@@ -450,8 +450,8 @@
     "category": "Outros",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 29
+    "displayOrder": 29,
+    "media": []
   },
   {
     "id": "S035",
@@ -462,8 +462,8 @@
     "category": "Outros",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 30
+    "displayOrder": 30,
+    "media": []
   },
   {
     "id": "S036",
@@ -474,8 +474,8 @@
     "category": "MaxAtendimento",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 31
+    "displayOrder": 31,
+    "media": []
   },
   {
     "id": "S037",
@@ -486,8 +486,8 @@
     "category": "MaxAtendimento",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 32
+    "displayOrder": 32,
+    "media": []
   },
   {
     "id": "S038",
@@ -498,8 +498,8 @@
     "category": "MaxAtendimento",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 33
+    "displayOrder": 33,
+    "media": []
   },
   {
     "id": "S039",
@@ -510,8 +510,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 34
+    "displayOrder": 34,
+    "media": []
   },
   {
     "id": "S040",
@@ -522,8 +522,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 35
+    "displayOrder": 35,
+    "media": []
   },
   {
     "id": "S041",
@@ -534,8 +534,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 36
+    "displayOrder": 36,
+    "media": []
   },
   {
     "id": "S042",
@@ -546,8 +546,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
-    "media": [],
-    "displayOrder": 37
+    "displayOrder": 37,
+    "media": []
   },
   {
     "id": "S043",
@@ -558,7 +558,7 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": false,
-    "media": [],
-    "displayOrder": 26
+    "displayOrder": 10,
+    "media": []
   }
 ]
