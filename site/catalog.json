@@ -157,9 +157,9 @@
   {
     "id": "S012",
     "name": "TendiChat - Abrir Atendimento por CNPJ",
-    "version": "1.7",
+    "version": "1.8",
     "file": "TendiChat - Abrir Atendimento por CNPJ.user.js",
-    "description": "Identifica CNPJ valido e abre OS  ou  OS acesso adm skytins",
+    "description": "Identifica CNPJ no TendiChat e abre atendimento comum ou suporte interno automaticamente",
     "category": "TendiChat",
     "enabled": true,
     "featured": true,
