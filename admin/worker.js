@@ -212,7 +212,13 @@ function normalizeCore(item) {
     enabled: !item || item.enabled !== false,
     featured: !!(item && item.featured === true),
     displayOrder: Number.isFinite(orderValue) && orderValue > 0 ? Math.floor(orderValue) : 0,
+    updatedAt: normalizeUpdatedAt(item && item.updatedAt),
   };
+}
+
+function normalizeUpdatedAt(value) {
+  const timestamp = Date.parse(cleanText(value, 60));
+  return Number.isFinite(timestamp) ? new Date(timestamp).toISOString() : "";
 }
 
 function normalizeItem(item) {
@@ -331,7 +337,7 @@ async function updateCatalogFromRequest(rawItems, message) {
     const file = cleanText(raw && raw.file, 220);
     const previous = previousByFile.get(file);
     if (!previous) throw new Error(`O script ${file || "informado"} não existe no catálogo atual.`);
-    const materialized = materializeItem(raw, { id: previous.id });
+    const materialized = materializeItem(raw, { id: previous.id, updatedAt: previous.updatedAt });
     changes.push(...materialized.changes);
     return materialized.item;
   });
@@ -363,7 +369,7 @@ async function handleApi(request, url) {
     const core = normalizeCore(body);
     if (previousItems.some((entry) => entry.file.toLocaleLowerCase("pt-BR") === core.file.toLocaleLowerCase("pt-BR"))) throw new Error("Esse arquivo já existe no catálogo.");
     if (await repositoryFileExists(`${SCRIPTS_PATH}/${core.file}`, snapshot.commitSha)) throw new Error("Esse arquivo já existe no repositório.");
-    const identity = { id: nextScriptId(previousItems), displayOrder: nextDisplayOrder(previousItems, core.featured) };
+    const identity = { id: nextScriptId(previousItems), displayOrder: nextDisplayOrder(previousItems, core.featured), updatedAt: new Date().toISOString() };
     const materialized = materializeItem(body, identity);
     const content = addUpdateMetadata(body.content, materialized.item.file, materialized.item.version);
     const items = [...previousItems, materialized.item];
@@ -382,7 +388,7 @@ async function handleApi(request, url) {
     const previousIndex = previousItems.findIndex((entry) => entry.file === cleanText(body.file, 220));
     if (previousIndex < 0) throw new Error("Esse script não existe no catálogo.");
     const previous = previousItems[previousIndex];
-    const materialized = materializeItem(body, { id: previous.id });
+    const materialized = materializeItem(body, { id: previous.id, updatedAt: new Date().toISOString() });
     const content = addUpdateMetadata(body.content, previous.file, materialized.item.version);
     const items = previousItems.map((item, index) => index === previousIndex ? materialized.item : item);
     await commitFiles(snapshot, `Atualizar ${materialized.item.name} para ${materialized.item.version}`, [
