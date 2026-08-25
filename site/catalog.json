@@ -9,8 +9,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 1,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S002",
@@ -22,8 +22,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 2,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S003",
@@ -35,14 +35,14 @@
     "enabled": true,
     "featured": true,
     "displayOrder": 2,
+    "updatedAt": "2026-08-19T17:48:51.000Z",
     "media": [
       {
         "path": "media/maxatendimento-botao-contato-simples/f676cd96-7024-429e-b1d5-33fcee041f11.gif",
         "alt": "",
         "type": "image/gif"
       }
-    ],
-    "updatedAt": "2026-08-19T17:48:51.000Z"
+    ]
   },
   {
     "id": "S004",
@@ -54,6 +54,7 @@
     "enabled": true,
     "featured": false,
     "displayOrder": 2,
+    "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": [
       {
         "path": "media/maxatendimento-disponibilidade-flex/21bfe645-97ff-40d9-8ee5-0eb700908b02.png",
@@ -65,8 +66,7 @@
         "alt": "",
         "type": "image/png"
       }
-    ],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    ]
   },
   {
     "id": "S005",
@@ -78,8 +78,8 @@
     "enabled": true,
     "featured": false,
     "displayOrder": 3,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S006",
@@ -91,8 +91,8 @@
     "enabled": true,
     "featured": false,
     "displayOrder": 4,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S007",
@@ -104,8 +104,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 6,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S008",
@@ -117,8 +117,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 7,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S009",
@@ -130,14 +130,14 @@
     "enabled": true,
     "featured": true,
     "displayOrder": 3,
+    "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": [
       {
         "path": "media/maxatendimento-tendichat-busca-contato/763dd50e-ed9f-44f6-93bc-5b1dcc688138.gif",
         "alt": "",
         "type": "image/gif"
       }
-    ],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    ]
   },
   {
     "id": "S010",
@@ -149,8 +149,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 8,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S011",
@@ -162,8 +162,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 9,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S012",
@@ -175,14 +175,14 @@
     "enabled": true,
     "featured": true,
     "displayOrder": 4,
+    "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": [
       {
         "path": "media/tendichat-abrir-atendimento-por-cnpj/879eac27-9ab9-4b6a-8591-712dbe851d80.png",
         "alt": "",
         "type": "image/png"
       }
-    ],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    ]
   },
   {
     "id": "S013",
@@ -194,8 +194,8 @@
     "enabled": true,
     "featured": false,
     "displayOrder": 5,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S014",
@@ -207,14 +207,14 @@
     "enabled": true,
     "featured": true,
     "displayOrder": 5,
+    "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": [
       {
         "path": "media/tendichat-atendente-e-setor-padrao-v2/e43972fb-c1b8-4f6a-b14b-9510fb3aace5.gif",
         "alt": "",
         "type": "image/gif"
       }
-    ],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    ]
   },
   {
     "id": "S015",
@@ -226,8 +226,8 @@
     "enabled": false,
     "featured": true,
     "displayOrder": 4,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S016",
@@ -239,8 +239,8 @@
     "enabled": true,
     "featured": false,
     "displayOrder": 6,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S017",
@@ -252,8 +252,8 @@
     "enabled": true,
     "featured": false,
     "displayOrder": 1,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S018",
@@ -265,8 +265,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 13,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S019",
@@ -278,8 +278,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 14,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S020",
@@ -291,8 +291,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 16,
-    "media": [],
-    "updatedAt": "2026-08-24T14:05:00.000Z"
+    "updatedAt": "2026-08-24T14:05:00.000Z",
+    "media": []
   },
   {
     "id": "S021",
@@ -304,8 +304,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 15,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S022",
@@ -317,8 +317,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 17,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S023",
@@ -330,8 +330,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 18,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S024",
@@ -343,8 +343,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 19,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S025",
@@ -356,8 +356,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 20,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S026",
@@ -369,8 +369,8 @@
     "enabled": true,
     "featured": false,
     "displayOrder": 7,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S027",
@@ -382,8 +382,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 22,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S028",
@@ -395,8 +395,8 @@
     "enabled": true,
     "featured": false,
     "displayOrder": 8,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S029",
@@ -408,8 +408,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 24,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S030",
@@ -421,8 +421,8 @@
     "enabled": true,
     "featured": false,
     "displayOrder": 9,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S031",
@@ -434,6 +434,7 @@
     "enabled": true,
     "featured": true,
     "displayOrder": 1,
+    "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": [
       {
         "path": "media/tendichat-chatgpt-relato-os/26da40cb-a35f-4380-b929-b71bc0c868c8.png",
@@ -445,8 +446,7 @@
         "alt": "",
         "type": "image/png"
       }
-    ],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    ]
   },
   {
     "id": "S032",
@@ -458,8 +458,8 @@
     "enabled": true,
     "featured": false,
     "displayOrder": 11,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S033",
@@ -471,8 +471,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 28,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S034",
@@ -484,8 +484,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 29,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S035",
@@ -497,8 +497,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 30,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S036",
@@ -510,8 +510,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 31,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S037",
@@ -523,8 +523,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 32,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S038",
@@ -536,8 +536,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 33,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S039",
@@ -549,8 +549,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 34,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S040",
@@ -562,8 +562,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 35,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S041",
@@ -575,8 +575,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 36,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S042",
@@ -588,8 +588,8 @@
     "enabled": false,
     "featured": false,
     "displayOrder": 37,
-    "media": [],
-    "updatedAt": "2026-08-18T17:33:15.000Z"
+    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "media": []
   },
   {
     "id": "S043",
@@ -601,13 +601,26 @@
     "enabled": true,
     "featured": false,
     "displayOrder": 10,
+    "updatedAt": "2026-08-20T13:21:03.000Z",
     "media": [
       {
         "path": "media/tendichat-solicitar-chat/25c0d4c9-0715-4cc4-b23e-1deacf14694c.png",
         "alt": "",
         "type": "image/png"
       }
-    ],
-    "updatedAt": "2026-08-20T13:21:03.000Z"
+    ]
+  },
+  {
+    "id": "S044",
+    "name": "TendiChat - Transferencias Automaticas v2.2",
+    "version": "2.2",
+    "file": "TendiChat - Transferencias Automaticas v2.2.user.js",
+    "description": "Recebe solicitacoes pelo chat interno, localiza o atendimento e transfere ao analista solicitante.",
+    "category": "TendiChat",
+    "enabled": true,
+    "featured": false,
+    "displayOrder": 38,
+    "updatedAt": "2026-08-25T19:32:29.896Z",
+    "media": []
   }
 ]
