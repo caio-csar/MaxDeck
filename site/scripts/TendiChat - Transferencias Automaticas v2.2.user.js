@@ -1,10 +1,10 @@
 // ==UserScript==
-// @name         TendiChat - Transferencias Automaticas v2.2
+// @name         TendiChat - Transferencias Automaticas v2.3
 // @namespace    maxdeck
-// @version      2.2
+// @version      2.3
 // @downloadURL https://caio-csar.github.io/MaxDeck/scripts/TendiChat%20-%20Transferencias%20Automaticas%20v2.2.user.js
 // @updateURL https://caio-csar.github.io/MaxDeck/scripts/TendiChat%20-%20Transferencias%20Automaticas%20v2.2.user.js
-// @description  Recebe solicitacoes pelo chat interno, localiza o atendimento e transfere ao analista solicitante.
+// @description  Recebe solicitacoes pelo chat interno e transfere ao analista solicitante, com modo automatico.
 // @match        *://*/*
 // @run-at       document-start
 // @grant        unsafeWindow
@@ -21,6 +21,9 @@
 
     const MEU_ID = 432; // Caio
 
+    const CHAVE_MODO_AUTO =
+        'maxdeck_transferencia_modo_auto';
+
     const PATH_FUNIL =
         'M22 3H2l8 9.46V19l4 2v-8.54z';
 
@@ -31,10 +34,19 @@
     // ESTADO
     // =========================================================
 
-    const mensagensProcessadas = new Set();
+    let modoAutomatico =
+        localStorage.getItem(
+            CHAVE_MODO_AUTO
+        ) === '1';
+
+    const mensagensProcessadas =
+        new Set();
+
     const fila = [];
 
     let popupAtual = null;
+    let solicitacaoAtual = null;
+
     let executando = false;
 
     // =========================================================
@@ -66,13 +78,17 @@
         timeout = 5000,
         intervalo = 20
     ) {
-        const inicio = performance.now();
+        const inicio =
+            performance.now();
 
         while (
-            performance.now() - inicio < timeout
+            performance.now() -
+            inicio <
+            timeout
         ) {
             try {
-                const resultado = callback();
+                const resultado =
+                    callback();
 
                 if (resultado) {
                     return resultado;
@@ -86,6 +102,7 @@
     }
 
     function clicarElemento(el) {
+
         if (!el) {
             return false;
         }
@@ -96,9 +113,14 @@
                 'span.cursor-pointer, div.cursor-pointer'
             ) || el;
 
-        if (typeof alvo.click === 'function') {
+        if (
+            typeof alvo.click ===
+            'function'
+        ) {
             alvo.click();
+
         } else {
+
             alvo.dispatchEvent(
                 new W.Event(
                     'click',
@@ -114,10 +136,316 @@
     }
 
     // =========================================================
+    // CHAVE AUTO
+    // =========================================================
+
+    function salvarModoAutomatico() {
+
+        localStorage.setItem(
+            CHAVE_MODO_AUTO,
+            modoAutomatico
+                ? '1'
+                : '0'
+        );
+    }
+
+    function atualizarVisualChave() {
+
+        const container =
+            document.getElementById(
+                'maxdeck-auto-transfer'
+            );
+
+        if (!container) {
+            return;
+        }
+
+        const trilho =
+            container.querySelector(
+                '[data-auto-track]'
+            );
+
+        const bolinha =
+            container.querySelector(
+                '[data-auto-knob]'
+            );
+
+        const texto =
+            container.querySelector(
+                '[data-auto-text]'
+            );
+
+        if (
+            !trilho ||
+            !bolinha ||
+            !texto
+        ) {
+            return;
+        }
+
+        if (modoAutomatico) {
+
+            trilho.style.background =
+                '#16a34a';
+
+            bolinha.style.transform =
+                'translateX(18px)';
+
+            texto.textContent =
+                'AUTO';
+
+            texto.style.color =
+                '#22c55e';
+
+            container.title =
+                'Transferencia automatica ATIVA';
+
+        } else {
+
+            trilho.style.background =
+                '#64748b';
+
+            bolinha.style.transform =
+                'translateX(0px)';
+
+            texto.textContent =
+                'AUTO';
+
+            texto.style.color =
+                '#94a3b8';
+
+            container.title =
+                'Transferencia automatica DESATIVADA';
+        }
+    }
+
+    function alterarModoAutomatico() {
+
+        modoAutomatico =
+            !modoAutomatico;
+
+        salvarModoAutomatico();
+
+        atualizarVisualChave();
+
+        /*
+         * Se houver uma solicitacao
+         * aberta manualmente e o usuario
+         * ligar o AUTO, ela entra
+         * imediatamente na fila automatica.
+         */
+
+        if (
+            modoAutomatico &&
+            popupAtual &&
+            solicitacaoAtual
+        ) {
+            const solicitacao =
+                solicitacaoAtual;
+
+            popupAtual.remove();
+
+            popupAtual = null;
+            solicitacaoAtual = null;
+
+            fila.unshift(
+                solicitacao
+            );
+
+            processarFila();
+        }
+    }
+
+    function criarChaveAutomatica() {
+
+        if (
+            document.getElementById(
+                'maxdeck-auto-transfer'
+            )
+        ) {
+            return true;
+        }
+
+        const nav =
+            document.querySelector(
+                '.nav-tools'
+            );
+
+        if (!nav) {
+            return false;
+        }
+
+        const container =
+            document.createElement(
+                'div'
+            );
+
+        container.id =
+            'maxdeck-auto-transfer';
+
+        Object.assign(
+            container.style,
+            {
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                cursor: 'pointer',
+                userSelect: 'none',
+                flexShrink: '0'
+            }
+        );
+
+        const texto =
+            document.createElement(
+                'span'
+            );
+
+        texto.setAttribute(
+            'data-auto-text',
+            ''
+        );
+
+        Object.assign(
+            texto.style,
+            {
+                fontFamily:
+                    'Arial, sans-serif',
+                fontSize: '10px',
+                fontWeight: '800',
+                letterSpacing:
+                    '0.4px',
+                transition:
+                    'color .15s ease'
+            }
+        );
+
+        const trilho =
+            document.createElement(
+                'div'
+            );
+
+        trilho.setAttribute(
+            'data-auto-track',
+            ''
+        );
+
+        Object.assign(
+            trilho.style,
+            {
+                width: '38px',
+                height: '20px',
+                borderRadius: '999px',
+                padding: '2px',
+                boxSizing:
+                    'border-box',
+                transition:
+                    'background .15s ease',
+                boxShadow:
+                    'inset 0 0 0 1px rgba(255,255,255,.15)'
+            }
+        );
+
+        const bolinha =
+            document.createElement(
+                'div'
+            );
+
+        bolinha.setAttribute(
+            'data-auto-knob',
+            ''
+        );
+
+        Object.assign(
+            bolinha.style,
+            {
+                width: '16px',
+                height: '16px',
+                borderRadius: '50%',
+                background: '#fff',
+                boxShadow:
+                    '0 1px 4px rgba(0,0,0,.35)',
+                transition:
+                    'transform .15s ease'
+            }
+        );
+
+        trilho.appendChild(
+            bolinha
+        );
+
+        container.append(
+            texto,
+            trilho
+        );
+
+        container.addEventListener(
+            'click',
+            function (event) {
+
+                event.preventDefault();
+                event.stopPropagation();
+
+                alterarModoAutomatico();
+            }
+        );
+
+        /*
+         * Posiciona no inicio da barra
+         * de ferramentas, antes dos
+         * demais icones.
+         */
+
+        nav.insertBefore(
+            container,
+            nav.firstElementChild
+        );
+
+        atualizarVisualChave();
+
+        return true;
+    }
+
+    function instalarChaveHeader() {
+
+        if (
+            criarChaveAutomatica()
+        ) {
+            return;
+        }
+
+        /*
+         * Observer temporario:
+         * existe apenas ate o header
+         * do Vue aparecer.
+         */
+
+        const observer =
+            new MutationObserver(
+                () => {
+
+                    if (
+                        criarChaveAutomatica()
+                    ) {
+                        observer.disconnect();
+                    }
+                }
+            );
+
+        observer.observe(
+            document.documentElement,
+            {
+                childList: true,
+                subtree: true
+            }
+        );
+    }
+
+    // =========================================================
     // CAMPO PESQUISA
     // =========================================================
 
     function campoPesquisa() {
+
         return document.querySelector(
             'input[placeholder="Pesquisar"]'
         );
@@ -126,12 +454,16 @@
     async function esperarCampoPesquisa(
         timeout = 1500
     ) {
-        const inicio = performance.now();
+        const inicio =
+            performance.now();
 
         while (
-            performance.now() - inicio < timeout
+            performance.now() -
+            inicio <
+            timeout
         ) {
-            const campo = campoPesquisa();
+            const campo =
+                campoPesquisa();
 
             if (campo) {
                 return campo;
@@ -148,13 +480,16 @@
     // =========================================================
 
     function painelFiltros() {
+
         const articles =
             document.querySelectorAll(
                 'article'
             );
 
-        for (const article of articles) {
-
+        for (
+            const article
+            of articles
+        ) {
             const verTodos =
                 article.querySelector(
                     'button[title="Ver todos os tickets"], ' +
@@ -178,22 +513,30 @@
     }
 
     function localizarSpanFunil() {
+
         const svgs =
             document.querySelectorAll(
                 'svg.iconify--lucide'
             );
 
-        for (const svg of svgs) {
-
+        for (
+            const svg
+            of svgs
+        ) {
             const path =
-                svg.querySelector('path');
+                svg.querySelector(
+                    'path'
+                );
 
             if (
                 path &&
-                path.getAttribute('d') ===
-                    PATH_FUNIL
+                path.getAttribute(
+                    'd'
+                ) === PATH_FUNIL
             ) {
-                return svg.closest('span');
+                return svg.closest(
+                    'span'
+                );
             }
         }
 
@@ -202,8 +545,9 @@
 
     async function garantirFunilAberto() {
 
-        if (painelFiltros()) {
-
+        if (
+            painelFiltros()
+        ) {
             console.log(
                 '[TRANSFER]',
                 'Funil ja aberto'
@@ -225,30 +569,24 @@
             return false;
         }
 
-        console.log(
-            '[TRANSFER]',
-            'Abrindo funil'
-        );
-
         span.click();
 
         const inicio =
             performance.now();
 
         while (
-            performance.now() - inicio < 1500
+            performance.now() -
+            inicio <
+            1500
         ) {
-            if (painelFiltros()) {
+            if (
+                painelFiltros()
+            ) {
                 return true;
             }
 
             await esperar(20);
         }
-
-        console.warn(
-            '[TRANSFER]',
-            'Painel do funil nao apareceu'
-        );
 
         return false;
     }
@@ -258,6 +596,7 @@
     // =========================================================
 
     function botaoVerTodos() {
+
         return [
             ...document.querySelectorAll(
                 'button'
@@ -266,11 +605,15 @@
 
             const texto =
                 btn.textContent
-                    .replace(/\s+/g, ' ')
+                    .replace(
+                        /\s+/g,
+                        ' '
+                    )
                     .trim();
 
             return (
-                texto === 'Ver todos' ||
+                texto ===
+                    'Ver todos' ||
 
                 btn.title ===
                     'Ver todos os tickets' ||
@@ -278,10 +621,12 @@
                 btn.title ===
                     'Mostrando todos. Clique para ver apenas os seus.'
             );
+
         }) || null;
     }
 
     function verTodosEstaAtivo() {
+
         const botao =
             botaoVerTodos();
 
@@ -298,29 +643,14 @@
             botaoVerTodos();
 
         if (!botao) {
-
-            console.warn(
-                '[TRANSFER]',
-                '"Ver todos" nao encontrado'
-            );
-
             return false;
         }
 
-        if (verTodosEstaAtivo()) {
-
-            console.log(
-                '[TRANSFER]',
-                '"Ver todos" ja ativo'
-            );
-
+        if (
+            verTodosEstaAtivo()
+        ) {
             return true;
         }
-
-        console.log(
-            '[TRANSFER]',
-            'Ativando "Ver todos"'
-        );
 
         const assinaturaAntes =
             assinaturaListagem();
@@ -349,10 +679,13 @@
                 'p'
             );
 
-        for (const p of textos) {
-
+        for (
+            const p
+            of textos
+        ) {
             if (
-                p.textContent.trim() !== nome
+                p.textContent.trim() !==
+                nome
             ) {
                 continue;
             }
@@ -394,13 +727,17 @@
     function statusAtual() {
 
         if (
-            abaEstaAtiva('Pendente')
+            abaEstaAtiva(
+                'Pendente'
+            )
         ) {
             return 'Pendente';
         }
 
         if (
-            abaEstaAtiva('Atendendo')
+            abaEstaAtiva(
+                'Atendendo'
+            )
         ) {
             return 'Atendendo';
         }
@@ -408,8 +745,9 @@
         return null;
     }
 
-    async function selecionarAba(nome) {
-
+    async function selecionarAba(
+        nome
+    ) {
         if (
             abaEstaAtiva(nome)
         ) {
@@ -420,13 +758,6 @@
             localizarAba(nome);
 
         if (!aba) {
-
-            console.warn(
-                '[TRANSFER]',
-                'Aba nao encontrada:',
-                nome
-            );
-
             return false;
         }
 
@@ -436,7 +767,9 @@
             performance.now();
 
         while (
-            performance.now() - inicio < 1200
+            performance.now() -
+            inicio <
+            1200
         ) {
             if (
                 abaEstaAtiva(nome)
@@ -447,11 +780,13 @@
             await esperar(20);
         }
 
-        return abaEstaAtiva(nome);
+        return abaEstaAtiva(
+            nome
+        );
     }
 
     // =========================================================
-    // LISTAGEM REAL
+    // LISTAGEM
     // =========================================================
 
     function secaoAtendimentos() {
@@ -461,8 +796,10 @@
                 'h5'
             );
 
-        for (const titulo of titulos) {
-
+        for (
+            const titulo
+            of titulos
+        ) {
             if (
                 titulo.textContent
                     .trim() ===
@@ -488,42 +825,48 @@
 
         return [
             ...secao.children
-        ].filter(elemento => {
+        ].filter(
+            elemento => {
 
-            if (
-                elemento.tagName !==
-                'DIV'
-            ) {
-                return false;
+                if (
+                    elemento.tagName !==
+                    'DIV'
+                ) {
+                    return false;
+                }
+
+                return (
+                    elemento
+                        .classList
+                        .length === 0
+                );
             }
-
-            return (
-                elemento.classList.length === 0
-            );
-        });
+        );
     }
 
     function quantidadeResultados() {
-        return cardsNaListagem().length;
-    }
 
-    // =========================================================
-    // ASSINATURA DA LISTAGEM
-    // =========================================================
+        return cardsNaListagem()
+            .length;
+    }
 
     function assinaturaListagem() {
 
         return cardsNaListagem()
-            .map(card =>
-                card.textContent
-                    .replace(/\s+/g, ' ')
-                    .trim()
+            .map(
+                card =>
+                    card.textContent
+                        .replace(
+                            /\s+/g,
+                            ' '
+                        )
+                        .trim()
             )
             .join('|||');
     }
 
     // =========================================================
-    // LOADING REAL
+    // LOADING
     // =========================================================
 
     function indicadorCarregamento() {
@@ -533,8 +876,10 @@
                 'svg.animate-spin'
             );
 
-        for (const svg of spinners) {
-
+        for (
+            const svg
+            of spinners
+        ) {
             if (
                 svg.classList.contains(
                     'bg-root'
@@ -552,10 +897,6 @@
 
         return null;
     }
-
-    // =========================================================
-    // ESPERA CONSULTA TERMINAR
-    // =========================================================
 
     async function aguardarListagemAtualizar(
         assinaturaAntes,
@@ -577,7 +918,8 @@
             false;
 
         while (
-            performance.now() - inicio <
+            performance.now() -
+            inicio <
             timeout
         ) {
             const loading =
@@ -600,7 +942,8 @@
                 ultimaMudanca =
                     performance.now();
 
-                houveMudanca = true;
+                houveMudanca =
+                    true;
             }
 
             const estabilizou =
@@ -645,7 +988,8 @@
 
         const descriptor =
             Object.getOwnPropertyDescriptor(
-                W.HTMLInputElement.prototype,
+                W.HTMLInputElement
+                    .prototype,
                 'value'
             );
 
@@ -657,8 +1001,11 @@
                 input,
                 valor
             );
+
         } else {
-            input.value = valor;
+
+            input.value =
+                valor;
         }
 
         input.dispatchEvent(
@@ -666,7 +1013,8 @@
                 'input',
                 {
                     bubbles: true,
-                    inputType: 'insertText',
+                    inputType:
+                        'insertText',
                     data: valor
                 }
             )
@@ -682,13 +1030,9 @@
         );
     }
 
-    function apertarEnter(input) {
-
-        /*
-         * TendiChat usa onKeyup
-         * para executar search().
-         */
-
+    function apertarEnter(
+        input
+    ) {
         input.dispatchEvent(
             new W.KeyboardEvent(
                 'keyup',
@@ -715,20 +1059,8 @@
             statusAtual();
 
         if (!status) {
-
-            console.warn(
-                '[TRANSFER]',
-                'Pendente/Atendendo nao selecionado'
-            );
-
             return false;
         }
-
-        console.log(
-            '[TRANSFER]',
-            'Pesquisando primeiro em:',
-            status
-        );
 
         const campo =
             campoPesquisa();
@@ -737,17 +1069,19 @@
             return false;
         }
 
+        console.log(
+            '[TRANSFER]',
+            'Pesquisando:',
+            codigo,
+            'em',
+            status
+        );
+
         const assinaturaAntes =
             assinaturaListagem();
 
         preencherInput(
             campo,
-            codigo
-        );
-
-        console.log(
-            '[TRANSFER]',
-            'Numero inserido:',
             codigo
         );
 
@@ -761,16 +1095,6 @@
             campo
         );
 
-        console.log(
-            '[TRANSFER]',
-            'Enter enviado'
-        );
-
-        console.log(
-            '[TRANSFER]',
-            'Aguardando consulta terminar...'
-        );
-
         await atualizacao;
 
         const quantidade =
@@ -778,7 +1102,7 @@
 
         console.log(
             '[TRANSFER]',
-            `Consulta finalizada em ${status}. Resultados:`,
+            'Resultados:',
             quantidade
         );
 
@@ -786,7 +1110,7 @@
     }
 
     // =========================================================
-    // PESQUISA OUTRO STATUS
+    // OUTRO STATUS
     // =========================================================
 
     async function pesquisarOutroStatus() {
@@ -803,14 +1127,6 @@
                 ? 'Atendendo'
                 : 'Pendente';
 
-        console.log(
-            '[TRANSFER]',
-            'Nada em',
-            atual,
-            '- mudando para:',
-            outro
-        );
-
         const assinaturaAntes =
             assinaturaListagem();
 
@@ -826,38 +1142,19 @@
             );
 
         if (!selecionou) {
-
-            console.warn(
-                '[TRANSFER]',
-                'Nao conseguiu selecionar:',
-                outro
-            );
-
             return false;
         }
 
-        console.log(
-            '[TRANSFER]',
-            'Aba selecionada:',
-            outro
-        );
-
         await atualizacao;
 
-        const quantidade =
-            quantidadeResultados();
-
-        console.log(
-            '[TRANSFER]',
-            `Varredura finalizada em ${outro}. Resultados:`,
-            quantidade
+        return (
+            quantidadeResultados() >
+            0
         );
-
-        return quantidade > 0;
     }
 
     // =========================================================
-    // VALIDA RESULTADO
+    // RESULTADO UNICO
     // =========================================================
 
     function validarResultadoUnico() {
@@ -865,17 +1162,11 @@
         const cards =
             cardsNaListagem();
 
-        console.log(
-            '[TRANSFER]',
-            'Validando resultado final:',
-            cards.length
-        );
-
         if (
             cards.length === 0
         ) {
             throw new Error(
-                'A consulta terminou, mas nenhum atendimento foi encontrado.'
+                'Nenhum atendimento encontrado.'
             );
         }
 
@@ -885,21 +1176,18 @@
             throw new Error(
                 'Foram encontrados ' +
                 cards.length +
-                ' atendimentos. Transferencia cancelada por seguranca.'
+                ' atendimentos.'
             );
         }
 
-        const card =
-            cards[0];
-
         const article =
-            card.querySelector(
+            cards[0].querySelector(
                 'article'
             );
 
         if (!article) {
             throw new Error(
-                'Atendimento encontrado, mas o ARTICLE nao foi localizado.'
+                'Atendimento encontrado, mas nao foi possivel abrir o card.'
             );
         }
 
@@ -907,23 +1195,12 @@
     }
 
     // =========================================================
-    // BUSCA COMPLETA
+    // LOCALIZA CONTATO
     // =========================================================
 
     async function localizarContato(
         codigo
     ) {
-        console.log(
-            '[TRANSFER]',
-            '===================================='
-        );
-
-        console.log(
-            '[TRANSFER]',
-            'INICIANDO BUSCA:',
-            codigo
-        );
-
         const campo =
             await esperarCampoPesquisa(
                 2000
@@ -935,8 +1212,6 @@
             );
         }
 
-        // PASSO 1 - FUNIL
-
         if (
             !await garantirFunilAberto()
         ) {
@@ -944,8 +1219,6 @@
                 'Nao foi possivel abrir o funil.'
             );
         }
-
-        // PASSO 2 - VER TODOS
 
         if (
             !await garantirVerTodos()
@@ -955,17 +1228,10 @@
             );
         }
 
-        // PASSO 3 - STATUS
-
         let status =
             statusAtual();
 
         if (!status) {
-
-            console.log(
-                '[TRANSFER]',
-                'Nenhuma aba valida ativa. Indo para Pendente.'
-            );
 
             const assinaturaAntes =
                 assinaturaListagem();
@@ -988,17 +1254,7 @@
             }
 
             await atualizacao;
-
-            status = 'Pendente';
         }
-
-        console.log(
-            '[TRANSFER]',
-            'Status inicial:',
-            status
-        );
-
-        // PASSO 4 - PRIMEIRA ABA
 
         const achouPrimeiro =
             await pesquisarStatusAtual(
@@ -1006,44 +1262,25 @@
             );
 
         if (achouPrimeiro) {
-
-            console.log(
-                '[TRANSFER]',
-                'Encontrado na primeira aba.'
-            );
-
             return validarResultadoUnico();
         }
-
-        // PASSO 5 - OUTRA ABA
-
-        console.log(
-            '[TRANSFER]',
-            'Nao encontrado na primeira aba.'
-        );
 
         const achouSegundo =
             await pesquisarOutroStatus();
 
         if (achouSegundo) {
-
-            console.log(
-                '[TRANSFER]',
-                'Encontrado na segunda aba.'
-            );
-
             return validarResultadoUnico();
         }
 
         throw new Error(
             'Contato ' +
             codigo +
-            ' nao encontrado em Pendente nem Atendendo.'
+            ' nao encontrado.'
         );
     }
 
     // =========================================================
-    // ICONE DE TRANSFERENCIA
+    // TRANSFERENCIA
     // =========================================================
 
     function localizarIconeTransferencia() {
@@ -1053,8 +1290,10 @@
                 'svg'
             );
 
-        for (const svg of svgs) {
-
+        for (
+            const svg
+            of svgs
+        ) {
             if (!visivel(svg)) {
                 continue;
             }
@@ -1066,8 +1305,10 @@
 
             if (
                 path &&
-                path.getAttribute('d') ===
-                    PATH_TRANSFERENCIA
+                path.getAttribute(
+                    'd'
+                ) ===
+                PATH_TRANSFERENCIA
             ) {
                 return svg;
             }
@@ -1075,10 +1316,6 @@
 
         return null;
     }
-
-    // =========================================================
-    // ABRE TRANSFERENCIA
-    // =========================================================
 
     async function abrirTransferencia() {
 
@@ -1095,21 +1332,11 @@
             );
         }
 
-        console.log(
-            '[TRANSFER]',
-            'Clicando no icone de transferencia'
-        );
-
         clicarElemento(
             icone
         );
 
-        /*
-         * Agora esperamos o elemento REAL
-         * que abre/filtra a lista de atendentes.
-         */
-
-        const campoAtendente =
+        const campo =
             await esperarAte(
                 () => {
 
@@ -1126,23 +1353,14 @@
                 50
             );
 
-        if (!campoAtendente) {
+        if (!campo) {
             throw new Error(
-                'Campo "Selecionar atendente" nao apareceu.'
+                'Campo Selecionar atendente nao apareceu.'
             );
         }
 
-        console.log(
-            '[TRANSFER]',
-            'Campo de atendente encontrado'
-        );
-
-        return campoAtendente;
+        return campo;
     }
-
-    // =========================================================
-    // SELECIONA ANALISTA
-    // =========================================================
 
     async function selecionarAnalista(
         nome
@@ -1170,36 +1388,15 @@
             );
         }
 
-        console.log(
-            '[TRANSFER]',
-            'Pesquisando analista:',
-            nome
-        );
-
-        /*
-         * Clica primeiro para garantir
-         * a abertura do dropdown.
-         */
-
         campo.click();
         campo.focus();
 
         await esperar(100);
 
-        /*
-         * Digita exatamente o nome
-         * recebido pelo WebSocket.
-         */
-
         preencherInput(
             campo,
             nome
         );
-
-        /*
-         * Espera especificamente o
-         * resultado com o mesmo nome.
-         */
 
         const botao =
             await esperarAte(
@@ -1209,15 +1406,13 @@
                         ...document.querySelectorAll(
                             'button[data-indice]'
                         )
-                    ].find(btn => {
-
-                        return (
+                    ].find(
+                        btn =>
                             visivel(btn) &&
                             btn.textContent
                                 .trim() ===
                                 nome
-                        );
-                    });
+                    );
                 },
                 5000,
                 50
@@ -1231,26 +1426,10 @@
             );
         }
 
-        console.log(
-            '[TRANSFER]',
-            'Analista encontrado:',
-            nome
-        );
-
         botao.click();
 
         await esperar(200);
-
-        console.log(
-            '[TRANSFER]',
-            'Analista selecionado:',
-            nome
-        );
     }
-
-    // =========================================================
-    // CONFIRMA TRANSFERENCIA
-    // =========================================================
 
     async function confirmarTransferencia() {
 
@@ -1262,15 +1441,13 @@
                         ...document.querySelectorAll(
                             'button'
                         )
-                    ].find(btn => {
-
-                        return (
+                    ].find(
+                        btn =>
                             visivel(btn) &&
                             btn.textContent
                                 .trim() ===
                                 'Transferir Atendimento'
-                        );
-                    });
+                    );
                 },
                 5000,
                 50
@@ -1282,57 +1459,39 @@
             );
         }
 
-        console.log(
-            '[TRANSFER]',
-            'Confirmando transferencia'
-        );
-
         botao.click();
 
         await esperar(300);
     }
 
     // =========================================================
-    // FLUXO COMPLETO
+    // FLUXO DE TRANSFERENCIA
     // =========================================================
 
     async function executarTransferencia(
-        solicitacao
+        solicitacao,
+        silencioso = false
     ) {
-        aviso(
-            'Buscando contato ' +
-            solicitacao.numero +
-            '...'
-        );
-
-        // -----------------------------------------------------
-        // LOCALIZA
-        // -----------------------------------------------------
+        if (!silencioso) {
+            aviso(
+                'Buscando contato ' +
+                solicitacao.numero +
+                '...'
+            );
+        }
 
         const atendimento =
             await localizarContato(
                 solicitacao.numero
             );
 
-        console.log(
-            '[TRANSFER]',
-            'Atendimento localizado:',
-            atendimento
-        );
-
-        // -----------------------------------------------------
-        // ABRE A CONVERSA
-        // -----------------------------------------------------
-
-        aviso(
-            'Contato encontrado. Abrindo atendimento...'
-        );
+        if (!silencioso) {
+            aviso(
+                'Contato encontrado. Abrindo atendimento...'
+            );
+        }
 
         atendimento.click();
-
-        // -----------------------------------------------------
-        // ESPERA A CONVERSA CARREGAR
-        // -----------------------------------------------------
 
         const icone =
             await esperarAte(
@@ -1347,49 +1506,48 @@
             );
         }
 
-        // -----------------------------------------------------
-        // ABRE O PAINEL
-        // -----------------------------------------------------
-
-        aviso(
-            'Abrindo transferencia...'
-        );
+        if (!silencioso) {
+            aviso(
+                'Abrindo transferencia...'
+            );
+        }
 
         await abrirTransferencia();
 
-        // -----------------------------------------------------
-        // FILTRA/SELECIONA ANALISTA
-        // -----------------------------------------------------
-
-        aviso(
-            'Selecionando ' +
-            solicitacao.analista +
-            '...'
-        );
+        if (!silencioso) {
+            aviso(
+                'Selecionando ' +
+                solicitacao.analista +
+                '...'
+            );
+        }
 
         await selecionarAnalista(
             solicitacao.analista
         );
 
-        // -----------------------------------------------------
-        // CONFIRMA
-        // -----------------------------------------------------
-
-        aviso(
-            'Confirmando transferencia...'
-        );
+        if (!silencioso) {
+            aviso(
+                'Confirmando transferencia...'
+            );
+        }
 
         await confirmarTransferencia();
 
-        aviso(
-            'Transferido para ' +
-            solicitacao.analista,
-            'sucesso'
-        );
+        if (!silencioso) {
+            aviso(
+                'Transferido para ' +
+                solicitacao.analista,
+                'sucesso'
+            );
+        }
 
         console.log(
             '[TRANSFER]',
-            'TRANSFERENCIA FINALIZADA'
+            'Finalizada:',
+            solicitacao.numero,
+            '->',
+            solicitacao.analista
         );
     }
 
@@ -1444,8 +1602,10 @@
                 left: '50%',
                 transform:
                     'translateX(-50%)',
-                zIndex: '2147483647',
-                background: fundo,
+                zIndex:
+                    '2147483647',
+                background:
+                    fundo,
                 color: '#fff',
                 padding:
                     '11px 18px',
@@ -1468,12 +1628,12 @@
 
         setTimeout(
             () => toast.remove(),
-            3500
+            4500
         );
     }
 
     // =========================================================
-    // POPUP
+    // POPUP MANUAL
     // =========================================================
 
     function mostrarSolicitacao(
@@ -1483,12 +1643,16 @@
             return;
         }
 
+        solicitacaoAtual =
+            solicitacao;
+
         const popup =
             document.createElement(
                 'div'
             );
 
-        popupAtual = popup;
+        popupAtual =
+            popup;
 
         Object.assign(
             popup.style,
@@ -1497,8 +1661,10 @@
                 right: '22px',
                 top: '90px',
                 width: '340px',
-                zIndex: '2147483647',
-                background: '#0f172a',
+                zIndex:
+                    '2147483647',
+                background:
+                    '#0f172a',
                 color: '#fff',
                 border:
                     '1px solid #334155',
@@ -1524,10 +1690,8 @@
         Object.assign(
             titulo.style,
             {
-                fontSize:
-                    '15px',
-                fontWeight:
-                    '700',
+                fontSize: '15px',
+                fontWeight: '700',
                 marginBottom:
                     '16px'
             }
@@ -1539,8 +1703,7 @@
             );
 
         analista.innerHTML =
-            '<span style="opacity:.65">Analista</span><br>' +
-            '<strong></strong>';
+            '<span style="opacity:.65">Analista</span><br><strong></strong>';
 
         analista.querySelector(
             'strong'
@@ -1596,10 +1759,13 @@
         recusar.textContent =
             'RECUSAR';
 
-        for (const botao of [
-            aceitar,
-            recusar
-        ]) {
+        for (
+            const botao
+            of [
+                aceitar,
+                recusar
+            ]
+        ) {
             Object.assign(
                 botao.style,
                 {
@@ -1607,14 +1773,11 @@
                     border: '0',
                     borderRadius:
                         '9px',
-                    padding:
-                        '10px',
-                    color:
-                        '#fff',
+                    padding: '10px',
+                    color: '#fff',
                     fontWeight:
                         '700',
-                    cursor:
-                        'pointer'
+                    cursor: 'pointer'
                 }
             );
         }
@@ -1625,10 +1788,6 @@
         recusar.style.background =
             '#475569';
 
-        // =====================================================
-        // ACEITAR
-        // =====================================================
-
         aceitar.onclick =
             async () => {
 
@@ -1636,7 +1795,8 @@
                     return;
                 }
 
-                executando = true;
+                executando =
+                    true;
 
                 aceitar.disabled =
                     true;
@@ -1650,7 +1810,8 @@
                 try {
 
                     await executarTransferencia(
-                        solicitacao
+                        solicitacao,
+                        false
                     );
 
                     fecharPopup();
@@ -1684,10 +1845,6 @@
                 }
             };
 
-        // =====================================================
-        // RECUSAR
-        // =====================================================
-
         recusar.onclick =
             () => {
                 fecharPopup();
@@ -1715,23 +1872,14 @@
         popupAtual?.remove();
 
         popupAtual = null;
+        solicitacaoAtual = null;
 
         processarFila();
     }
 
-    function processarFila() {
-
-        if (
-            popupAtual ||
-            fila.length === 0
-        ) {
-            return;
-        }
-
-        mostrarSolicitacao(
-            fila.shift()
-        );
-    }
+    // =========================================================
+    // FILA
+    // =========================================================
 
     function adicionarSolicitacao(
         solicitacao
@@ -1743,12 +1891,106 @@
         processarFila();
     }
 
+    async function processarFila() {
+
+        /*
+         * AUTOMATICO
+         */
+
+        if (modoAutomatico) {
+
+            if (
+                executando ||
+                fila.length === 0
+            ) {
+                return;
+            }
+
+            const solicitacao =
+                fila.shift();
+
+            executando =
+                true;
+
+            try {
+
+                /*
+                 * TRUE = silencioso.
+                 *
+                 * Sem popup.
+                 * Sem progresso.
+                 * Sem mensagem de sucesso.
+                 */
+
+                await executarTransferencia(
+                    solicitacao,
+                    true
+                );
+
+            } catch (erro) {
+
+                console.error(
+                    '[TRANSFER AUTO]',
+                    erro
+                );
+
+                /*
+                 * NO AUTO ESTA E A UNICA
+                 * MENSAGEM VISUAL.
+                 */
+
+                aviso(
+                    'Erro na transferencia de ' +
+                    solicitacao.numero +
+                    ': ' +
+                    (
+                        erro.message ||
+                        'erro desconhecido'
+                    ),
+                    'erro'
+                );
+
+            } finally {
+
+                executando =
+                    false;
+
+                /*
+                 * Se chegou outra enquanto
+                 * estava transferindo,
+                 * processa a proxima.
+                 */
+
+                processarFila();
+            }
+
+            return;
+        }
+
+        /*
+         * MANUAL
+         */
+
+        if (
+            popupAtual ||
+            executando ||
+            fila.length === 0
+        ) {
+            return;
+        }
+
+        mostrarSolicitacao(
+            fila.shift()
+        );
+    }
+
     // =========================================================
     // WEBSOCKET
     // =========================================================
 
-    function processarFrame(bruto) {
-
+    function processarFrame(
+        bruto
+    ) {
         if (
             typeof bruto !==
             'string'
@@ -1757,9 +1999,7 @@
         }
 
         const inicioJson =
-            bruto.indexOf(
-                '['
-            );
+            bruto.indexOf('[');
 
         if (
             inicioJson === -1
@@ -1809,8 +2049,6 @@
             return;
         }
 
-        // Somente mensagens para Caio
-
         if (
             Number(
                 dados.to
@@ -1825,7 +2063,10 @@
                 dados.body ?? ''
             ).trim();
 
-        // Somente exatamente 4 digitos
+        /*
+         * Solicitação = exatamente
+         * 4 digitos enviados no chat.
+         */
 
         if (
             !/^\d{4}$/.test(
@@ -1835,8 +2076,6 @@
             return;
         }
 
-        // Nome vem direto no frame
-
         const analista =
             dados.from_user
                 ?.name
@@ -1845,8 +2084,6 @@
         if (!analista) {
             return;
         }
-
-        // Evita duplicidade
 
         const idMensagem =
             dados.id;
@@ -1876,19 +2113,22 @@
                         .next()
                         .value;
 
-                mensagensProcessadas.delete(
-                    primeiro
-                );
+                mensagensProcessadas
+                    .delete(
+                        primeiro
+                    );
             }
         }
 
         console.log(
             '[TRANSFER]',
-            'SOLICITACAO RECEBIDA:',
+            'Solicitacao recebida:',
             {
                 numero,
                 analista,
-                idMensagem
+                idMensagem,
+                automatico:
+                    modoAutomatico
             }
         );
 
@@ -1902,7 +2142,7 @@
     }
 
     // =========================================================
-    // INTERCEPTA SOMENTE O WEBSOCKET DO CHAT
+    // WEBSOCKET INTERCEPT
     // =========================================================
 
     const WebSocketOriginal =
@@ -1946,5 +2186,26 @@
                 }
             }
         );
+
+    // =========================================================
+    // INICIALIZACAO DA CHAVE
+    // =========================================================
+
+    if (
+        document.readyState ===
+        'loading'
+    ) {
+        document.addEventListener(
+            'DOMContentLoaded',
+            instalarChaveHeader,
+            {
+                once: true
+            }
+        );
+
+    } else {
+
+        instalarChaveHeader();
+    }
 
 })();
