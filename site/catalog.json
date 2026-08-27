@@ -631,9 +631,15 @@
     "description": "Gera INSERT de cadastro, abre OS SkyTins, copia mensagem para WhatsApp e copia CNPJ limpo",
     "category": "MaxAtendimento",
     "enabled": true,
-    "featured": false,
-    "displayOrder": 39,
-    "updatedAt": "2026-08-27T17:49:25.922Z",
-    "media": []
+    "featured": true,
+    "displayOrder": 40,
+    "updatedAt": "2026-08-27T17:56:55.015Z",
+    "media": [
+      {
+        "path": "media/maxatendimento-skytins-dadoscliente/5b00c052-faee-447d-8eb9-014c36426cc5.png",
+        "alt": "",
+        "type": "image/png"
+      }
+    ]
   }
 ]
