@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         TendiChat - Transferencias Automaticas v2.3
+// @name         TendiChat - Transferencias Automaticas v2.4
 // @namespace    maxdeck
-// @version      2.3
+// @version      2.4
 // @downloadURL https://caio-csar.github.io/MaxDeck/scripts/TendiChat%20-%20Transferencias%20Automaticas%20v2.2.user.js
 // @updateURL https://caio-csar.github.io/MaxDeck/scripts/TendiChat%20-%20Transferencias%20Automaticas%20v2.2.user.js
 // @description  Recebe solicitacoes pelo chat interno e transfere ao analista solicitante, com modo automatico.
@@ -136,6 +136,38 @@
     }
 
     // =========================================================
+    // NORMALIZACAO DE NOMES
+    // =========================================================
+
+    /*
+     * Evita problemas como:
+     *
+     * João Pedro Gomes
+     * Joao Pedro Gomes
+     *
+     * ou caracteres Unicode visualmente iguais
+     * mas internamente diferentes.
+     */
+
+    function normalizarNome(texto) {
+
+        return String(
+            texto || ''
+        )
+            .normalize('NFD')
+            .replace(
+                /[\u0300-\u036f]/g,
+                ''
+            )
+            .replace(
+                /\s+/g,
+                ' '
+            )
+            .trim()
+            .toLowerCase();
+    }
+
+    // =========================================================
     // CHAVE AUTO
     // =========================================================
 
@@ -227,13 +259,6 @@
         salvarModoAutomatico();
 
         atualizarVisualChave();
-
-        /*
-         * Se houver uma solicitacao
-         * aberta manualmente e o usuario
-         * ligar o AUTO, ela entra
-         * imediatamente na fila automatica.
-         */
 
         if (
             modoAutomatico &&
@@ -389,12 +414,6 @@
             }
         );
 
-        /*
-         * Posiciona no inicio da barra
-         * de ferramentas, antes dos
-         * demais icones.
-         */
-
         nav.insertBefore(
             container,
             nav.firstElementChild
@@ -412,12 +431,6 @@
         ) {
             return;
         }
-
-        /*
-         * Observer temporario:
-         * existe apenas ate o header
-         * do Vue aparecer.
-         */
 
         const observer =
             new MutationObserver(
@@ -1362,9 +1375,14 @@
         return campo;
     }
 
+    // =========================================================
+    // SELECIONAR ANALISTA
+    // =========================================================
+
     async function selecionarAnalista(
         nome
     ) {
+
         const campo =
             await esperarAte(
                 () => {
@@ -1398,6 +1416,22 @@
             nome
         );
 
+        const nomeNormalizado =
+            normalizarNome(
+                nome
+            );
+
+        // -----------------------------------------------------
+        // PROCURA O ANALISTA
+        //
+        // Agora compara nomes normalizados.
+        //
+        // João Pedro Gomes
+        // Joao Pedro Gomes
+        //
+        // passam a ser equivalentes.
+        // -----------------------------------------------------
+
         const botao =
             await esperarAte(
                 () => {
@@ -1409,10 +1443,12 @@
                     ].find(
                         btn =>
                             visivel(btn) &&
-                            btn.textContent
-                                .trim() ===
-                                nome
+                            normalizarNome(
+                                btn.textContent
+                            ) ===
+                            nomeNormalizado
                     );
+
                 },
                 5000,
                 50
@@ -1426,12 +1462,120 @@
             );
         }
 
-        botao.click();
+        console.log(
+            '[TRANSFER]',
+            'Analista localizado:',
+            botao.textContent.trim()
+        );
 
-        await esperar(200);
+        // -----------------------------------------------------
+        // PRIMEIRO CLIQUE
+        // -----------------------------------------------------
+
+        clicarElemento(
+            botao
+        );
+
+        // -----------------------------------------------------
+        // ESPERA O DROPDOWN FECHAR
+        //
+        // Antes existia apenas:
+        //
+        // await esperar(200)
+        //
+        // Agora confirmamos que a opcao
+        // realmente deixou de estar visivel.
+        // -----------------------------------------------------
+
+        let selecionado =
+            await esperarAte(
+                () => {
+
+                    if (
+                        !botao.isConnected
+                    ) {
+                        return true;
+                    }
+
+                    if (
+                        !visivel(botao)
+                    ) {
+                        return true;
+                    }
+
+                    return false;
+                },
+                1500,
+                50
+            );
+
+        // -----------------------------------------------------
+        // SE NAO CONFIRMOU, TENTA MAIS UMA VEZ
+        // -----------------------------------------------------
+
+        if (!selecionado) {
+
+            console.warn(
+                '[TRANSFER]',
+                'Primeiro clique nao confirmou a selecao. Tentando novamente:',
+                nome
+            );
+
+            clicarElemento(
+                botao
+            );
+
+            selecionado =
+                await esperarAte(
+                    () => {
+
+                        if (
+                            !botao.isConnected
+                        ) {
+                            return true;
+                        }
+
+                        if (
+                            !visivel(botao)
+                        ) {
+                            return true;
+                        }
+
+                        return false;
+                    },
+                    2000,
+                    50
+                );
+        }
+
+        if (!selecionado) {
+            throw new Error(
+                'O analista "' +
+                nome +
+                '" apareceu, mas a selecao nao foi confirmada.'
+            );
+        }
+
+        console.log(
+            '[TRANSFER]',
+            'Analista selecionado:',
+            nome
+        );
+
+        await esperar(150);
     }
 
+    // =========================================================
+    // CONFIRMAR TRANSFERENCIA
+    // =========================================================
+
     async function confirmarTransferencia() {
+
+        /*
+         * Alem de encontrar o botao,
+         * agora esperamos ele estar
+         * realmente habilitado.
+         */
 
         const botao =
             await esperarAte(
@@ -1442,11 +1586,38 @@
                             'button'
                         )
                     ].find(
-                        btn =>
-                            visivel(btn) &&
-                            btn.textContent
-                                .trim() ===
+                        btn => {
+
+                            if (
+                                !visivel(btn)
+                            ) {
+                                return false;
+                            }
+
+                            if (
+                                btn.textContent
+                                    .trim() !==
                                 'Transferir Atendimento'
+                            ) {
+                                return false;
+                            }
+
+                            if (
+                                btn.disabled
+                            ) {
+                                return false;
+                            }
+
+                            if (
+                                btn.getAttribute(
+                                    'aria-disabled'
+                                ) === 'true'
+                            ) {
+                                return false;
+                            }
+
+                            return true;
+                        }
                     );
                 },
                 5000,
@@ -1455,11 +1626,13 @@
 
         if (!botao) {
             throw new Error(
-                'Botao Transferir Atendimento nao encontrado.'
+                'Botao Transferir Atendimento nao ficou disponivel.'
             );
         }
 
-        botao.click();
+        clicarElemento(
+            botao
+        );
 
         await esperar(300);
     }
@@ -1893,10 +2066,6 @@
 
     async function processarFila() {
 
-        /*
-         * AUTOMATICO
-         */
-
         if (modoAutomatico) {
 
             if (
@@ -1914,14 +2083,6 @@
 
             try {
 
-                /*
-                 * TRUE = silencioso.
-                 *
-                 * Sem popup.
-                 * Sem progresso.
-                 * Sem mensagem de sucesso.
-                 */
-
                 await executarTransferencia(
                     solicitacao,
                     true
@@ -1933,11 +2094,6 @@
                     '[TRANSFER AUTO]',
                     erro
                 );
-
-                /*
-                 * NO AUTO ESTA E A UNICA
-                 * MENSAGEM VISUAL.
-                 */
 
                 aviso(
                     'Erro na transferencia de ' +
@@ -1955,21 +2111,11 @@
                 executando =
                     false;
 
-                /*
-                 * Se chegou outra enquanto
-                 * estava transferindo,
-                 * processa a proxima.
-                 */
-
                 processarFila();
             }
 
             return;
         }
-
-        /*
-         * MANUAL
-         */
 
         if (
             popupAtual ||
@@ -2062,11 +2208,6 @@
             String(
                 dados.body ?? ''
             ).trim();
-
-        /*
-         * Solicitação = exatamente
-         * 4 digitos enviados no chat.
-         */
 
         if (
             !/^\d{4}$/.test(

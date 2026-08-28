@@ -612,15 +612,15 @@
   },
   {
     "id": "S044",
-    "name": "TendiChat - Transferencias Automaticas v2.3",
-    "version": "2.3",
+    "name": "TendiChat - Transferencias Automaticas v2.4",
+    "version": "2.4",
     "file": "TendiChat - Transferencias Automaticas v2.2.user.js",
     "description": "Recebe solicitacoes pelo chat interno e transfere ao analista solicitante, com modo automatico.",
     "category": "TendiChat",
     "enabled": true,
     "featured": false,
     "displayOrder": 38,
-    "updatedAt": "2026-08-26T14:19:34.574Z",
+    "updatedAt": "2026-08-28T17:33:33.165Z",
     "media": []
   },
   {
