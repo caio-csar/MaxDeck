@@ -252,99 +252,22 @@
 
     function gerarInsert() {
 
-    const razao =
-        limparNomeEmpresa(
-            getValor(
-                'vedCliNome'
-            )
-        ).toUpperCase();
-
-    const fantasia =
-        limparNomeEmpresa(
-            getValor(
-                'Cliente_cliFantasia'
-            )
-        ).toUpperCase();
-
-    // No banco, o apelido deve seguir o nome fantasia
-    const apelido =
-        fantasia;
-
-    const cnpj =
-        somenteNumeros(
-            getValor(
-                'Cliente_cliCpfCgc'
-            )
-        );
-
-    // Remove pontos, traços, barras, espaços etc.
-    const ie =
-        somenteNumeros(
-            getValor(
-                'Cliente_cliRgInsc'
-            )
-        );
-
-    // Remove (), espaço, hífen etc.
-    const telefone =
-        somenteNumeros(
-            getValor(
-                'Cliente_cliCelular'
-            )
-        );
-
-    const cidadeUF =
-        separarCidadeUF(
-            getValor(
-                'CliCidade'
-            )
-        );
-
-    const cidade =
-        String(
-            cidadeUF.cidade || ''
-        )
-            .trim()
-            .toUpperCase();
-
-    const uf =
-        String(
-            cidadeUF.uf || ''
-        )
-            .trim()
-            .toUpperCase();
-
-    return `INSERT INTO config (
-    cofEmpRazao,
-    cofEmpFantasia,
-    cofEmpApelido,
-    -- cofEmpCnpj,
-    cofEmpIe,
-    cofEmpFone,
-    cofEmpCid,
-    cofEmpUf
-)
-VALUES (
-    ${sqlTexto(razao)},
-    ${sqlTexto(fantasia)},
-    ${sqlTexto(apelido)},
-    -- ${sqlTexto(cnpj)},
-    ${sqlTexto(ie)},
-    ${sqlTexto(telefone)},
-    ${sqlTexto(cidade)},
-    ${sqlTexto(uf)}
-);`;
-}
+        const razao =
+            limparNomeEmpresa(
+                getValor(
+                    'vedCliNome'
+                )
+            ).toUpperCase();
 
         const fantasia =
             limparNomeEmpresa(
                 getValor(
                     'Cliente_cliFantasia'
                 )
-            );
+            ).toUpperCase();
 
         const apelido =
-            razao;
+            fantasia;
 
         const cnpj =
             somenteNumeros(
@@ -354,13 +277,17 @@ VALUES (
             );
 
         const ie =
-            getValor(
-                'Cliente_cliRgInsc'
+            somenteNumeros(
+                getValor(
+                    'Cliente_cliRgInsc'
+                )
             );
 
         const telefone =
-            getValor(
-                'Cliente_cliCelular'
+            somenteNumeros(
+                getValor(
+                    'Cliente_cliCelular'
+                )
             );
 
         const cidadeUF =
@@ -369,6 +296,20 @@ VALUES (
                     'CliCidade'
                 )
             );
+
+        const cidade =
+            String(
+                cidadeUF.cidade || ''
+            )
+                .trim()
+                .toUpperCase();
+
+        const uf =
+            String(
+                cidadeUF.uf || ''
+            )
+                .trim()
+                .toUpperCase();
 
         return `INSERT INTO config (
     cofEmpRazao,
@@ -387,8 +328,8 @@ VALUES (
     -- ${sqlTexto(cnpj)},
     ${sqlTexto(ie)},
     ${sqlTexto(telefone)},
-    ${sqlTexto(cidadeUF.cidade)},
-    ${sqlTexto(cidadeUF.uf)}
+    ${sqlTexto(cidade)},
+    ${sqlTexto(uf)}
 );`;
     }
 
