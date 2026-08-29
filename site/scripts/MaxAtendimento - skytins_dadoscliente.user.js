@@ -4,7 +4,7 @@
 // @version      2.0
 // @downloadURL https://caio-csar.github.io/MaxDeck/scripts/MaxAtendimento%20-%20skytins_dadoscliente.user.js
 // @updateURL https://caio-csar.github.io/MaxDeck/scripts/MaxAtendimento%20-%20skytins_dadoscliente.user.js
-// @description  Gera INSERT de cadastro, abre OS SkyTins, copia mensagem para WhatsApp e copia CNPJ limpo
+// @description  Gera UPDATE de cadastro, abre OS SkyTins, copia mensagem para WhatsApp e copia CNPJ limpo
 // @match        *://externo.maxdatasistema.com.br/Atendimentos/Atendimento*
 // @run-at       document-end
 // @grant        none
@@ -247,10 +247,10 @@
 
 
     // =========================================================
-    // INSERT CADASTRO
+    // UPDATE CADASTRO
     // =========================================================
 
-    function gerarInsert() {
+    function gerarUpdate() {
 
         const razao =
             limparNomeEmpresa(
@@ -311,26 +311,16 @@
                 .trim()
                 .toUpperCase();
 
-        return `INSERT INTO config (
-    cofEmpRazao,
-    cofEmpFantasia,
-    cofEmpApelido,
-    -- cofEmpCnpj,
-    cofEmpIe,
-    cofEmpFone,
-    cofEmpCid,
-    cofEmpUf
-)
-VALUES (
-    ${sqlTexto(razao)},
-    ${sqlTexto(fantasia)},
-    ${sqlTexto(apelido)},
-    -- ${sqlTexto(cnpj)},
-    ${sqlTexto(ie)},
-    ${sqlTexto(telefone)},
-    ${sqlTexto(cidade)},
-    ${sqlTexto(uf)}
-);`;
+        return `UPDATE config
+SET
+    cofEmpRazao = ${sqlTexto(razao)},
+    cofEmpFantasia = ${sqlTexto(fantasia)},
+    cofEmpApelido = ${sqlTexto(apelido)},
+    -- cofEmpCnpj = ${sqlTexto(cnpj)},
+    cofEmpIe = ${sqlTexto(ie)},
+    cofEmpFone = ${sqlTexto(telefone)},
+    cofEmpCid = ${sqlTexto(cidade)},
+    cofEmpUf = ${sqlTexto(uf)};`;
     }
 
 
@@ -513,10 +503,10 @@ VALUES (
 
 
     // =========================================================
-    // BOTÃO INSERT
+    // BOTÃO UPDATE
     // =========================================================
 
-    function criarBotaoInsert() {
+    function criarBotaoUpdate() {
 
         const acao =
             aplicarBaseAcao(
@@ -526,10 +516,10 @@ VALUES (
             );
 
         acao.textContent =
-            'Insert cadastro';
+            'Update cadastro';
 
         acao.title =
-            'Gerar e copiar INSERT do cadastro';
+            'Gerar e copiar UPDATE do cadastro';
 
         Object.assign(
             acao.style,
@@ -621,13 +611,13 @@ VALUES (
 
                 const copiado =
                     await copiarTexto(
-                        gerarInsert()
+                        gerarUpdate()
                     );
 
                 mostrarAviso(
                     copiado
-                        ? 'INSERT copiado.'
-                        : 'Não foi possível copiar o INSERT.',
+                        ? 'UPDATE copiado.'
+                        : 'Não foi possível copiar o UPDATE.',
                     !copiado
                 );
             },
@@ -982,7 +972,7 @@ VALUES (
     // =========================================================
     // POSIÇÃO DOS BOTÕES
     //
-    // INSERT | SKYTINS | WHATSAPP
+    // UPDATE | SKYTINS | WHATSAPP
     // =========================================================
 
     function instalarAcoes() {
@@ -1076,9 +1066,8 @@ VALUES (
             }
         );
 
-        // Ordem solicitada:
         area.appendChild(
-            criarBotaoInsert()
+            criarBotaoUpdate()
         );
 
         area.appendChild(
