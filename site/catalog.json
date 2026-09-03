@@ -262,7 +262,7 @@
     "file": "TendiChat - Botão Código AnyDesk.user.js",
     "description": "",
     "category": "TendiChat",
-    "enabled": false,
+    "enabled": true,
     "featured": false,
     "displayOrder": 13,
     "updatedAt": "2026-08-18T17:33:15.000Z",
