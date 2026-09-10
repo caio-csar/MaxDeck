@@ -1,23 +1,18 @@
 // ==UserScript==
 // @name         MaxAtendimento -> TendiChat Solicitar Chat
 // @namespace    maxdeck
-// @version      1.0.0
+// @version      1.0.1
 // @downloadURL https://caio-csar.github.io/MaxDeck/scripts/MaxAtendimento%20-%20TendiChat%20Solicitar%20Chat.user.js
 // @updateURL https://caio-csar.github.io/MaxDeck/scripts/MaxAtendimento%20-%20TendiChat%20Solicitar%20Chat.user.js
-// @description  Duplo clique no contato da MaxData envia os últimos 6 dígitos por chat interno do TendiChat para Caio. Mantém também o envio manual com 4 números.
+// @description  Ao dar duplo clique no contato no MaxAtendimento, envia automaticamente os últimos 6 dígitos pelo chat interno do TendiChat para Caio.
 // @match        *://*/*
 // @grant        GM_setValue
-// @grant        GM_getValue
 // @grant        GM_addValueChangeListener
 // @grant        GM_setClipboard
 // ==/UserScript==
 
 (function () {
     'use strict';
-
-    // =========================================================
-    // CONFIGURAÇÕES
-    // =========================================================
 
     const CHAVE = 'maxdata_tendichat_solicitar_chat';
     const DESTINATARIO = 'Caio';
@@ -51,10 +46,6 @@
     }
 
     function definirValorInput(input, valor) {
-        if (!input) {
-            return;
-        }
-
         const descriptor = Object.getOwnPropertyDescriptor(
             HTMLInputElement.prototype,
             'value'
@@ -172,8 +163,8 @@
     }
 
     // =========================================================
-    // PARTE 1 - MAXATENDIMENTO
-    // DUPLO CLIQUE NO CONTATO
+    // MAXATENDIMENTO
+    // DUPLO CLIQUE NO CONTATO -> ENVIA OS ÚLTIMOS 6 DÍGITOS
     // =========================================================
 
     const ehMaxData =
@@ -209,28 +200,33 @@
                 if (numero.length < 6) {
                     console.warn(
                         '[MAX -> TENDI]',
-                        'O contato possui menos de 6 dígitos.'
+                        'Número possui menos de 6 dígitos.'
                     );
                     return;
                 }
 
                 const ultimos6 = numero.slice(-6);
 
-                // Mantém a cópia para a área de transferência,
-                // como existia no primeiro script.
-                GM_setClipboard(ultimos6, 'text');
+                GM_setClipboard(
+                    ultimos6,
+                    'text'
+                );
 
                 const pacote = {
                     codigo: ultimos6,
                     id: Date.now() + '_' + Math.random()
                 };
 
-                GM_setValue(CHAVE, pacote);
+                GM_setValue(
+                    CHAVE,
+                    pacote
+                );
 
                 console.log(
                     '[MAX -> TENDI]',
-                    'Solicitação enviada ao TendiChat:',
-                    ultimos6
+                    'Enviado pela MaxData:',
+                    ultimos6,
+                    pacote.id
                 );
             },
             true
@@ -238,12 +234,16 @@
     }
 
     // =========================================================
-    // PARTE 2 - TENDICHAT
-    // ENVIA O NÚMERO PARA O CHAT INTERNO DO CAIO
+    // TENDICHAT
+    // ROTINA ORIGINAL DO SCRIPT 2
     // =========================================================
 
     async function solicitarTransferencia(inputBusca, numero) {
         if (processando) {
+            console.warn(
+                '[MAX -> TENDI]',
+                'Já existe uma solicitação em andamento.'
+            );
             return;
         }
 
@@ -252,12 +252,21 @@
         try {
             aviso('Enviando solicitação para Caio...');
 
-            // Pesquisa pelo usuário Caio.
-            definirValorInput(inputBusca, DESTINATARIO);
+            console.log(
+                '[MAX -> TENDI]',
+                'Iniciando envio para Caio:',
+                numero
+            );
+
+            // Pesquisa por Caio no campo "Buscar usuários..."
+            definirValorInput(
+                inputBusca,
+                DESTINATARIO
+            );
 
             await esperar(300);
 
-            // Localiza exatamente o usuário Caio.
+            // Localiza exatamente o usuário Caio
             const usuarioCaio = await esperarUsuario(
                 DESTINATARIO,
                 6000
@@ -266,16 +275,24 @@
             if (!usuarioCaio) {
                 aviso('Não foi possível localizar o usuário Caio.');
 
-                definirValorInput(inputBusca, '');
-                inputBusca.focus();
+                console.warn(
+                    '[MAX -> TENDI]',
+                    'Usuário Caio não encontrado.'
+                );
 
+                definirValorInput(
+                    inputBusca,
+                    ''
+                );
+
+                inputBusca.focus();
                 return;
             }
 
-            // Abre o chat do Caio.
+            // Abre o chat de Caio
             usuarioCaio.click();
 
-            // Aguarda o campo de mensagem.
+            // Aguarda o campo de mensagem
             const campoMensagem = await esperarElemento(
                 SELETOR_MENSAGEM,
                 6000
@@ -285,12 +302,18 @@
                 aviso(
                     'Chat aberto, mas o campo de mensagem não foi encontrado.'
                 );
+
+                console.warn(
+                    '[MAX -> TENDI]',
+                    'Campo Mensagem não encontrado.'
+                );
+
                 return;
             }
 
             await esperar(250);
 
-            // Preenche o número recebido.
+            // Coloca os 6 dígitos na mensagem
             campoMensagem.focus();
 
             definirValorInput(
@@ -300,8 +323,11 @@
 
             await esperar(150);
 
-            // Envia a mensagem.
-            pressionarEnter(campoMensagem);
+            // Enter aqui é o envio da mensagem,
+            // exatamente como no script 2.
+            pressionarEnter(
+                campoMensagem
+            );
 
             aviso(
                 'Solicitação enviada: ' + numero
@@ -315,7 +341,8 @@
 
         } catch (erro) {
             console.error(
-                '[MaxDeck Solicitar Chat]',
+                '[MAX -> TENDI]',
+                'Erro ao enviar solicitação:',
                 erro
             );
 
@@ -329,10 +356,8 @@
     }
 
     // =========================================================
-    // ENTER MANUAL NO CAMPO "BUSCAR USUÁRIOS..."
-    //
-    // Mantém o comportamento antigo com 4 números
-    // e também aceita 6 números.
+    // USO MANUAL ORIGINAL DO SCRIPT 2
+    // 4 NÚMEROS + ENTER NO CAMPO "BUSCAR USUÁRIOS..."
     // =========================================================
 
     document.addEventListener(
@@ -354,9 +379,9 @@
 
             const numero = input.value.trim();
 
-            // Manual antigo: 4 números.
-            // Novo fluxo automático: 6 números.
-            if (!/^(\d{4}|\d{6})$/.test(numero)) {
+            // Mantém o comportamento manual original:
+            // somente 4 números.
+            if (!/^\d{4}$/.test(numero)) {
                 return;
             }
 
@@ -373,13 +398,7 @@
     );
 
     // =========================================================
-    // RECEBE OS 6 DÍGITOS VINDOS DA MAXDATA
-    //
-    // Fluxo:
-    // 1. Localiza "Buscar usuários..."
-    // 2. Cola os 6 dígitos
-    // 3. Pressiona Enter automaticamente
-    // 4. O manipulador acima faz o restante
+    // RECEBE A SOLICITAÇÃO VINDO DA MAXDATA
     // =========================================================
 
     async function receberDaMaxData(valorNovo) {
@@ -394,38 +413,44 @@
             return;
         }
 
-        const codigo = String(valorNovo.codigo).trim();
+        const codigo = String(
+            valorNovo.codigo
+        ).trim();
 
         if (!/^\d{6}$/.test(codigo)) {
             console.warn(
                 '[MAX -> TENDI]',
-                'Código recebido não possui 6 dígitos:',
+                'Código recebido não possui exatamente 6 dígitos:',
                 codigo
             );
             return;
         }
 
+        console.log(
+            '[MAX -> TENDI]',
+            'Pacote recebido de outra aba:',
+            codigo,
+            valorNovo.id
+        );
+
+        // Procura o campo do script 2 no TendiChat.
         const inputBusca = await esperarElemento(
             SELETOR_BUSCA,
             10000
         );
 
-        // Se não existe esse campo, provavelmente não estamos
-        // na tela do TendiChat. Não interfere na página.
         if (!inputBusca) {
+            console.warn(
+                '[MAX -> TENDI]',
+                'Campo "Buscar usuários..." não foi encontrado nesta aba.'
+            );
             return;
         }
 
         ultimoIdProcessado = valorNovo.id || null;
 
-        console.log(
-            '[MAX -> TENDI]',
-            'Recebido no TendiChat:',
-            codigo
-        );
-
-        // Exatamente como solicitado:
-        // cola os 6 números no campo onde eram digitados os 4.
+        // Coloca os 6 dígitos no mesmo campo
+        // onde eram digitados os 4 números.
         inputBusca.focus();
 
         definirValorInput(
@@ -433,14 +458,25 @@
             codigo
         );
 
+        console.log(
+            '[MAX -> TENDI]',
+            '6 dígitos colocados em "Buscar usuários...":',
+            codigo
+        );
+
         await esperar(150);
 
-        // Pressiona Enter automaticamente.
-        pressionarEnter(inputBusca);
+        // Não depende mais de um Enter artificial
+        // para acionar outra parte do próprio script.
+        // Chama diretamente a mesma rotina.
+        await solicitarTransferencia(
+            inputBusca,
+            codigo
+        );
     }
 
     // =========================================================
-    // ESCUTA ALTERAÇÕES ENTRE AS ABAS/JANELAS
+    // PONTE ENTRE MAXATENDIMENTO E TENDICHAT
     // =========================================================
 
     GM_addValueChangeListener(
@@ -451,28 +487,16 @@
             valorNovo,
             remoto
         ) {
-            receberDaMaxData(valorNovo);
+            // A alteração feita na própria aba da MaxData é ignorada.
+            // A outra aba, TendiChat, recebe como alteração remota.
+            if (!remoto) {
+                return;
+            }
+
+            receberDaMaxData(
+                valorNovo
+            );
         }
     );
-
-    // =========================================================
-    // FALLBACK
-    //
-    // Se o TendiChat for aberto/recarregado logo após o clique,
-    // tenta processar o último pacote salvo.
-    // =========================================================
-
-    if (!ehMaxData) {
-        const ultimoPacote = GM_getValue(
-            CHAVE,
-            null
-        );
-
-        if (ultimoPacote && ultimoPacote.codigo) {
-            setTimeout(() => {
-                receberDaMaxData(ultimoPacote);
-            }, 800);
-        }
-    }
 
 })();
