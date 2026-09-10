@@ -641,5 +641,18 @@
         "type": "image/png"
       }
     ]
+  },
+  {
+    "id": "S046",
+    "name": "MaxAtendimento -> TendiChat Solicitar Chat",
+    "version": "1.0.0",
+    "file": "MaxAtendimento - TendiChat Solicitar Chat.user.js",
+    "description": "Duplo clique no contato da MaxData envia os últimos 6 dígitos por chat interno do TendiChat para Caio. Mantém também o envio manual com 4 números.",
+    "category": "TendiChat",
+    "enabled": true,
+    "featured": false,
+    "displayOrder": 39,
+    "updatedAt": "2026-09-10T14:34:29.811Z",
+    "media": []
   }
 ]
