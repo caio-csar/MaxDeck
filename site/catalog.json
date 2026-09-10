@@ -645,14 +645,14 @@
   {
     "id": "S046",
     "name": "MaxAtendimento -> TendiChat Solicitar Chat",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "file": "MaxAtendimento - TendiChat Solicitar Chat.user.js",
     "description": "Ao dar duplo clique no contato no MaxAtendimento, envia automaticamente os últimos 6 dígitos pelo chat interno do TendiChat para Caio.",
     "category": "TendiChat",
     "enabled": true,
     "featured": false,
     "displayOrder": 39,
-    "updatedAt": "2026-09-10T20:05:45.504Z",
+    "updatedAt": "2026-09-10T20:55:16.426Z",
     "media": []
   }
 ]
