@@ -663,9 +663,15 @@
     "description": "Destaca Chave / Validade e copia solicitação de chave temporária",
     "category": "MaxAtendimento",
     "enabled": true,
-    "featured": false,
-    "displayOrder": 40,
-    "updatedAt": "2026-09-23T18:52:18.286Z",
-    "media": []
+    "featured": true,
+    "displayOrder": 41,
+    "updatedAt": "2026-09-23T18:53:41.616Z",
+    "media": [
+      {
+        "path": "media/chave-temporaria-max-atendimento/7079d5c3-b716-4450-b7ac-892b804f67c6.gif",
+        "alt": "",
+        "type": "image/gif"
+      }
+    ]
   }
 ]
