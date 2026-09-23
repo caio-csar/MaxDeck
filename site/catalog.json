@@ -654,5 +654,18 @@
     "displayOrder": 39,
     "updatedAt": "2026-09-10T20:55:16.426Z",
     "media": []
+  },
+  {
+    "id": "S047",
+    "name": "Chave Temporária - Max Atendimento",
+    "version": "1.2",
+    "file": "Chave Temporária - Max Atendimento.user.js",
+    "description": "Destaca Chave / Validade e copia solicitação de chave temporária",
+    "category": "MaxAtendimento",
+    "enabled": true,
+    "featured": false,
+    "displayOrder": 40,
+    "updatedAt": "2026-09-23T18:52:18.286Z",
+    "media": []
   }
 ]
