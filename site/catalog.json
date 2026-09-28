@@ -673,5 +673,24 @@
         "type": "image/gif"
       }
     ]
+  },
+  {
+    "id": "S048",
+    "name": "NotebookLM SQL - Organizador",
+    "version": "30.0",
+    "file": "NotebookLM SQL - Organizador.user.js",
+    "description": "",
+    "category": "Outros",
+    "enabled": true,
+    "featured": true,
+    "displayOrder": 42,
+    "updatedAt": "2026-09-28T13:01:19.005Z",
+    "media": [
+      {
+        "path": "media/notebooklm-sql-organizador/003fbbbf-2323-46dd-b4b5-fb1e97ba11ff.gif",
+        "alt": "",
+        "type": "image/gif"
+      }
+    ]
   }
 ]
