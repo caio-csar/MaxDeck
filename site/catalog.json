@@ -396,13 +396,19 @@
     "name": "TendiChat - Saudação Automática",
     "version": "1.0",
     "file": "TendiChat - Saudação Automática.user.js",
-    "description": "",
+    "description": "Envia saudação com base no horario",
     "category": "TendiChat",
     "enabled": true,
-    "featured": false,
-    "displayOrder": 8,
-    "updatedAt": "2026-08-18T17:33:15.000Z",
-    "media": []
+    "featured": true,
+    "displayOrder": 43,
+    "updatedAt": "2026-09-28T17:52:29.754Z",
+    "media": [
+      {
+        "path": "media/tendichat-saudacao-automatica/e66f3df6-2ac0-48f0-9839-4ca36ef38fb8.gif",
+        "alt": "",
+        "type": "image/gif"
+      }
+    ]
   },
   {
     "id": "S029",
