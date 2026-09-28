@@ -266,13 +266,19 @@
     "name": "TendiChat - Botão Código AnyDesk",
     "version": "1.0",
     "file": "TendiChat - Botão Código AnyDesk.user.js",
-    "description": "",
+    "description": "Solicita codigo anydesk ao cliente",
     "category": "TendiChat",
     "enabled": true,
-    "featured": false,
-    "displayOrder": 13,
-    "updatedAt": "2026-08-18T17:33:15.000Z",
-    "media": []
+    "featured": true,
+    "displayOrder": 44,
+    "updatedAt": "2026-09-28T18:04:39.664Z",
+    "media": [
+      {
+        "path": "media/tendichat-botao-codigo-anydesk/f2699e5f-1d83-40d3-a174-fb76a8823a61.gif",
+        "alt": "",
+        "type": "image/gif"
+      }
+    ]
   },
   {
     "id": "S019",
