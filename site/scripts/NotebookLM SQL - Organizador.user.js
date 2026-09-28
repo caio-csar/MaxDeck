@@ -69,36 +69,44 @@
     }
 
 
-    function copiarTexto(texto) {
+function copiarTexto(texto) {
 
-        try {
+    // Mantém a formatação e força quebra de linha padrão Windows
+    const textoFormatado =
+        String(texto || '')
+            .replace(/\r\n/g, '\n')
+            .replace(/\r/g, '\n')
+            .replace(/\n/g, '\r\n');
 
-            if (
-                typeof GM_setClipboard ===
-                'function'
-            ) {
+    try {
 
-                GM_setClipboard(
-                    texto,
-                    'text'
-                );
+        if (
+            typeof GM_setClipboard ===
+            'function'
+        ) {
 
-                return;
-            }
-
-        } catch (erro) {
-            console.error(
-                '[CAIO SQL] clipboard:',
-                erro
+            GM_setClipboard(
+                textoFormatado,
+                'text'
             );
+
+            return;
         }
 
+    } catch (erro) {
 
-        navigator.clipboard
-            ?.writeText(
-                texto
-            );
+        console.error(
+            '[CAIO SQL] clipboard:',
+            erro
+        );
     }
+
+
+    navigator.clipboard
+        ?.writeText(
+            textoFormatado
+        );
+}
 
 
     function criarElemento(
