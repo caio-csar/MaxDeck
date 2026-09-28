@@ -431,7 +431,7 @@
   },
   {
     "id": "S030",
-    "name": "TendiChat - Semáforo de CNPJ por Ticket",
+    "name": "[monitoria] TendiChat - Semáforo de CNPJ por Ticket",
     "version": "2.3.0",
     "file": "TendiChat - Semáforo de CNPJ por Ticket.user.js",
     "description": "",
@@ -439,7 +439,7 @@
     "enabled": true,
     "featured": false,
     "displayOrder": 9,
-    "updatedAt": "2026-08-18T17:33:15.000Z",
+    "updatedAt": "2026-09-28T19:01:42.796Z",
     "media": []
   },
   {
