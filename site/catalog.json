@@ -247,13 +247,19 @@
     "name": "TendiChat - Balões AnyDesk Flutuantes",
     "version": "2.0",
     "file": "TendiChat - Balões AnyDesk Flutuantes.user.js",
-    "description": "",
+    "description": "Identifica codigos anydesk recebidos no tendichat",
     "category": "TendiChat",
     "enabled": true,
     "featured": false,
     "displayOrder": 1,
-    "updatedAt": "2026-08-18T17:33:15.000Z",
-    "media": []
+    "updatedAt": "2026-09-28T17:42:05.279Z",
+    "media": [
+      {
+        "path": "media/tendichat-baloes-anydesk-flutuantes/1e3988d4-1b66-45dc-b309-e52de90800f7.gif",
+        "alt": "",
+        "type": "image/gif"
+      }
+    ]
   },
   {
     "id": "S018",
