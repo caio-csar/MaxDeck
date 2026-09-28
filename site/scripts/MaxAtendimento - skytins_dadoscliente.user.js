@@ -313,14 +313,14 @@
 
         return `UPDATE config
 SET
-    cofEmpRazao = ${sqlTexto(razao)},
+    cofEmpRazao    = ${sqlTexto(razao)},
     cofEmpFantasia = ${sqlTexto(fantasia)},
-    cofEmpApelido = ${sqlTexto(apelido)},
-    -- cofEmpCnpj = ${sqlTexto(cnpj)},
-    cofEmpIe = ${sqlTexto(ie)},
-    cofEmpFone = ${sqlTexto(telefone)},
-    cofEmpCid = ${sqlTexto(cidade)},
-    cofEmpUf = ${sqlTexto(uf)};`;
+    cofEmpApelido  = ${sqlTexto(apelido)},
+    -- cofEmpCnpj   = ${sqlTexto(cnpj)},
+    cofEmpIe       = ${sqlTexto(ie)},
+    cofEmpFone     = ${sqlTexto(telefone)},
+    cofEmpCid      = ${sqlTexto(cidade)},
+    cofEmpUf       = ${sqlTexto(uf)};`;
     }
 
 
@@ -1066,6 +1066,7 @@ SET
             }
         );
 
+        // Ordem solicitada:
         area.appendChild(
             criarBotaoUpdate()
         );
