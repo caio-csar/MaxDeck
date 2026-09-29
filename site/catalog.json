@@ -710,5 +710,18 @@
         "type": "image/gif"
       }
     ]
+  },
+  {
+    "id": "S049",
+    "name": "Guts Plantonista",
+    "version": "5.7",
+    "file": "Painel Maxdata - Boneco Pendentes.user.js",
+    "description": "Boneco proporcional aos atendimentos pendentes, recortando margens transparentes automaticamente",
+    "category": "MaxAtendimento",
+    "enabled": true,
+    "featured": false,
+    "displayOrder": 40,
+    "updatedAt": "2026-09-29T18:53:00.502Z",
+    "media": []
   }
 ]
