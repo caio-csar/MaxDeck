@@ -732,8 +732,8 @@
     "description": "Botão de contato no MaxAtendimento + solicitação automática de transferência ao TransferBot pelo chat interno do TendiChat.",
     "category": "TendiChat",
     "enabled": true,
-    "featured": false,
-    "displayOrder": 41,
+    "featured": true,
+    "displayOrder": 45,
     "updatedAt": "2026-10-14T20:49:46.726Z",
     "media": []
   }
