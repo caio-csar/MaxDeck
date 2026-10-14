@@ -32,7 +32,7 @@
     "file": "MaxAtendimento - Botao Contato Simples.user.js",
     "description": "Organiza e copia números de contato",
     "category": "MaxAtendimento",
-    "enabled": true,
+    "enabled": false,
     "featured": true,
     "displayOrder": 2,
     "updatedAt": "2026-08-19T17:48:51.000Z",
