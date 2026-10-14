@@ -127,7 +127,7 @@
     "file": "MaxAtendimento -_ TendiChat Busca Contato.user.js",
     "description": "2 cliques no botao de contato --->  localiza numero no tendichat",
     "category": "TendiChat",
-    "enabled": false,
+    "enabled": true,
     "featured": true,
     "displayOrder": 3,
     "updatedAt": "2026-08-18T17:33:15.000Z",
