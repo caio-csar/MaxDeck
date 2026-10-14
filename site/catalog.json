@@ -191,7 +191,7 @@
     "file": "TendiChat - Alerta de CNPJ por Tempo.user.js",
     "description": "",
     "category": "TendiChat",
-    "enabled": true,
+    "enabled": false,
     "featured": false,
     "displayOrder": 5,
     "updatedAt": "2026-08-18T17:33:15.000Z",
