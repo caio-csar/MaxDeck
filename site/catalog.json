@@ -723,5 +723,18 @@
     "displayOrder": 40,
     "updatedAt": "2026-09-29T19:54:00.478Z",
     "media": []
+  },
+  {
+    "id": "S050",
+    "name": "MaxAtendimento -> Tendichat | Solicita chat ao Transferbot",
+    "version": "2.0.0",
+    "file": "MaxAtendimento - Tendichat Solicita chat ao Transferbot.user.js",
+    "description": "Botão de contato no MaxAtendimento + solicitação automática de transferência ao TransferBot pelo chat interno do TendiChat.",
+    "category": "TendiChat",
+    "enabled": true,
+    "featured": false,
+    "displayOrder": 41,
+    "updatedAt": "2026-10-14T20:49:46.726Z",
+    "media": []
   }
 ]
