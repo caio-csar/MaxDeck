@@ -734,7 +734,13 @@
     "enabled": true,
     "featured": true,
     "displayOrder": 45,
-    "updatedAt": "2026-10-14T20:49:46.726Z",
-    "media": []
+    "updatedAt": "2026-10-14T23:39:42.527Z",
+    "media": [
+      {
+        "path": "media/maxatendimento-tendichat-solicita-chat-ao-transferbot/9aea4070-b31f-456c-a23c-0ceb91c8564b.gif",
+        "alt": "2 cliques no botao [contato] -> chat do cliente é capturado",
+        "type": "image/gif"
+      }
+    ]
   }
 ]
