@@ -667,7 +667,7 @@
     "file": "MaxAtendimento - TendiChat Solicitar Chat.user.js",
     "description": "Ao dar duplo clique no contato no MaxAtendimento, envia automaticamente os últimos 6 dígitos pelo chat interno do TendiChat para Caio.",
     "category": "TendiChat",
-    "enabled": true,
+    "enabled": false,
     "featured": false,
     "displayOrder": 39,
     "updatedAt": "2026-09-10T20:55:16.426Z",
