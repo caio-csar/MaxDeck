@@ -716,12 +716,12 @@
     "name": "Painel Maxdata - Boneco Pendentes",
     "version": "5.7",
     "file": "Painel Maxdata - Boneco Pendentes.user.js",
-    "description": "Boneco proporcional aos atendimentos pendentes, recortando margens transparentes automaticamente",
+    "description": "Guts da shopee ajudando a baixar os atendimentos do painel",
     "category": "MaxAtendimento",
     "enabled": true,
     "featured": false,
     "displayOrder": 40,
-    "updatedAt": "2026-09-29T19:54:00.478Z",
+    "updatedAt": "2026-10-14T23:42:53.868Z",
     "media": []
   },
   {
