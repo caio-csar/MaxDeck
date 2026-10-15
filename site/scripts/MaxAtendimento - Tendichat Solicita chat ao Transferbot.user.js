@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         MaxAtendimento -> Tendichat | Solicita chat ao Transferbot
 // @namespace    maxdeck
-// @version      2.0.0
+// @version      2.0.1
 // @downloadURL https://caio-csar.github.io/MaxDeck/scripts/MaxAtendimento%20-%20Tendichat%20Solicita%20chat%20ao%20Transferbot.user.js
 // @updateURL https://caio-csar.github.io/MaxDeck/scripts/MaxAtendimento%20-%20Tendichat%20Solicita%20chat%20ao%20Transferbot.user.js
-// @description  Botão de contato no MaxAtendimento + solicitação automática de transferência ao TransferBot pelo chat interno do TendiChat.
+// @description  Botão de contato + solicitação ao TransferBot. Após solicitar, muda o TendiChat para a aba Pendente.
 // @match        *://externo.maxdatasistema.com.br/Atendimentos/Atendimento*
 // @match        https://app.tendichat.com.br/*
 // @run-at       document-end
@@ -313,6 +313,71 @@
         }
 
         return null;
+    }
+
+
+    function localizarAbaPendente() {
+
+        const textos =
+            document.querySelectorAll(
+                'p'
+            );
+
+        for (const p of textos) {
+
+            if (
+                p.textContent.trim() !==
+                'Pendente'
+            ) {
+                continue;
+            }
+
+            const container =
+                p.parentElement;
+
+            if (!container) {
+                continue;
+            }
+
+            const clicavel =
+                container.querySelector(
+                    '.cursor-pointer'
+                );
+
+            if (clicavel) {
+                return clicavel;
+            }
+        }
+
+        return null;
+    }
+
+
+    async function mostrarPendentes() {
+
+        await esperar(1000);
+
+        const abaPendente =
+            localizarAbaPendente();
+
+        if (!abaPendente) {
+
+            console.warn(
+                '[MAX -> TENDI]',
+                'Aba Pendente não encontrada.'
+            );
+
+            return false;
+        }
+
+        abaPendente.click();
+
+        console.log(
+            '[MAX -> TENDI]',
+            'Aba Pendente selecionada após solicitação.'
+        );
+
+        return true;
     }
 
 
@@ -841,7 +906,7 @@
                 inputBusca.focus();
 
 
-                return;
+                return false;
             }
 
 
@@ -882,7 +947,7 @@
                 );
 
 
-                return;
+                return false;
             }
 
 
@@ -934,6 +999,9 @@
             );
 
 
+            return true;
+
+
         } catch (erro) {
 
             console.error(
@@ -946,6 +1014,9 @@
             aviso(
                 'Erro ao enviar solicitação.'
             );
+
+
+            return false;
 
 
         } finally {
@@ -1179,10 +1250,16 @@
         // NÃO depende de Enter artificial aqui.
         // =====================================================
 
-        await solicitarTransferencia(
-            inputBusca,
-            codigo
-        );
+        const solicitacaoEnviada =
+            await solicitarTransferencia(
+                inputBusca,
+                codigo
+            );
+
+
+        if (solicitacaoEnviada) {
+            await mostrarPendentes();
+        }
     }
 
 
