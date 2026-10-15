@@ -154,6 +154,7 @@
 
         const atual = optionsDoSelect(select).find(o => o.value === select.value);
         const textoAtual = normalizar(atual?.textContent);
+        if (textoAtual.includes('nao definido')) return true;
         const semAtendente = !select.value || textoAtual.includes('selecionar');
 
         if (!semAtendente) return true;
