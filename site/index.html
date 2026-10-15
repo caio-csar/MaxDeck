@@ -56,10 +56,12 @@
       .update-age { display:flex; align-items:center; gap:6px; width:max-content; margin:10px 0 0; color:#7f8793; font-size:10px; font-weight:700; }
       .update-age::before { content:""; width:5px; height:5px; border-radius:50%; background:#59616d; }
       .demo-button { width:max-content; margin-top:11px; padding:0; background:transparent; color:#aab8ff; font-size:11px; font-weight:750; }
-      .card-actions { display:flex; align-items:center; gap:7px; margin-top:auto; padding-top:15px; }
-      .install { display:flex; flex:1; justify-content:space-between; align-items:center; padding:9px 10px; border-radius:8px; background:#1b1e24; color:#f0f1f3; font-size:12px; font-weight:800; text-decoration:none; }
-      .install span { color:var(--red); font-size:17px; }
-      .share-button { flex:0 0 auto; padding:10px 11px; border-radius:8px; background:var(--red-soft); color:#ffadb7; font-size:11px; font-weight:800; }
+      .card-actions { display:flex; align-items:center; gap:11px; margin-top:auto; padding-top:15px; }
+      .install { display:flex; flex:1; justify-content:center; align-items:center; gap:10px; min-height:43px; padding:11px 14px; border:1px solid #f43849; border-radius:9px; background:#d20a18; color:#fff; font-size:13px; font-weight:850; text-decoration:none; box-shadow:0 5px 18px rgba(210,10,24,.22); transition:background .15s ease,box-shadow .15s ease; }
+      .install:hover,.install:focus-visible { background:#ed1222; box-shadow:0 6px 22px rgba(210,10,24,.35); }
+      .install span { color:#fff; font-size:18px; }
+      .share-button { flex:0 0 auto; min-height:36px; padding:8px 9px; border:1px solid var(--line); border-radius:8px; background:transparent; color:#a2a9b4; font-size:10px; font-weight:650; }
+      .share-button:hover,.share-button:focus-visible { border-color:var(--line-strong); background:var(--surface-3); color:#e1e4e8; }
       .card.focus-target { animation:focus-card 2.2s ease; }
       @keyframes focus-card { 0%,100%{box-shadow:none}18%,70%{border-color:#ff6575;box-shadow:0 0 0 3px rgba(210,10,24,.22),0 18px 55px rgba(210,10,24,.18);transform:translateY(-3px)} }
       .empty { padding:45px 0; color:var(--muted); text-align:center; }
