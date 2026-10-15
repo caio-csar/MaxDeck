@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         TendiChat - Atendente e Setor Padrão v2
 // @namespace    http://tampermonkey.net/
-// @version      2.0.0
+// @version      2.0.1
 // @downloadURL https://caio-csar.github.io/MaxDeck/scripts/TendiChat%20-%20Atendente%20e%20Setor%20Padr%C3%A3o%20v2.user.js
 // @updateURL https://caio-csar.github.io/MaxDeck/scripts/TendiChat%20-%20Atendente%20e%20Setor%20Padr%C3%A3o%20v2.user.js
-// @description  Define Suporte e Caio como padrão e cria busca de atendentes de forma resistente a mudanças na lista.
+// @description  Define Suporte e Não definido como padrão e cria busca de atendentes de forma resistente a mudanças na lista.
 // @match        *://*.tendichat.com.br/*
 // @match        *://tendichat.com.br/*
 // @run-at       document-end
@@ -15,7 +15,7 @@
     'use strict';
 
     const CONFIG = {
-        meuNome: 'Caio',
+        atendentePadrao: 'Não definido',
         setorPadrao: 'Suporte',
         maxSugestoes: 12,
         intervaloMs: 700,
@@ -113,7 +113,7 @@
         let pontos = 0;
 
         if (contexto.includes('transferir para o atendente')) pontos += 100;
-        if (textos.includes(normalizar(CONFIG.meuNome))) pontos += 60;
+        if (textos.includes(normalizar(CONFIG.atendentePadrao))) pontos += 60;
         if (textos.some(t => t.includes('nao definido'))) pontos += 30;
         if (opcoes.length >= 10) pontos += 20;
         if (select.classList.contains('classinput')) pontos += 10;
@@ -154,18 +154,18 @@
 
         const atual = optionsDoSelect(select).find(o => o.value === select.value);
         const textoAtual = normalizar(atual?.textContent);
-        const semAtendente = !select.value || textoAtual.includes('nao definido') || textoAtual.includes('selecionar');
+        const semAtendente = !select.value || textoAtual.includes('selecionar');
 
         if (!semAtendente) return true;
 
-        const meuNome = encontrarOpcao(select, CONFIG.meuNome);
-        if (!meuNome) {
-            log('Opção do atendente ainda não carregada:', CONFIG.meuNome);
+        const atendentePadrao = encontrarOpcao(select, CONFIG.atendentePadrao);
+        if (!atendentePadrao) {
+            log('Opção do atendente ainda não carregada:', CONFIG.atendentePadrao);
             return false;
         }
 
-        selecionarOpcao(select, meuNome, false);
-        log('Atendente padrão aplicado:', nomeLimpo(meuNome.textContent), meuNome.value);
+        selecionarOpcao(select, atendentePadrao, false);
+        log('Atendente padrão aplicado:', nomeLimpo(atendentePadrao.textContent), atendentePadrao.value);
         return true;
     }
 
