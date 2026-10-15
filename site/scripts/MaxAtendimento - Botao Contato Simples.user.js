@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         MaxAtendimento - Botao Contato Simples
 // @namespace    maxdeck
-// @version      2.1.0
+// @version      2.0.0
 // @downloadURL  https://caio-csar.github.io/MaxDeck/scripts/MaxAtendimento%20-%20Botao%20Contato%20Simples.user.js
 // @updateURL    https://caio-csar.github.io/MaxDeck/scripts/MaxAtendimento%20-%20Botao%20Contato%20Simples.user.js
-// @description  Solicita transferência ao TransferBot e, após a transferência, localiza e abre automaticamente o atendimento no TendiChat.
+// @description  Botão de contato no MaxAtendimento + solicitação automática de transferência ao TransferBot pelo chat interno do TendiChat.
 // @match        *://externo.maxdatasistema.com.br/Atendimentos/Atendimento*
 // @match        https://app.tendichat.com.br/*
 // @run-at       document-end
@@ -33,10 +33,6 @@
 
     let processando = false;
     let ultimoIdProcessado = null;
-    let buscaTicketEmAndamento = false;
-
-    const TENTATIVAS_LOCALIZAR_TICKET = 6;
-    const INTERVALO_TENTATIVAS_MS = 1200;
 
 
     // =========================================================
@@ -822,7 +818,7 @@
                 inputBusca.focus();
 
 
-                return false;
+                return;
             }
 
 
@@ -863,7 +859,7 @@
                 );
 
 
-                return false;
+                return;
             }
 
 
@@ -914,8 +910,6 @@
                 numero
             );
 
-            return true;
-
 
         } catch (erro) {
 
@@ -930,423 +924,10 @@
                 'Erro ao enviar solicitação.'
             );
 
-            return false;
-
 
         } finally {
 
             processando = false;
-        }
-    }
-
-
-    // =========================================================
-    // LOCALIZA O TICKET APÓS A TRANSFERÊNCIA
-    //
-    // Analistas comuns não usam "Ver todos".
-    // A busca é feita apenas nos tickets já visíveis para o
-    // próprio analista, em Pendente e Atendendo.
-    // =========================================================
-
-    function campoPesquisaTickets() {
-        return [
-            ...document.querySelectorAll(
-                'input[placeholder="Pesquisar"]'
-            )
-        ].find(input => input.offsetParent !== null) || null;
-    }
-
-
-    function localizarAba(nome) {
-        const textos =
-            document.querySelectorAll('p');
-
-        for (const p of textos) {
-            if (p.textContent.trim() !== nome) {
-                continue;
-            }
-
-            const container =
-                p.parentElement;
-
-            if (!container) {
-                continue;
-            }
-
-            const clicavel =
-                container.querySelector(
-                    '.cursor-pointer'
-                );
-
-            if (clicavel) {
-                return clicavel;
-            }
-        }
-
-        return null;
-    }
-
-
-    function abaEstaAtiva(nome) {
-        const aba =
-            localizarAba(nome);
-
-        return !!(
-            aba &&
-            aba.classList.contains('bg-padrao')
-        );
-    }
-
-
-    async function selecionarAba(nome) {
-        if (abaEstaAtiva(nome)) {
-            return true;
-        }
-
-        const aba =
-            localizarAba(nome);
-
-        if (!aba) {
-            return false;
-        }
-
-        aba.click();
-
-        const inicio =
-            performance.now();
-
-        while (
-            performance.now() - inicio <
-            1500
-        ) {
-            if (abaEstaAtiva(nome)) {
-                return true;
-            }
-
-            await esperar(30);
-        }
-
-        return abaEstaAtiva(nome);
-    }
-
-
-    function secaoAtendimentos() {
-        const titulos =
-            document.querySelectorAll('h5');
-
-        for (const titulo of titulos) {
-            if (
-                titulo.textContent.trim() ===
-                'Atendimentos'
-            ) {
-                return titulo.closest('section');
-            }
-        }
-
-        return null;
-    }
-
-
-    function cardsNaListagem() {
-        const secao =
-            secaoAtendimentos();
-
-        if (!secao) {
-            return [];
-        }
-
-        return [
-            ...secao.children
-        ].filter(elemento =>
-            elemento.tagName === 'DIV' &&
-            elemento.classList.length === 0
-        );
-    }
-
-
-    function indicadorCarregamento() {
-        return [
-            ...document.querySelectorAll(
-                'svg.animate-spin'
-            )
-        ].find(svg =>
-            svg.classList.contains('bg-root') &&
-            svg.classList.contains('w-10') &&
-            svg.classList.contains('h-10')
-        ) || null;
-    }
-
-
-    async function aguardarConsultaTickets() {
-        const inicio =
-            performance.now();
-
-        let viuLoading =
-            false;
-
-        while (
-            performance.now() - inicio <
-            1800
-        ) {
-            if (indicadorCarregamento()) {
-                viuLoading = true;
-                break;
-            }
-
-            await esperar(30);
-        }
-
-        if (viuLoading) {
-            const inicioFim =
-                performance.now();
-
-            while (
-                performance.now() - inicioFim <
-                7000
-            ) {
-                if (!indicadorCarregamento()) {
-                    break;
-                }
-
-                await esperar(30);
-            }
-        }
-
-        await new Promise(resolve =>
-            requestAnimationFrame(() =>
-                requestAnimationFrame(resolve)
-            )
-        );
-
-        await esperar(100);
-    }
-
-
-    function preencherPesquisaTicket(
-        input,
-        valor
-    ) {
-        input.focus();
-
-        const descriptor =
-            Object.getOwnPropertyDescriptor(
-                HTMLInputElement.prototype,
-                'value'
-            );
-
-        if (
-            descriptor &&
-            descriptor.set
-        ) {
-            descriptor.set.call(
-                input,
-                valor
-            );
-        } else {
-            input.value =
-                valor;
-        }
-
-        input.dispatchEvent(
-            new InputEvent(
-                'input',
-                {
-                    bubbles: true,
-                    inputType: 'insertText',
-                    data: valor
-                }
-            )
-        );
-
-        input.dispatchEvent(
-            new Event(
-                'change',
-                {
-                    bubbles: true
-                }
-            )
-        );
-    }
-
-
-    function executarPesquisaTicket(input) {
-        input.dispatchEvent(
-            new KeyboardEvent(
-                'keyup',
-                {
-                    key: 'Enter',
-                    code: 'Enter',
-                    keyCode: 13,
-                    which: 13,
-                    bubbles: true,
-                    cancelable: true
-                }
-            )
-        );
-    }
-
-
-    function abrirPrimeiroResultado() {
-        const cards =
-            cardsNaListagem();
-
-        if (!cards.length) {
-            return false;
-        }
-
-        const card =
-            cards[0];
-
-        const alvo =
-            card.querySelector(
-                '.cursor-pointer, button, [role="button"]'
-            ) ||
-            card.firstElementChild ||
-            card;
-
-        alvo.click();
-
-        return true;
-    }
-
-
-    async function pesquisarTicketNaAba(
-        codigo,
-        aba
-    ) {
-        const selecionou =
-            await selecionarAba(aba);
-
-        if (!selecionou) {
-            return false;
-        }
-
-        const campo =
-            campoPesquisaTickets();
-
-        if (!campo) {
-            return false;
-        }
-
-        preencherPesquisaTicket(
-            campo,
-            codigo
-        );
-
-        const carregamento =
-            aguardarConsultaTickets();
-
-        executarPesquisaTicket(
-            campo
-        );
-
-        await carregamento;
-
-        if (!cardsNaListagem().length) {
-            return false;
-        }
-
-        console.log(
-            '[MAX -> TENDI]',
-            'Ticket localizado em',
-            aba,
-            codigo
-        );
-
-        abrirPrimeiroResultado();
-
-        aviso(
-            'Atendimento localizado.'
-        );
-
-        return true;
-    }
-
-
-    async function localizarTicketAposTransferencia(
-        codigo
-    ) {
-        if (buscaTicketEmAndamento) {
-            return;
-        }
-
-        buscaTicketEmAndamento =
-            true;
-
-        try {
-            aviso(
-                'Transferência solicitada. Localizando atendimento...'
-            );
-
-            /*
-             * Dá um pequeno tempo para o TransferBot receber
-             * a mensagem e executar a transferência pela API.
-             */
-            await esperar(900);
-
-            for (
-                let tentativa = 1;
-                tentativa <=
-                    TENTATIVAS_LOCALIZAR_TICKET;
-                tentativa++
-            ) {
-                console.log(
-                    '[MAX -> TENDI]',
-                    `Tentativa ${tentativa}/${TENTATIVAS_LOCALIZAR_TICKET} para localizar ${codigo}`
-                );
-
-                if (
-                    await pesquisarTicketNaAba(
-                        codigo,
-                        'Pendente'
-                    )
-                ) {
-                    return;
-                }
-
-                if (
-                    await pesquisarTicketNaAba(
-                        codigo,
-                        'Atendendo'
-                    )
-                ) {
-                    return;
-                }
-
-                if (
-                    tentativa <
-                    TENTATIVAS_LOCALIZAR_TICKET
-                ) {
-                    await esperar(
-                        INTERVALO_TENTATIVAS_MS
-                    );
-                }
-            }
-
-            console.warn(
-                '[MAX -> TENDI]',
-                'Transferência solicitada, mas o ticket ainda não apareceu:',
-                codigo
-            );
-
-            aviso(
-                'Transferência solicitada. Atendimento ainda não apareceu.'
-            );
-
-        } catch (erro) {
-            console.error(
-                '[MAX -> TENDI]',
-                'Erro ao localizar atendimento após transferência:',
-                erro
-            );
-
-            aviso(
-                'Transferência solicitada, mas não foi possível localizar o atendimento.'
-            );
-
-        } finally {
-            buscaTicketEmAndamento =
-                false;
         }
     }
 
@@ -1575,17 +1156,10 @@
         // NÃO depende de Enter artificial aqui.
         // =====================================================
 
-        const enviada =
-            await solicitarTransferencia(
-                inputBusca,
-                codigo
-            );
-
-        if (enviada) {
-            await localizarTicketAposTransferencia(
-                codigo
-            );
-        }
+        await solicitarTransferencia(
+            inputBusca,
+            codigo
+        );
     }
 
 
