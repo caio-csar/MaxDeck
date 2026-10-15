@@ -77,7 +77,7 @@
     "category": "MaxAtendimento",
     "enabled": true,
     "featured": false,
-    "displayOrder": 3,
+    "displayOrder": 2,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
   },
@@ -90,7 +90,7 @@
     "category": "MaxAtendimento",
     "enabled": true,
     "featured": false,
-    "displayOrder": 4,
+    "displayOrder": 3,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
   },
@@ -270,7 +270,7 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": true,
-    "displayOrder": 44,
+    "displayOrder": 9,
     "updatedAt": "2026-09-28T18:04:39.664Z",
     "media": [
       {
@@ -380,7 +380,7 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": false,
-    "displayOrder": 7,
+    "displayOrder": 4,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
   },
@@ -406,7 +406,7 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": true,
-    "displayOrder": 43,
+    "displayOrder": 8,
     "updatedAt": "2026-10-14T23:51:35.062Z",
     "media": []
   },
@@ -432,7 +432,7 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": false,
-    "displayOrder": 9,
+    "displayOrder": 5,
     "updatedAt": "2026-09-28T19:01:42.796Z",
     "media": []
   },
@@ -469,7 +469,7 @@
     "category": "Outros",
     "enabled": true,
     "featured": false,
-    "displayOrder": 11,
+    "displayOrder": 6,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
   },
@@ -644,7 +644,7 @@
     "category": "MaxAtendimento",
     "enabled": true,
     "featured": true,
-    "displayOrder": 40,
+    "displayOrder": 3,
     "updatedAt": "2026-09-28T17:28:25.839Z",
     "media": [
       {
@@ -676,7 +676,7 @@
     "category": "MaxAtendimento",
     "enabled": true,
     "featured": true,
-    "displayOrder": 41,
+    "displayOrder": 6,
     "updatedAt": "2026-09-28T17:53:44.691Z",
     "media": [
       {
@@ -695,7 +695,7 @@
     "category": "Outros",
     "enabled": true,
     "featured": true,
-    "displayOrder": 42,
+    "displayOrder": 7,
     "updatedAt": "2026-09-28T13:49:44.826Z",
     "media": [
       {
@@ -714,7 +714,7 @@
     "category": "MaxAtendimento",
     "enabled": true,
     "featured": false,
-    "displayOrder": 40,
+    "displayOrder": 7,
     "updatedAt": "2026-10-14T23:42:53.868Z",
     "media": []
   },
@@ -727,7 +727,7 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": true,
-    "displayOrder": 45,
+    "displayOrder": 2,
     "updatedAt": "2026-10-14T23:39:42.527Z",
     "media": [
       {
