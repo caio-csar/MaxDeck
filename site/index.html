@@ -57,8 +57,9 @@
       .update-age::before { content:""; width:5px; height:5px; border-radius:50%; background:#59616d; }
       .demo-button { width:max-content; margin-top:11px; padding:0; background:transparent; color:#aab8ff; font-size:11px; font-weight:750; }
       .card-actions { display:flex; align-items:center; gap:9px; margin-top:auto; padding-top:15px; }
-      .install { display:flex; flex:1; justify-content:center; align-items:center; gap:9px; min-height:44px; padding:10px 14px; border:1px solid #d5d9df; border-radius:9px; background:#e8eaed; color:#16191e; font-size:13px; font-weight:800; text-decoration:none; box-shadow:0 3px 12px rgba(0,0,0,.18); transition:background .15s ease,transform .15s ease,box-shadow .15s ease; }
-      .install:hover,.install:focus-visible { background:#fff; transform:translateY(-1px); box-shadow:0 5px 18px rgba(0,0,0,.28); }
+      .install { display:flex; flex:1; justify-content:center; align-items:center; gap:9px; min-height:44px; padding:10px 14px; border:1px solid #8f0f1c; border-radius:9px; background:linear-gradient(180deg,#ed3345 0%,#d20a18 58%,#a90816 100%); color:#fff; font-size:13px; font-weight:800; text-decoration:none; box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 5px 14px rgba(210,10,24,.20); transition:transform .15s ease,box-shadow .15s ease,filter .15s ease; }
+      .install:hover,.install:focus-visible { transform:translateY(-1px); filter:brightness(1.06); box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 7px 18px rgba(210,10,24,.29); }
+      .install:active { transform:translateY(0); box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 3px 9px rgba(210,10,24,.18); }
       .install svg { width:17px; height:17px; flex-shrink:0; }
       .share-button { display:inline-flex; align-items:center; justify-content:center; flex:0 0 43px; width:43px; height:44px; padding:0; border:1px solid var(--line); border-radius:9px; background:#171a20; color:#a2a9b4; }
       .share-button svg { width:17px; height:17px; }
