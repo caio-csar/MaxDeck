@@ -740,14 +740,14 @@
   {
     "id": "S051",
     "name": "MemberKit | Gestão em Massa",
-    "version": "3.3.1",
+    "version": "3.3.2",
     "file": "MemberKit Gestão em Massa.user.js",
     "description": "Gestão em massa consolidada: conferência de assinaturas e identificação precisa de sessão expirada.",
     "category": "MaxAtendimento",
     "enabled": true,
     "featured": true,
     "displayOrder": 10,
-    "updatedAt": "2026-10-19T11:21:18.083Z",
+    "updatedAt": "2026-10-19T11:58:39.084Z",
     "media": []
   }
 ]

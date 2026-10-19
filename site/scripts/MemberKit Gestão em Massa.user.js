@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MemberKit | Gestão em Massa
 // @namespace    https://maxdata-sistema.memberkit.com.br/
-// @version      3.3.1
+// @version      3.3.2
 // @downloadURL https://caio-csar.github.io/MaxDeck/scripts/MemberKit%20Gest%C3%A3o%20em%20Massa.user.js
 // @updateURL https://caio-csar.github.io/MaxDeck/scripts/MemberKit%20Gest%C3%A3o%20em%20Massa.user.js
 // @description  Gestão em massa consolidada: conferência de assinaturas e identificação precisa de sessão expirada.
@@ -172,6 +172,14 @@
 #mk-bulk-panel.mk-open{transform:translateX(0)}#mk-bulk-panel *{box-sizing:border-box}#mk-bulk-panel .mk-head{background:#111823;color:white;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}#mk-bulk-panel h3{margin:0;font-size:16px;line-height:1.3}#mk-bulk-panel .mk-sub{font-size:11px;color:#b6c0d0}#mk-bulk-panel .mk-content{overflow:auto;flex:1;padding:20px}#mk-bulk-panel p{margin:7px 0;color:#506075}#mk-bulk-panel input.mk-input{width:100%;padding:10px;border:1px solid #ccd5e2;border-radius:7px;color:#152238;background:#fff;margin:5px 0 9px}#mk-bulk-panel select{width:100%;margin:5px 0 9px;padding:10px;border:1px solid #ccd5e2;border-radius:7px;background:#fff;color:#152238}#mk-bulk-panel button{cursor:pointer;border:1px solid #cdd5e2;border-radius:7px;padding:9px 11px;background:#fff;color:#1b2738;font:600 12px system-ui}#mk-bulk-panel .mk-main-action{background:#960000;border-color:#960000;color:#fff}#mk-bulk-panel button:hover:not(:disabled){filter:brightness(.94)}#mk-bulk-panel button:disabled{opacity:.45;cursor:not-allowed}#mk-bulk-panel .mk-head button{background:#26344a;color:#fff;border:1px solid #536078;padding:5px 12px}#mk-bulk-panel .actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}#mk-bulk-panel .muted{font-size:12px;color:#5f6f83}#mk-bulk-panel .line{border-top:1px solid #e0e5ec;margin:19px 0}#mk-bulk-panel .notice{white-space:pre-wrap;overflow-wrap:anywhere;background:#edf1f6;border:1px solid #dce3ed;padding:11px;border-radius:8px;max-height:175px;overflow:auto;font:11px/1.6 ui-monospace,monospace;color:#344158}#mk-bulk-panel label{display:block;font-size:12px;font-weight:700;color:#253449}#mk-bulk-panel .mk-info{border-radius:8px;background:#eef3f8;padding:10px 12px;font-size:12px;color:#46566b}#mk-bulk-panel .mk-progress{height:8px;background:#dce3ed;border-radius:100px;overflow:hidden;margin:10px 0}#mk-bulk-panel .mk-progress span{display:block;height:100%;background:#970000;width:0%;transition:width .2s}#mk-bulk-panel .mk-foot{padding:14px 20px;background:#f5f7fa;border-top:1px solid #e2e7ef;color:#69788c;font-size:11px}
 @media(max-width:520px){#mk-bulk-panel{width:100vw}}
 `;
+  css.textContent += `
+#mk-bulk-panel .mk-confirm-panel{margin:14px 0;padding:16px;border:1px solid #d0d9e7;border-radius:10px;background:#fff;box-shadow:0 3px 14px #14213d12}
+#mk-bulk-panel .mk-confirm-panel[hidden]{display:none}
+#mk-bulk-panel .mk-confirm-title{font-size:14px;font-weight:750;color:#152238;margin-bottom:8px}
+#mk-bulk-panel .mk-confirm-description{white-space:pre-line;color:#43536b;font-size:12px;line-height:1.65}
+#mk-bulk-panel .mk-confirm-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:15px}
+#mk-bulk-panel .mk-confirm-actions button{min-width:125px}
+`;
   document.head.appendChild(css);
   css.textContent += '\n#mk-bulk-panel .mk-quiet-summary{font-size:12px;color:#66758a;margin-top:16px}#mk-bulk-panel .mk-quiet-summary:empty,#mk-bulk-panel #mk-review:empty{display:none}#mk-bulk-panel .mk-full{width:100%;padding:12px;margin-top:14px;font-size:13px;border-radius:8px}\n#mk-bulk-panel label{margin-top:12px}\n#mk-bulk-panel .mk-info{margin-top:12px}\n#mk-bulk-panel .mk-pick-tools{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:6px 0}\n#mk-bulk-panel .mk-pick-tools button{padding:5px 8px;font-size:11px}\n#mk-bulk-panel #mk-pick-count{color:#64748b;font-size:11px;margin-left:auto}\n#mk-bulk-panel .mk-pick-list{max-height:195px;overflow:auto;border:1px solid #dce3ed;border-radius:8px;background:white}\n#mk-bulk-panel .mk-pick-list label{font-weight:400;margin:0;padding:8px 10px;border-bottom:1px solid #edf0f4;display:flex;align-items:center;gap:8px;cursor:pointer}\n#mk-bulk-panel .mk-pick-list label:hover{background:#f3f5f9}\n#mk-bulk-panel .mk-pick-list input{accent-color:#950000}\n#mk-bulk-panel .mk-small-note{font-size:11px;color:#607086;margin:10px 0 18px}\n#mk-bulk-panel details{border-top:1px solid #e0e5ec;padding-top:13px}\n#mk-bulk-panel summary{cursor:pointer;color:#64748b;font-size:12px}\n';
   const panel = document.createElement('aside');panel.id='mk-bulk-panel';panel.setAttribute('aria-label','Gestão em massa');
@@ -183,6 +191,11 @@
     <div id="mk-pick-area" hidden><input class="mk-input" type="search" id="mk-pick-search" placeholder="Pesquisar por nome"><div class="mk-pick-tools"><button type="button" id="mk-pick-all">Selecionar todos</button><button type="button" id="mk-pick-none">Limpar</button><span id="mk-pick-count">0 selecionados</span></div><div id="mk-pick-list" class="mk-pick-list"></div><div class="muted">A seleção é feita sobre a lista completa, não apenas sobre a página exibida.</div></div>
     <div id="mk-summary" class="mk-quiet-summary" aria-live="polite"></div>
     <div id="mk-review" class="mk-info" style="margin-top:9px" aria-live="polite"></div>
+    <section id="mk-confirm-panel" hidden aria-label="Confirmação das alterações" class="mk-confirm-panel">
+      <div class="mk-confirm-title">Revisar alterações</div>
+      <div id="mk-confirm-description" class="mk-confirm-description"></div>
+      <div class="mk-confirm-actions"><button type="button" id="mk-confirm-cancel">Cancelar</button><button type="button" id="mk-confirm-accept" class="mk-main-action">Confirmar alterações</button></div>
+    </section>
     <div class="mk-progress"><span id="mk-progress-fill"></span></div><div id="mk-progress-text" class="muted"></div>
     <button type="button" class="mk-main-action mk-full" id="mk-primary">Aplicar alterações</button>
     <div class="actions" style="justify-content:space-between"><button id="mk-stop" disabled>Interromper</button><button id="mk-export" disabled>Exportar resultado</button></div>
@@ -202,8 +215,26 @@
     loadLevelsEarly();
     beginBackgroundLoad();
   };
-  get('close').addEventListener('click',()=>panel.classList.remove('mk-open'));
-  document.addEventListener('keydown',e=>{if(e.key==='Escape')panel.classList.remove('mk-open')});
+  let pendingDecision=null;
+  const finishDecision = approved => {
+    if(!pendingDecision)return;
+    const resolve=pendingDecision;
+    pendingDecision=null;
+    get('confirm-panel').hidden=true;
+    resolve(Boolean(approved));
+  };
+  const askInPanel = (message, acceptLabel='Confirmar alterações') => new Promise(resolve => {
+    if(pendingDecision){resolve(false);return;}
+    pendingDecision=resolve;
+    get('confirm-description').textContent=message;
+    get('confirm-accept').textContent=acceptLabel;
+    get('confirm-panel').hidden=false;
+    get('confirm-panel').scrollIntoView({block:'nearest',behavior:'smooth'});
+  });
+  get('confirm-cancel').addEventListener('click',()=>finishDecision(false));
+  get('confirm-accept').addEventListener('click',()=>finishDecision(true));
+  get('close').addEventListener('click',()=>{finishDecision(false);panel.classList.remove('mk-open');});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){finishDecision(false);panel.classList.remove('mk-open');}});
   function mountLauncher(){
     if(!document.body.contains(panel))document.body.appendChild(panel);
     const old=document.getElementById('mk-bulk-launch');
@@ -610,8 +641,7 @@
     if(!pend.length)throw Error('Nenhum membro precisando de alteração');
     const n=get('limit').value==='all'?pend.length:Number(get('limit').value);
     const selected=pend.slice(0,n);
-    if(!confirm(`ATENÇÃO: alterações REAIS.\n\nAssinatura: ${get('level').selectedOptions[0].textContent}\nStatus: ${STATUS_LABELS[desired]}\nMembros: ${selected.length}\n\nContinuar?`))return;
-    if(!confirm(`Confirmar ${STATUS_LABELS[desired]} para até ${selected.length} membros? Não há reversão automática.`))return;
+    if(!await askInPanel(`Assinatura: ${get('level').selectedOptions[0].textContent}\nStatus desejado: ${STATUS_LABELS[desired]}\nMembros elegíveis: ${selected.length}\n\nAltera acessos reais. Não há reversão automática.`))return;
     const job={id:String(Date.now()),level,levelName:get('level').selectedOptions[0].textContent,status:desired,ids:[...new Set(selected.map(x=>x.id))],done:[],created:Date.now()};
     jobWrite(job);progress(0,job.ids.length);await runJob(job);
   }
@@ -626,7 +656,7 @@
       try {
         await discover();
         renderPickList();
-        get('summary').textContent=`${state.users.length} membros disponíveis`;
+        get('summary').textContent=`${state.users.length} membros disponíveis`; 
       }catch(e){
         state.complete=false;
         preparingError=e;
@@ -691,7 +721,11 @@
       if(!pending.length)return;
       const chosen=pending;
 
-      if(!confirm(`Aplicar ${STATUS_LABELS[status]} na assinatura "${get('level').selectedOptions[0].textContent}" para ${chosen.length} membro(s)?\n\n${blocked} bloqueado(s) excluído(s). Cada cadastro será conferido antes de salvar.\n\nEssa operação altera acessos reais.`))return;
+      if(!await askInPanel(`Assinatura: ${get('level').selectedOptions[0].textContent}\nStatus desejado: ${STATUS_LABELS[status]}\nMembros elegíveis: ${chosen.length}\nBloqueados excluídos: ${blocked}\n\nCada cadastro será revalidado antes da gravação. A operação modifica acessos reais e não tem reversão automática.`))return;
+      // Evita executar uma seleção diferente daquela apresentada para confirmação.
+      if(get('level').value!==level || get('status').value!==status ||
+        (state.selectionMode==='custom' && chosen.some(x=>!state.selectedIds.has(x.id))))
+        throw Error('A seleção mudou. Revise os destinatários e clique em Aplicar novamente.');
       const job={id:String(Date.now()),level,levelName:get('level').selectedOptions[0].textContent,status,ids:[...new Set(chosen.map(x=>x.id))],done:[],created:Date.now()};
       jobWrite(job);progress(0,job.ids.length);await runJob(job);
       get('review').textContent=`${job.done.length} de ${job.ids.length} alteração(ões) confirmada(s). Confira o resultado no painel.`;
@@ -715,13 +749,13 @@
     if(remaining.some(id=>!state.checked.some(r=>r.id===id&&r.kind==='pending'))){
       log('Retomada bloqueada: simule novamente. Todos os membros restantes devem aparecer como pendentes.');return;
     }
-    if(!confirm(`Retomar lote para ${remaining.length} membros ainda pendentes, com revalidação individual antes de cada gravação?`))return;
+    if(!await askInPanel(`Retomar ${remaining.length} membro(s) pendente(s)? Cada cadastro será revalidado antes de gravar.`,"Confirmar retomada"))return;
     setBusy(true);try{await runJob(job);}catch(e){log('Retomada: '+String(e.message||e));}finally{setBusy(false);}
   });
-  get('discard-job').addEventListener('click',()=>{if(state.busy)return;if(confirm('Descartar o lote salvo? As alterações já realizadas NÃO serão revertidas.')){jobClear();log('Lote salvo descartado.');}});
+  get('discard-job').addEventListener('click',async()=>{if(state.busy)return;if(await askInPanel('Descartar o lote desta página? As alterações já realizadas NÃO serão revertidas.','Descartar lote')){jobClear();log('Lote descartado.');}});
   function downloadCsv(rows,name){const str=rows.map(r=>r.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(';')).join('\r\n');const u=URL.createObjectURL(new Blob(['\uFEFF'+str],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);}
   get('export-history').addEventListener('click',()=>downloadCsv([['Data','ID','Assinatura','Status','Resultado','Lote'],...historyRecords().map(x=>[x.at,x.id,x.levelName,x.status,x.result,x.jobId])],'memberkit-historico.csv'));
-  get('clear-history').addEventListener('click',()=>{if(state.busy)return;if(confirm('Apagar o histórico local? Não altera o MemberKit.')){historyRows.length=0;paintHistory();}});
+  get('clear-history').addEventListener('click',async()=>{if(state.busy)return;if(await askInPanel('Apagar o histórico desta página? Não altera os cadastros do MemberKit.','Apagar histórico')){historyRows.length=0;paintHistory();}});
   get('stop').addEventListener('click',()=>{state.stop=true;log('Parada solicitada: nenhuma nova gravação será iniciada; se já houve POST, a conferência final será concluída.');});
   const resetSelection=()=>{state.checked=[];get('apply').disabled=true;get('review').textContent='';get('check').disabled=!state.complete || !get('level').value;};
   get('level').addEventListener('change',resetSelection);
