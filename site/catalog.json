@@ -749,5 +749,24 @@
     "displayOrder": 10,
     "updatedAt": "2026-10-19T11:58:39.084Z",
     "media": []
+  },
+  {
+    "id": "S052",
+    "name": "MaxAtendimento - Aprimorar Relato IA",
+    "version": "2.1.0",
+    "file": "MaxAtendimento - Aprimorar Relato IA.user.js",
+    "description": "Revisa a OS com Gemini; grava titulo na Descricao e relato no Summernote, sem janelas.",
+    "category": "MaxAtendimento",
+    "enabled": true,
+    "featured": true,
+    "displayOrder": 11,
+    "updatedAt": "2026-10-19T18:13:37.258Z",
+    "media": [
+      {
+        "path": "media/maxatendimento-aprimorar-relato-ia/ffc4a552-c1a5-4de0-9f66-cfb3d92b6d49.gif",
+        "alt": "",
+        "type": "image/gif"
+      }
+    ]
   }
 ]
