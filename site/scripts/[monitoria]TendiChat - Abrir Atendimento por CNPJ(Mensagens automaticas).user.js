@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         [monitoria] TendiChat - Abrir Atendimento por CNPJ(Mensagens automaticas)
+// @name         [monitoria]TendiChat - Abrir Atendimento por CNPJ(Mensagens automaticas)
 // @namespace    maxdata.tendichat.cnpj.atendimento
 // @version      2.1
 // @downloadURL https://caio-csar.github.io/MaxDeck/scripts/%5Bmonitoria%5DTendiChat%20-%20Abrir%20Atendimento%20por%20CNPJ(Mensagens%20automaticas).user.js
