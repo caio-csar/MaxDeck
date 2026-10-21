@@ -768,5 +768,18 @@
         "type": "image/gif"
       }
     ]
+  },
+  {
+    "id": "S053",
+    "name": "[monitoria]TendiChat - Abrir Atendimento por CNPJ(Mensagens automaticas)",
+    "version": "2.1",
+    "file": "[monitoria]TendiChat - Abrir Atendimento por CNPJ(Mensagens automaticas).user.js",
+    "description": "Identifica CNPJ, solicita descrição automaticamente e abre atendimento comum ou suporte interno",
+    "category": "TendiChat",
+    "enabled": true,
+    "featured": false,
+    "displayOrder": 40,
+    "updatedAt": "2026-10-21T20:10:45.892Z",
+    "media": []
   }
 ]
