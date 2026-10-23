@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MaxAtendimento - skytins_dadoscliente
 // @namespace    maxdata.atendimento.skytins_dadoscliente
-// @version      2.0
+// @version      2.1
 // @downloadURL https://caio-csar.github.io/MaxDeck/scripts/MaxAtendimento%20-%20skytins_dadoscliente.user.js
 // @updateURL https://caio-csar.github.io/MaxDeck/scripts/MaxAtendimento%20-%20skytins_dadoscliente.user.js
 // @description  Gera UPDATE de cadastro, abre OS SkyTins, copia mensagem para WhatsApp e copia CNPJ limpo
@@ -21,6 +21,55 @@
 
     const ID_TOAST =
         'tm-acoes-cliente-toast';
+
+    const CHAVE_OS_SKYTINS =
+        'tm-os-skytins-paulo';
+
+
+    // =========================================================
+    // IDENTIFICAÇÃO DA OS
+    // =========================================================
+
+    function verificarOSSkyTins() {
+
+        const parametros =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const interno =
+            parametros.get(
+                'tm_interno'
+            );
+
+        /*
+         * A segunda OS é aberta pelo próprio script
+         * com tm_interno=1.
+         *
+         * Quando isso acontecer, marcamos a aba atual
+         * como sendo a OS destinada ao Paulo.
+         *
+         * sessionStorage é usado porque é separado por aba.
+         * Assim, a OS original continua sendo tratada
+         * normalmente na aba anterior.
+         */
+
+        if (interno === '1') {
+
+            sessionStorage.setItem(
+                CHAVE_OS_SKYTINS,
+                '1'
+            );
+
+            return true;
+        }
+
+        return (
+            sessionStorage.getItem(
+                CHAVE_OS_SKYTINS
+            ) === '1'
+        );
+    }
 
 
     // =========================================================
@@ -972,7 +1021,11 @@ SET
     // =========================================================
     // POSIÇÃO DOS BOTÕES
     //
-    // UPDATE | SKYTINS | WHATSAPP
+    // OS CLIENTE:
+    // UPDATE | SKYTINS
+    //
+    // OS PARA PAULO:
+    // UPDATE | WHATSAPP
     // =========================================================
 
     function instalarAcoes() {
@@ -1066,18 +1119,53 @@ SET
             }
         );
 
-        // Ordem solicitada:
+
+        // =====================================================
+        // UPDATE
+        // Continua disponível normalmente
+        // =====================================================
+
         area.appendChild(
             criarBotaoUpdate()
         );
 
-        area.appendChild(
-            criarBotaoSkyTins()
-        );
 
-        area.appendChild(
-            criarBotaoWhatsApp()
-        );
+        // =====================================================
+        // IDENTIFICA QUAL DAS DUAS OS ESTÁ ABERTA
+        // =====================================================
+
+        const osSkyTins =
+            verificarOSSkyTins();
+
+
+        if (osSkyTins) {
+
+            /*
+             * SEGUNDA OS:
+             * OS destinada ao Paulo para solicitar acesso ADM.
+             *
+             * Aqui aparece SOMENTE o botão da mensagem
+             * de WhatsApp relacionada ao fluxo SkyTins.
+             */
+
+            area.appendChild(
+                criarBotaoWhatsApp()
+            );
+
+        } else {
+
+            /*
+             * OS ORIGINAL DO CLIENTE.
+             *
+             * Aqui aparece o botão que abre a segunda OS.
+             * O botão do WhatsApp NÃO aparece.
+             */
+
+            area.appendChild(
+                criarBotaoSkyTins()
+            );
+        }
+
 
         coluna.appendChild(
             area
