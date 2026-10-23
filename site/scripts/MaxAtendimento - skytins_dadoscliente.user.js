@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MaxAtendimento - skytins_dadoscliente
 // @namespace    maxdata.atendimento.skytins_dadoscliente
-// @version      2.1
+// @version      2.2
 // @downloadURL https://caio-csar.github.io/MaxDeck/scripts/MaxAtendimento%20-%20skytins_dadoscliente.user.js
 // @updateURL https://caio-csar.github.io/MaxDeck/scripts/MaxAtendimento%20-%20skytins_dadoscliente.user.js
 // @description  Gera UPDATE de cadastro, abre OS SkyTins, copia mensagem para WhatsApp e copia CNPJ limpo
@@ -42,18 +42,6 @@
                 'tm_interno'
             );
 
-        /*
-         * A segunda OS é aberta pelo próprio script
-         * com tm_interno=1.
-         *
-         * Quando isso acontecer, marcamos a aba atual
-         * como sendo a OS destinada ao Paulo.
-         *
-         * sessionStorage é usado porque é separado por aba.
-         * Assim, a OS original continua sendo tratada
-         * normalmente na aba anterior.
-         */
-
         if (interno === '1') {
 
             sessionStorage.setItem(
@@ -69,6 +57,28 @@
                 CHAVE_OS_SKYTINS
             ) === '1'
         );
+    }
+
+
+    function osSkyTinsJaGravada() {
+
+        if (!verificarOSSkyTins()) {
+            return false;
+        }
+
+        const numeroOS =
+            getValor(
+                'vedId'
+            );
+
+        /*
+         * Só considera a OS SkyTins pronta
+         * depois que existir número de OS.
+         *
+         * Na prévia, vedId vazio = WhatsApp escondido.
+         */
+
+        return !!numeroOS;
     }
 
 
@@ -1024,19 +1034,54 @@ SET
     // OS CLIENTE:
     // UPDATE | SKYTINS
     //
-    // OS PARA PAULO:
+    // PRÉVIA DA OS PAULO:
+    // UPDATE
+    //
+    // OS PAULO GRAVADA:
     // UPDATE | WHATSAPP
     // =========================================================
 
     function instalarAcoes() {
 
-        if (
+        const osSkyTins =
+            verificarOSSkyTins();
+
+        const osGravada =
+            osSkyTinsJaGravada();
+
+        const existente =
             document.getElementById(
                 ID_ACOES
-            )
-        ) {
-            return;
+            );
+
+
+        /*
+         * Como a OS pode ser gravada sem recarregar
+         * completamente a página, removemos a área anterior
+         * para permitir que os botões sejam recalculados.
+         */
+
+        if (existente) {
+
+            const estadoAtual =
+                existente.dataset.tmEstado;
+
+            const estadoNovo =
+                osSkyTins
+                    ? (
+                        osGravada
+                            ? 'skytins-gravada'
+                            : 'skytins-previa'
+                    )
+                    : 'cliente';
+
+            if (estadoAtual === estadoNovo) {
+                return;
+            }
+
+            existente.remove();
         }
+
 
         const campoAbertura =
             document.getElementById(
@@ -1091,6 +1136,21 @@ SET
         coluna.className =
             'col-lg-4 col-md-4 col-sm-12';
 
+
+        if (osSkyTins) {
+
+            coluna.dataset.tmEstado =
+                osGravada
+                    ? 'skytins-gravada'
+                    : 'skytins-previa';
+
+        } else {
+
+            coluna.dataset.tmEstado =
+                'cliente';
+        }
+
+
         const area =
             document.createElement(
                 'div'
@@ -1120,51 +1180,42 @@ SET
         );
 
 
-        // =====================================================
-        // UPDATE
-        // Continua disponível normalmente
-        // =====================================================
-
+        // UPDATE continua disponível
         area.appendChild(
             criarBotaoUpdate()
         );
 
 
-        // =====================================================
-        // IDENTIFICA QUAL DAS DUAS OS ESTÁ ABERTA
-        // =====================================================
-
-        const osSkyTins =
-            verificarOSSkyTins();
-
-
-        if (osSkyTins) {
+        if (!osSkyTins) {
 
             /*
-             * SEGUNDA OS:
-             * OS destinada ao Paulo para solicitar acesso ADM.
+             * OS ORIGINAL DO CLIENTE
              *
-             * Aqui aparece SOMENTE o botão da mensagem
-             * de WhatsApp relacionada ao fluxo SkyTins.
-             */
-
-            area.appendChild(
-                criarBotaoWhatsApp()
-            );
-
-        } else {
-
-            /*
-             * OS ORIGINAL DO CLIENTE.
-             *
-             * Aqui aparece o botão que abre a segunda OS.
-             * O botão do WhatsApp NÃO aparece.
+             * Mostra botão para abrir a OS SkyTins.
              */
 
             area.appendChild(
                 criarBotaoSkyTins()
             );
+
+        } else if (osGravada) {
+
+            /*
+             * OS SKYTINS JÁ GRAVADA
+             *
+             * Só agora mostra o WhatsApp.
+             */
+
+            area.appendChild(
+                criarBotaoWhatsApp()
+            );
         }
+
+
+        /*
+         * Se for OS SkyTins ainda em prévia,
+         * não adiciona nenhum dos dois botões.
+         */
 
 
         coluna.appendChild(
@@ -1298,8 +1349,27 @@ SET
                 true,
 
             subtree:
-                true
+                true,
+
+            attributes:
+                true,
+
+            attributeFilter: [
+                'value'
+            ]
         }
+    );
+
+
+    /*
+     * Garantia adicional:
+     * se o sistema preencher o número da OS via JavaScript,
+     * verificamos periodicamente se ela já foi gravada.
+     */
+
+    setInterval(
+        iniciar,
+        1000
     );
 
 })();

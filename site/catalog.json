@@ -726,7 +726,7 @@
   {
     "id": "S045",
     "name": "MaxAtendimento - skytins_dadoscliente",
-    "version": "2.1",
+    "version": "2.2",
     "file": "MaxAtendimento - skytins_dadoscliente.user.js",
     "description": "Gera UPDATE de cadastro, abre OS SkyTins, copia mensagem para WhatsApp e copia CNPJ limpo",
     "category": "MaxAtendimento",
@@ -735,7 +735,7 @@
     "accessSalt": "",
     "accessHash": "",
     "displayOrder": 3,
-    "updatedAt": "2026-10-23T18:04:44.696Z",
+    "updatedAt": "2026-10-23T18:12:00.990Z",
     "media": [
       {
         "path": "media/maxatendimento-skytins-dadoscliente/5b00c052-faee-447d-8eb9-014c36426cc5.png",
