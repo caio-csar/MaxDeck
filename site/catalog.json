@@ -190,16 +190,16 @@
   {
     "id": "S012",
     "name": "TendiChat - Abrir Atendimento por CNPJ",
-    "version": "1.9",
+    "version": "1.9.1",
     "file": "TendiChat - Abrir Atendimento por CNPJ.user.js",
-    "description": "Identifica CNPJ no TendiChat e abre atendimento comum ou suporte interno automaticamente",
+    "description": "Identifica CNPJ e abre atendimento; corrige selecao do tipo Suporte Interno",
     "category": "TendiChat",
     "enabled": true,
     "featured": true,
     "accessSalt": "",
     "accessHash": "",
     "displayOrder": 4,
-    "updatedAt": "2026-08-27T18:31:09.960Z",
+    "updatedAt": "2026-10-23T17:46:17.695Z",
     "media": [
       {
         "path": "media/tendichat-abrir-atendimento-por-cnpj/879eac27-9ab9-4b6a-8591-712dbe851d80.png",

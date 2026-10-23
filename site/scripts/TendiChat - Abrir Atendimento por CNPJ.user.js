@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         TendiChat - Abrir Atendimento por CNPJ
 // @namespace    maxdata.tendichat.cnpj.atendimento
-// @version      1.9
+// @version      1.9.1
 // @downloadURL https://caio-csar.github.io/MaxDeck/scripts/TendiChat%20-%20Abrir%20Atendimento%20por%20CNPJ.user.js
 // @updateURL https://caio-csar.github.io/MaxDeck/scripts/TendiChat%20-%20Abrir%20Atendimento%20por%20CNPJ.user.js
-// @description  Identifica CNPJ no TendiChat e abre atendimento comum ou suporte interno automaticamente
+// @description  Identifica CNPJ e abre atendimento; corrige selecao do tipo Suporte Interno
 // @match        *://*.tendichat.com.br/*
 // @match        *://tendichat.com.br/*
 // @match        *://externo.maxdatasistema.com.br/Atendimentos/Atendimento*
@@ -1229,6 +1229,84 @@
         );
     }
 
+    // O campo TipoSuporteDesc usa uma lista de sugestões: apenas digitar
+    // o texto e disparar Enter não garante a seleção do registro.
+    async function selecionarTipoSuporteInterno(timeout = 20000) {
+        const seletor = '#TipoSuporteDesc';
+        const alvo = 'INTERNO/SUPORTE INTERNO';
+        const inicio = Date.now();
+        const normalAlvo = normalizarTexto(alvo);
+        const seletoresSugestao = [
+            '.ui-autocomplete .ui-menu-item',
+            '.ui-autocomplete .ui-menu-item-wrapper',
+            '.ui-menu .ui-menu-item',
+            '.select2-results__option',
+            '.select2-result-label',
+            '.tt-suggestion',
+            '.typeahead.dropdown-menu li',
+            '.dropdown-menu .dropdown-item',
+            '[role="listbox"] [role="option"]',
+            '[role="option"]'
+        ].join(',');
+
+        function visivel(el) {
+            if (!el || !el.isConnected) return false;
+            const r = el.getBoundingClientRect();
+            const css = getComputedStyle(el);
+            return r.width > 0 && r.height > 0 && css.visibility !== 'hidden' && css.display !== 'none';
+        }
+
+        function opcaoCorrespondente() {
+            const itens = Array.from(document.querySelectorAll(seletoresSugestao));
+            return itens.find(el => visivel(el) && normalizarTexto(el.textContent) === normalAlvo)
+                || itens.find(el => visivel(el) && normalizarTexto(el.textContent).includes(normalAlvo));
+        }
+
+        // Primeiro procura uma opção real; se não houver, estimula o autocomplete
+        // digitando o trecho inicial e aguardando a lista aparecer.
+        let campo = await aguardarElemento(seletor, timeout);
+        if (campo.tagName === 'SELECT') {
+            if (!selecionarOpcaoPorTexto(campo, alvo)) throw new Error('Tipo de suporte não encontrado no SELECT');
+            return;
+        }
+
+        campo.focus();
+        definirValorInput(campo, 'INTERNO');
+        campo.dispatchEvent(new KeyboardEvent('keydown', {
+            key: 'o', code: 'KeyO', bubbles: true
+        }));
+        campo.dispatchEvent(new KeyboardEvent('keyup', {
+            key: 'o', code: 'KeyO', bubbles: true
+        }));
+        if (window.jQuery) {
+            try { window.jQuery(campo).trigger('keyup').trigger('input'); } catch (e) {}
+        }
+
+        let opcao = null;
+        while (Date.now() - inicio < timeout) {
+            opcao = opcaoCorrespondente();
+            if (opcao) break;
+            await sleep(200);
+        }
+
+        if (!opcao) {
+            throw new Error('Lista não exibiu a opção INTERNO/SUPORTE INTERNO; seleção não confirmada');
+        }
+
+        // Seleciona o item da lista em vez de apenas inserir o texto no campo.
+        opcao.scrollIntoView({block: 'nearest'});
+        for (const tipo of ['pointerdown', 'mousedown', 'pointerup', 'mouseup', 'click']) {
+            const Evento = tipo.startsWith('pointer') && window.PointerEvent ? PointerEvent : MouseEvent;
+            opcao.dispatchEvent(new Evento(tipo, {bubbles: true, cancelable: true, view: window}));
+        }
+        await sleep(350);
+        campo = document.querySelector(seletor) || campo;
+        const valor = normalizarTexto(campo.value || campo.textContent);
+        if (valor !== normalAlvo) {
+            throw new Error(`Seleção não confirmada: campo retornou "${campo.value || ''}"`);
+        }
+    }
+
     async function tentarPreencherInterno(
         descricao,
         acao
@@ -1392,11 +1470,7 @@
                     'o tipo de suporte',
                     async () => {
 
-                        await aguardarESelecionarOpcao(
-                            '#TipoSuporteDesc',
-                            'INTERNO/SUPORTE INTERNO',
-                            20000
-                        );
+                        await selecionarTipoSuporteInterno(20000);
                     }
                 );
 
