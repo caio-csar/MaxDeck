@@ -8,6 +8,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 1,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -21,6 +23,8 @@
     "category": "MaxAtendimento",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 2,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -34,6 +38,8 @@
     "category": "MaxAtendimento",
     "enabled": false,
     "featured": true,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 2,
     "updatedAt": "2026-08-19T17:48:51.000Z",
     "media": [
@@ -53,6 +59,8 @@
     "category": "MaxAtendimento",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 2,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": [
@@ -77,6 +85,8 @@
     "category": "MaxAtendimento",
     "enabled": true,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 2,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -90,6 +100,8 @@
     "category": "MaxAtendimento",
     "enabled": true,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 3,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -103,6 +115,8 @@
     "category": "MaxAtendimento",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 6,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -116,6 +130,8 @@
     "category": "MaxAtendimento",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 7,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -129,6 +145,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": true,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 3,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": [
@@ -148,6 +166,8 @@
     "category": "MaxAtendimento",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 8,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -161,6 +181,8 @@
     "category": "Outros",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 9,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -174,6 +196,8 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": true,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 4,
     "updatedAt": "2026-08-27T18:31:09.960Z",
     "media": [
@@ -193,6 +217,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 5,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -206,6 +232,8 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": true,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 5,
     "updatedAt": "2026-10-15T19:18:45.441Z",
     "media": [
@@ -225,6 +253,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": true,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 4,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -238,6 +268,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 6,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -251,6 +283,8 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 1,
     "updatedAt": "2026-09-28T17:42:05.279Z",
     "media": [
@@ -270,6 +304,8 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": true,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 9,
     "updatedAt": "2026-09-28T18:04:39.664Z",
     "media": [
@@ -289,6 +325,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 14,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -302,6 +340,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 16,
     "updatedAt": "2026-08-24T14:05:00.000Z",
     "media": []
@@ -315,6 +355,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 15,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -328,6 +370,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 17,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -341,6 +385,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 18,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -354,6 +400,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 19,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -367,6 +415,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 20,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -380,6 +430,8 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 4,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -393,6 +445,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 22,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -406,6 +460,8 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": true,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 8,
     "updatedAt": "2026-10-14T23:51:35.062Z",
     "media": []
@@ -419,6 +475,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 24,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -432,6 +490,8 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 5,
     "updatedAt": "2026-09-28T19:01:42.796Z",
     "media": []
@@ -445,6 +505,8 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": true,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 1,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": [
@@ -469,6 +531,8 @@
     "category": "Outros",
     "enabled": true,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 6,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -482,6 +546,8 @@
     "category": "Outros",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 28,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -495,6 +561,8 @@
     "category": "Outros",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 29,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -508,6 +576,8 @@
     "category": "Outros",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 30,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -521,6 +591,8 @@
     "category": "MaxAtendimento",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 31,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -534,6 +606,8 @@
     "category": "MaxAtendimento",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 32,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -547,6 +621,8 @@
     "category": "MaxAtendimento",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 33,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -560,6 +636,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 34,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -573,6 +651,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 35,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -586,6 +666,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 36,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -599,6 +681,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 37,
     "updatedAt": "2026-08-18T17:33:15.000Z",
     "media": []
@@ -612,6 +696,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 10,
     "updatedAt": "2026-08-20T13:21:03.000Z",
     "media": [
@@ -631,6 +717,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 38,
     "updatedAt": "2026-09-10T14:54:33.569Z",
     "media": []
@@ -644,6 +732,8 @@
     "category": "MaxAtendimento",
     "enabled": true,
     "featured": true,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 3,
     "updatedAt": "2026-09-28T17:28:25.839Z",
     "media": [
@@ -663,6 +753,8 @@
     "category": "TendiChat",
     "enabled": false,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 39,
     "updatedAt": "2026-09-10T20:55:16.426Z",
     "media": []
@@ -676,6 +768,8 @@
     "category": "MaxAtendimento",
     "enabled": true,
     "featured": true,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 6,
     "updatedAt": "2026-09-28T17:53:44.691Z",
     "media": [
@@ -695,6 +789,8 @@
     "category": "Outros",
     "enabled": true,
     "featured": true,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 7,
     "updatedAt": "2026-09-28T13:49:44.826Z",
     "media": [
@@ -714,6 +810,8 @@
     "category": "MaxAtendimento",
     "enabled": true,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 7,
     "updatedAt": "2026-10-14T23:42:53.868Z",
     "media": []
@@ -727,8 +825,10 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": true,
+    "accessSalt": "7032ad928764dd67b6ceeeec4e12063c",
+    "accessHash": "b1d0ab7f228593490a67c7d4aae8d41de820c4e3d2400a39b2c06e8bb7b3a6d4",
     "displayOrder": 2,
-    "updatedAt": "2026-10-15T17:10:00.000Z",
+    "updatedAt": "2026-10-23T14:45:40.907Z",
     "media": [
       {
         "path": "media/maxatendimento-tendichat-solicita-chat-ao-transferbot/9aea4070-b31f-456c-a23c-0ceb91c8564b.gif",
@@ -746,6 +846,8 @@
     "category": "MaxAtendimento",
     "enabled": true,
     "featured": true,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 10,
     "updatedAt": "2026-10-19T11:58:39.084Z",
     "media": []
@@ -759,6 +861,8 @@
     "category": "MaxAtendimento",
     "enabled": true,
     "featured": true,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 11,
     "updatedAt": "2026-10-19T18:13:37.258Z",
     "media": [
@@ -778,6 +882,8 @@
     "category": "TendiChat",
     "enabled": true,
     "featured": false,
+    "accessSalt": "",
+    "accessHash": "",
     "displayOrder": 40,
     "updatedAt": "2026-10-21T20:21:05.014Z",
     "media": []
