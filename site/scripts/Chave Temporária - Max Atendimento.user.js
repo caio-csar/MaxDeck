@@ -75,7 +75,7 @@
             const mensagem =
 `${saudacao}!
 
-Cliente ${cliente} solicita chave temporária.`;
+Cliente ${cliente} solicita chave provisoria.`;
 
             copiarTexto(mensagem);
 
