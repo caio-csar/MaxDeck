@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MaxAtendimento -> Tendichat | Solicita chat ao Transferbot
 // @namespace    maxdeck
-// @version      2.0.1
+// @version      2.0.2
 // @downloadURL https://caio-csar.github.io/MaxDeck/scripts/MaxAtendimento%20-%20Tendichat%20Solicita%20chat%20ao%20Transferbot.user.js
 // @updateURL https://caio-csar.github.io/MaxDeck/scripts/MaxAtendimento%20-%20Tendichat%20Solicita%20chat%20ao%20Transferbot.user.js
 // @description  Botão de contato + solicitação ao TransferBot. Após solicitar, muda o TendiChat para a aba Pendente.
@@ -21,6 +21,14 @@
     // =========================================================
 
     const CHAVE = 'maxdata_tendichat_solicitar_chat';
+
+    const CHAVE_PROCESSADOS =
+        'maxdeck_transferbot_processados_v1';
+
+    const LOCK_PROCESSAMENTO =
+        'maxdeck_transferbot_lock_v1';
+
+    const LIMITE_PROCESSADOS = 100;
 
     const DESTINATARIO = 'Transferência';
 
@@ -42,6 +50,205 @@
         return new Promise(resolve =>
             setTimeout(resolve, ms)
         );
+    }
+
+
+    function lerProcessadosEntreAbas() {
+        try {
+            const bruto =
+                localStorage.getItem(
+                    CHAVE_PROCESSADOS
+                );
+
+            const lista =
+                JSON.parse(bruto || '[]');
+
+            return Array.isArray(lista)
+                ? lista
+                : [];
+
+        } catch (erro) {
+            console.warn(
+                '[MAX -> TENDI]',
+                'Falha ao ler deduplicação entre abas:',
+                erro
+            );
+
+            return [];
+        }
+    }
+
+
+    function jaFoiProcessadoEntreAbas(id) {
+        if (!id) {
+            return false;
+        }
+
+        return lerProcessadosEntreAbas()
+            .some(item =>
+                item &&
+                String(item.id) === String(id)
+            );
+    }
+
+
+    function marcarProcessadoEntreAbas(id) {
+        if (!id) {
+            return;
+        }
+
+        const agora = Date.now();
+        const idTexto = String(id);
+
+        const lista =
+            lerProcessadosEntreAbas()
+                .filter(item =>
+                    item &&
+                    String(item.id) !== idTexto
+                );
+
+        lista.push({
+            id: idTexto,
+            ts: agora
+        });
+
+        while (lista.length > LIMITE_PROCESSADOS) {
+            lista.shift();
+        }
+
+        localStorage.setItem(
+            CHAVE_PROCESSADOS,
+            JSON.stringify(lista)
+        );
+    }
+
+
+    async function processarPacoteUmaVezEntreAbas(
+        valorNovo
+    ) {
+        const pacoteId =
+            valorNovo && valorNovo.id
+                ? String(valorNovo.id)
+                : '';
+
+        if (!pacoteId) {
+            return receberDaMaxData(valorNovo);
+        }
+
+        const executar = async () => {
+            if (jaFoiProcessadoEntreAbas(pacoteId)) {
+                console.log(
+                    '[MAX -> TENDI]',
+                    'Pacote já processado por outra aba. Ignorado:',
+                    pacoteId
+                );
+
+                return false;
+            }
+
+            const sucesso =
+                await receberDaMaxData(
+                    valorNovo
+                );
+
+            if (sucesso) {
+                marcarProcessadoEntreAbas(
+                    pacoteId
+                );
+            }
+
+            return sucesso;
+        };
+
+        /*
+         * Web Locks é compartilhado entre abas do mesmo domínio.
+         * Enquanto uma aba processa o pacote, as demais aguardam.
+         * Quando recebem a vez, enxergam o ID já concluído e ignoram.
+         */
+        if (
+            navigator.locks &&
+            typeof navigator.locks.request === 'function'
+        ) {
+            return navigator.locks.request(
+                LOCK_PROCESSAMENTO,
+                executar
+            );
+        }
+
+        /*
+         * Fallback para navegadores sem Web Locks.
+         */
+        const chaveClaim =
+            'maxdeck_transferbot_claim_' +
+            pacoteId;
+
+        const token =
+            Date.now() +
+            '_' +
+            Math.random();
+
+        try {
+            const existente =
+                JSON.parse(
+                    localStorage.getItem(
+                        chaveClaim
+                    ) || 'null'
+                );
+
+            if (
+                existente &&
+                Date.now() - Number(existente.ts || 0) < 30000
+            ) {
+                return false;
+            }
+
+            localStorage.setItem(
+                chaveClaim,
+                JSON.stringify({
+                    token,
+                    ts: Date.now()
+                })
+            );
+
+            await esperar(80);
+
+            const atual =
+                JSON.parse(
+                    localStorage.getItem(
+                        chaveClaim
+                    ) || 'null'
+                );
+
+            if (
+                !atual ||
+                atual.token !== token
+            ) {
+                return false;
+            }
+
+            return await executar();
+
+        } finally {
+            try {
+                const atual =
+                    JSON.parse(
+                        localStorage.getItem(
+                            chaveClaim
+                        ) || 'null'
+                    );
+
+                if (
+                    atual &&
+                    atual.token === token
+                ) {
+                    localStorage.removeItem(
+                        chaveClaim
+                    );
+                }
+            } catch (erro) {
+                // Sem ação: a trava expira sozinha em 30 segundos.
+            }
+        }
     }
 
 
@@ -1118,7 +1325,7 @@
             !valorNovo ||
             !valorNovo.codigo
         ) {
-            return;
+            return false;
         }
 
 
@@ -1128,7 +1335,7 @@
                 ultimoIdProcessado
         ) {
 
-            return;
+            return false;
         }
 
 
@@ -1150,7 +1357,7 @@
                 codigo
             );
 
-            return;
+            return false;
         }
 
 
@@ -1179,7 +1386,7 @@
                 'Fluxo interrompido porque o chat interno não abriu.'
             );
 
-            return;
+            return false;
         }
 
 
@@ -1203,18 +1410,8 @@
                 'Campo "Buscar usuários..." não encontrado.'
             );
 
-            return;
+            return false;
         }
-
-
-        /*
-         * Somente marca como processado
-         * depois que conseguimos abrir
-         * o chat e encontrar o campo.
-         */
-
-        ultimoIdProcessado =
-            valorNovo.id || null;
 
 
         // =====================================================
@@ -1258,8 +1455,14 @@
 
 
         if (solicitacaoEnviada) {
+            ultimoIdProcessado =
+                valorNovo.id || null;
+
             await mostrarPendentes();
+            return true;
         }
+
+        return false;
     }
 
 
@@ -1297,9 +1500,15 @@
             );
 
 
-            receberDaMaxData(
+            processarPacoteUmaVezEntreAbas(
                 valorNovo
-            );
+            ).catch(erro => {
+                console.error(
+                    '[MAX -> TENDI]',
+                    'Erro na trava entre abas:',
+                    erro
+                );
+            });
         }
     );
 
