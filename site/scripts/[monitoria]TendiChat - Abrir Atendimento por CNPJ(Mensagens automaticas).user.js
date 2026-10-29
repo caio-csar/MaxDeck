@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         [monitoria]TendiChat - Abrir Atendimento por CNPJ(Mensagens automaticas)
 // @namespace    maxdata.tendichat.cnpj.atendimento
-// @version      2.1
+// @version      2.2
 // @downloadURL https://caio-csar.github.io/MaxDeck/scripts/%5Bmonitoria%5DTendiChat%20-%20Abrir%20Atendimento%20por%20CNPJ(Mensagens%20automaticas).user.js
 // @updateURL https://caio-csar.github.io/MaxDeck/scripts/%5Bmonitoria%5DTendiChat%20-%20Abrir%20Atendimento%20por%20CNPJ(Mensagens%20automaticas).user.js
 // @description  Identifica CNPJ, solicita descrição automaticamente e abre atendimento comum ou suporte interno
@@ -27,6 +27,7 @@
 
     const MENSAGEM_AUTOMATICA = 'Certo, agora por favor, envie em texto uma breve descrição do motivo para o suporte.';
     const MENSAGEM_CONFIRMACAO = 'Suas informações foram repassadas à nossa equipe de suporte.\nAguarde! Um analista irá falar com você.';
+    const CHAVE_DESCRICAO = 'tendichat_cnpj_descricao_v22:';
     const atendimentosPendentes = new Map();
     const mensagensVistas = new Set();
     const mensagensAgendadas = new Set();
@@ -246,7 +247,45 @@
         return '';
     }
 
-    function abrirAtendimento(cnpj, contato, modoInterno = false) {
+    function recuperarDescricao(contato, cnpj) {
+        if (!contato) return '';
+        const pendente = atendimentosPendentes.get(contato);
+        if (pendente && pendente.cnpj === somenteNumeros(cnpj) && pendente.descricao) {
+            return pendente.descricao;
+        }
+        try {
+            const registro = JSON.parse(sessionStorage.getItem(CHAVE_DESCRICAO + contato) || 'null');
+            return registro && registro.cnpj === somenteNumeros(cnpj) ? String(registro.descricao || '') : '';
+        } catch (e) {
+            return '';
+        }
+    }
+
+    // Plano B: recupera a resposta diretamente das mensagens após o CNPJ
+    // que contém o botão clicado, sem depender apenas do estado em memória.
+    function localizarDescricaoNaConversa(articleCnpj, contato) {
+        if (!articleCnpj) return '';
+        const artigos = Array.from(document.querySelectorAll('div[id^="wamid."] article'));
+        const inicio = artigos.indexOf(articleCnpj);
+        if (inicio < 0) return '';
+
+        let resposta = '';
+        for (const artigo of artigos.slice(inicio + 1)) {
+            if (!isMensagemRealDoChat(artigo)) continue;
+            const contatoMensagem = chaveDaConversa(artigo);
+            if (contato && contatoMensagem && contatoMensagem !== contato) continue;
+            const texto = obterTextoMensagem(artigo).trim();
+            if (texto === MENSAGEM_CONFIRMACAO) break;
+            if (!texto || texto === MENSAGEM_AUTOMATICA) continue;
+            if (artigo.closest('article[content="Suporte"]')) continue;
+            if (extrairCandidatosCNPJ(texto).some(c => c.valido)) break;
+            resposta = texto.slice(0, 1500);
+            break;
+        }
+        return resposta;
+    }
+
+    function abrirAtendimento(cnpj, contato, modoInterno = false, articleCnpj = null) {
         const url = new URL(ATENDIMENTO_URL);
 
         url.searchParams.set('tm_auto', '1');
@@ -262,6 +301,14 @@
         if (modoInterno) {
             url.searchParams.set('tm_interno', '1');
         }
+
+        const descricao = recuperarDescricao(contato, cnpj) || localizarDescricaoNaConversa(articleCnpj, contato);
+        if (descricao) {
+            url.searchParams.set('tm_descricao', descricao);
+        } else {
+            console.warn('[TendiChat CNPJ] Descrição não encontrada nesta conversa.');
+        }
+        console.info('[TendiChat CNPJ] Abrindo atendimento | descrição:', descricao || '(ausente)');
 
         window.open(url.toString(), '_blank');
     }
@@ -402,6 +449,15 @@
         const artigos = Array.from(document.querySelectorAll('div[id^="wamid."] article'));
         if (artigos[artigos.length - 1] !== article) return;
 
+        // A resposta textual é vinculada ao contato e ao CNPJ desta solicitação.
+        const descricao = obterTextoMensagem(article).trim().slice(0, 1500);
+        if (descricao) {
+            pendente.descricao = descricao;
+            sessionStorage.setItem(CHAVE_DESCRICAO + contato, JSON.stringify({
+                cnpj: pendente.cnpj,
+                descricao: descricao
+            }));
+        }
         pendente.estado = 'confirmando';
         pendente.idsIgnorados.add(wrapper.id);
         setTimeout(() => {
@@ -443,8 +499,10 @@
             desligarChaveDoChat();
             if (enviarMensagemTendiChat(MENSAGEM_AUTOMATICA)) {
                 sessionStorage.setItem(chave, '1');
+                sessionStorage.removeItem(CHAVE_DESCRICAO + contato);
                 atendimentosPendentes.set(contato, {
-                    estado: 'aguardando', cnpjWamid: wrapper.id,
+                    estado: 'aguardando', cnpj: candidatos.find(c => c.valido).cnpj,
+                    cnpjWamid: wrapper.id,
                     idsIgnorados: new Set([wrapper.id])
                 });
                 console.info('[TendiChat CNPJ] Solicitação de descrição enviada para', contato);
@@ -550,7 +608,9 @@
 
                     abrirAtendimento(
                         candidato.cnpj,
-                        contato
+                        contato,
+                        false,
+                        article
                     );
                 }
             );
@@ -726,7 +786,8 @@
                 abrirAtendimento(
                     candidato.cnpj,
                     contato,
-                    true
+                    true,
+                    article
                 );
             }
         );
@@ -1427,6 +1488,8 @@
                 'tm_interno'
             ) === '1';
 
+        const descricaoPrevia = params.get('tm_descricao') || '';
+
         if (
             auto !== '1' ||
             cnpj.length !== 14
@@ -1483,6 +1546,30 @@
                     );
 
                     await sleep(400);
+                }
+            }
+
+            // Campo de descrição prévia para impressão, sem alterar os demais campos.
+            if (descricaoPrevia) {
+                try {
+                    const campoPrevia = await aguardarElemento(
+                        '#vedAtendDescricaoImpressao', 20000
+                    );
+                    // Algumas atualizações do formulário recriam o textarea.
+                    // Reconfere por poucos segundos, sem sobrescrever edição manual.
+                    for (let tentativa = 0; tentativa < 5; tentativa++) {
+                        const atual = document.querySelector('#vedAtendDescricaoImpressao');
+                        if (atual && (!atual.value || atual.value === descricaoPrevia)) {
+                            if (atual.value !== descricaoPrevia) definirValorInput(atual, descricaoPrevia);
+                        } else if (atual && atual.value !== descricaoPrevia) {
+                            break; // respeita conteúdo editado pelo analista
+                        }
+                        await sleep(450);
+                    }
+                    console.info('[TendiChat CNPJ] Descrição prévia conferida:',
+                        document.querySelector('#vedAtendDescricaoImpressao')?.value);
+                } catch (e) {
+                    console.warn('[TendiChat CNPJ] Não foi possível preencher a descrição prévia:', e);
                 }
             }
 
