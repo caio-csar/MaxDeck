@@ -19,12 +19,6 @@
       .brand-title .brand-max { color:#f4f5f7; }
       .brand-title .brand-deck { background:linear-gradient(140deg,#ff6b78 0%,#dc2338 60%,#9f1225 100%); -webkit-background-clip:text; background-clip:text; color:transparent; }
       .subtitle { max-width:680px; margin:11px auto 0; color:var(--muted); font-size:clamp(14px,2vw,16px); line-height:1.5; }
-      .integration-strip { display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:9px; margin-top:25px; }
-      .integration-label { margin-right:3px; color:#747b86; font-size:10px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
-      .tool { display:inline-flex; align-items:center; justify-content:center; min-width:120px; height:37px; padding:7px 13px; border:1px solid var(--line); border-radius:9px; background:rgba(21,23,28,.82); }
-      .tool img { display:block; max-width:116px; max-height:23px; object-fit:contain; }
-      .tool.chatgpt { gap:8px; color:#e6e8eb; font-size:13px; font-weight:650; }
-      .tool.chatgpt img { width:21px; height:21px; border-radius:5px; }
       .setup-callout { display:flex; align-items:center; justify-content:space-between; gap:18px; max-width:760px; margin:26px auto 0; padding:13px 14px 13px 18px; border:1px solid var(--line); border-radius:12px; background:rgba(17,19,24,.9); text-align:left; box-shadow:var(--shadow); }
       .setup-copy strong { display:block; font-size:13px; }
       .setup-copy span { color:var(--muted); font-size:12px; }
@@ -94,7 +88,7 @@
       .portal-toast.show { opacity:1; transform:none; }
       .portal-toast.error { background:#44171d; color:#ffc0c7; }
       @media(max-width:900px) { .grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-      @media(max-width:640px) { .hero{padding:34px 18px 24px}.integration-label{width:100%;margin:0 0 2px}.tool{min-width:101px;height:34px;padding:6px 10px}.tool img{max-width:94px;max-height:20px}.setup-callout{align-items:stretch;flex-direction:column;padding:14px}.primary{width:100%;text-align:center}.catalog{padding:22px 12px 55px}.catalog-panel{padding:17px 12px;border-radius:13px}.top{align-items:start;flex-direction:column}.search{width:100%}.grid{grid-template-columns:1fr} }
+      @media(max-width:640px) { .hero{padding:34px 18px 24px}.setup-callout{align-items:stretch;flex-direction:column;padding:14px}.primary{width:100%;text-align:center}.catalog{padding:22px 12px 55px}.catalog-panel{padding:17px 12px;border-radius:13px}.top{align-items:start;flex-direction:column}.search{width:100%}.grid{grid-template-columns:1fr} }
       @media(prefers-reduced-motion:reduce) { html{scroll-behavior:auto}.card{transition:none}.card.focus-target.focus-animate{animation:none} }
     </style>
   </head>
@@ -133,7 +127,7 @@
       };
       const byId=id=>document.getElementById(id);
       const escapeHtml=value=>String(value??"").replace(/[&<>"']/g,character=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[character]));
-      const group=name=>/TendiChat|Tendichat/.test(name)?"TendiChat":/Max|Maxdata/.test(name)?"MaxAtendimento":"Outros";
+      const group=name=>/TendiChat|Tendichat/.test(name)?"TendiChat":/Max/.test(name)?"MaxAtendimento":"Outros";
       const mediaPath=path=>String(path||"").split("/").map(encodeURIComponent).join("/");
       let catalogItems=[],all=[],currentCategory="Todos";
       function showMessage(message,isError=false){const element=byId("portalToast");element.textContent=message;element.className=`portal-toast show${isError?" error":""}`;clearTimeout(showMessage.timer);showMessage.timer=setTimeout(()=>element.className="portal-toast",3800)}
