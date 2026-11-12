@@ -900,7 +900,13 @@
     "accessSalt": "",
     "accessHash": "",
     "displayOrder": 41,
-    "updatedAt": "2026-11-12T14:16:36.471Z",
-    "media": []
+    "updatedAt": "2026-11-12T14:28:40.300Z",
+    "media": [
+      {
+        "path": "media/tendichat-gemini-api-relato-os/437e45af-3d5a-4c41-b1b8-ec812c5d6d3d.gif",
+        "alt": "",
+        "type": "image/gif"
+      }
+    ]
   }
 ]
