@@ -908,5 +908,20 @@
         "type": "image/gif"
       }
     ]
+  },
+  {
+    "id": "S055",
+    "name": "MaxData | Supervisão de Atendimentos",
+    "version": "0.2.0",
+    "file": "MaxData Supervisão de Atendimentos.user.js",
+    "description": "Pendentes, acompanhamentos, tokens de 30 minutos, relatos persistentes e histórico de encerrados.",
+    "category": "MaxAtendimento",
+    "enabled": true,
+    "featured": false,
+    "accessSalt": "7ecb7bf7c73bf197220bd0efa40c2f71",
+    "accessHash": "5548374f815e2cbc97182ba2eb77bd9474dfdc6d5f2b6604ca49bde93cf3dc9e",
+    "displayOrder": 42,
+    "updatedAt": "2026-11-16T19:03:40.181Z",
+    "media": []
   }
 ]
