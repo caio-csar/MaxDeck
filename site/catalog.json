@@ -927,16 +927,16 @@
   {
     "id": "S056",
     "name": "MaxRelator | Notificador MaxData",
-    "version": "3.1.0",
+    "version": "3.2.0",
     "file": "MaxRelator Notificador MaxData.user.js",
-    "description": "Alertas nativos; foco na fila apenas se disponível; relato abre a OS automaticamente com aviso temporário.",
+    "description": "Fila somente quando disponível; relato próprio abre a OS com aviso central, sem notificação duplicada.",
     "category": "MaxAtendimento",
     "enabled": true,
     "featured": false,
     "accessSalt": "640a332db0f599e4bb75d3de50345028",
     "accessHash": "cd25a4df43c90ef11cc2cbfb558c4d2ac3d26e378df897c5f45e8b0dcfe93c88",
     "displayOrder": 43,
-    "updatedAt": "2026-11-17T20:12:13.694Z",
+    "updatedAt": "2026-11-18T13:07:12.850Z",
     "media": []
   }
 ]

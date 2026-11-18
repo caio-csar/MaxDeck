@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         MaxRelator | Notificador MaxData
 // @namespace    maxdata-maxrelator-local
-// @version      3.1.0
+// @version      3.2.0
 // @downloadURL https://caio-csar.github.io/MaxDeck/scripts/MaxRelator%20Notificador%20MaxData.user.js
 // @updateURL https://caio-csar.github.io/MaxDeck/scripts/MaxRelator%20Notificador%20MaxData.user.js
-// @description  Alertas nativos; foco na fila apenas se disponível; relato abre a OS automaticamente com aviso temporário.
+// @description  Fila somente quando disponível; relato próprio abre a OS com aviso central, sem notificação duplicada.
 // @match        https://painel.maxdata.com.br/*
 // @match        *://externo.maxdatasistema.com.br/Atendimentos/Atendimento/*
 // @run-at       document-start
@@ -29,10 +29,9 @@
 (() => {
     'use strict';
     const BASE = 'http://externo.maxdatasistema.com.br/Atendimentos/Atendimento/';
-    const TESTE_OS = '1160376';
     const MIN = 60000;
     const LIMITE_RELATO = 30 * MIN;
-    const KEY = { analista: 'mr3_analista', comando: 'mr3_comando', ack: 'mr3_ack', avisos: 'mr3_avisos' };
+    const KEY = { analista: 'mr3_analista', comando: 'mr32_comando', ack: 'mr32_ack', avisos: 'mr3_avisos', nomes: 'mr32_nomes' };
     const log = (...args) => console.log('[MaxRelator]', ...args);
     const warn = (...args) => console.warn('[MaxRelator]', ...args);
     const limpar = s => String(s ?? '').replace(/\s+/g, ' ').trim();
@@ -43,38 +42,35 @@
     const osValida = os => /^\d+$/.test(String(os));
     const osNaPagina = () => location.pathname.match(/^\/Atendimentos\/Atendimento\/(\d+)\/?$/i)?.[1] || null;
 
-    // Alertas de fila só podem trazer o painel à frente quando autorizado.
-    function nativa({ title, text, tag, os, destacar = false, lembrete = null }) {
-        const op = { title, text, tag, silent: false, timeout: 0, highlight: destacar === true };
-        if (os && osValida(os)) {
-            op.url = urlOS(os); // fallback se o painel for fechado antes do clique
-            op.onclick = ev => {
-                ev?.preventDefault?.();
-                abrirOuFocar(String(os), lembrete).catch(e => warn('Falha ao abrir OS:', e.message));
-            };
-        }
-        try { GM_notification(op); } catch (e) { warn('Falha na notificação:', e.message); }
+    // Somente os alertas de fila usam a notificação de desktop.
+    function nativa(alerta) {
+        try { GM_notification({ title: alerta.title, text: alerta.text,
+            tag: alerta.tag, silent: false, timeout: 15000, highlight: true }); }
+        catch (e) { warn('Falha na notificação:', e.message); }
     }
 
     // Toast HTML somente na OS correta; sem bloquear os campos nativos.
     let toastTimer, toastFim;
+    const lembretesExibidos = new Set();
     function mostrarToastRelato(lembrete) {
-        if (!lembrete || !osNaPagina()) return;
+        if (!lembrete || String(lembrete.os) !== osNaPagina() || !lembrete.analista || lembrete.analista !== nome(GM_getValue(KEY.analista, ''))) return;
+        if (!lembrete.id || lembretesExibidos.has(lembrete.id)) return;
+        lembretesExibidos.add(lembrete.id);
         const montar = () => {
             if (!document.body) return;
             clearTimeout(toastTimer); clearTimeout(toastFim);
-            document.getElementById('mr31-toast-relato')?.remove();
+            document.getElementById('mr32-toast-relato')?.remove();
             const host = document.createElement('div');
-            host.id = 'mr31-toast-relato';
-            Object.assign(host.style, { position:'fixed', right:'24px', bottom:'24px', zIndex:'2147483647', width:'min(380px, calc(100vw - 48px))', pointerEvents:'none' });
+            host.id = 'mr32-toast-relato';
+            Object.assign(host.style, { position:'fixed', left:'50%', top:'50%', transform:'translate(-50%, -50%)', zIndex:'2147483647', width:'min(490px, calc(100vw - 32px))', pointerEvents:'none' });
             const shadow = host.attachShadow({mode:'open'});
             const style = document.createElement('style');
-            style.textContent = `:host{font-family:Arial,sans-serif} .toast{box-sizing:border-box;background:#20252d;color:#fff;border:1px solid #48515e;border-left:5px solid #ef4444;border-radius:9px;box-shadow:0 7px 26px #0005;overflow:hidden;pointer-events:auto;position:relative;opacity:1;transform:translateY(0);transition:opacity .65s ease, transform .65s ease} .content{padding:16px 36px 15px 15px} strong{font-size:14px;letter-spacing:.3px;color:#fca5a5;display:block;margin:0 0 8px} p{margin:5px 0;font-size:13px;line-height:1.4;color:#f1f5f9;overflow-wrap:anywhere} .small{color:#cbd5e1;font-size:12px} button{position:absolute;top:7px;right:7px;border:0;border-radius:4px;background:transparent;color:#fff;font-size:21px;cursor:pointer;line-height:1;padding:4px 7px} button:hover{background:#ffffff20} .bar{height:3px;background:#ef4444;transform-origin:left;animation:mr31-progress 12s linear forwards}@keyframes mr31-progress{to{transform:scaleX(0)}} .out{opacity:0;transform:translateY(10px);pointer-events:none}@media(prefers-reduced-motion:reduce){.toast{transition:none}.bar{animation:none}}`;
+            style.textContent = `:host{font-family:Arial,sans-serif} .toast{box-sizing:border-box;background:#20252d;color:#fff;border:1px solid #48515e;border-top:5px solid #ef4444;border-radius:9px;box-shadow:0 12px 50px #0008;overflow:hidden;pointer-events:auto;position:relative;opacity:1;transform:translateY(0);transition:opacity .65s ease, transform .65s ease} .content{padding:25px 38px 22px 24px} strong{font-size:19px;letter-spacing:.3px;color:#fca5a5;display:block;margin:0 0 8px} p{margin:5px 0;font-size:15px;line-height:1.5;color:#f1f5f9;overflow-wrap:anywhere} .small{color:#cbd5e1;font-size:12px} button{position:absolute;top:7px;right:7px;border:0;border-radius:4px;background:transparent;color:#fff;font-size:21px;cursor:pointer;line-height:1;padding:4px 7px} button:hover{background:#ffffff20} .bar{height:3px;background:#ef4444;transform-origin:left;animation:mr31-progress 12s linear forwards}@keyframes mr31-progress{to{transform:scaleX(0)}} .out{opacity:0;transform:translateY(10px);pointer-events:none}@media(prefers-reduced-motion:reduce){.toast{transition:none}.bar{animation:none}}`;
             const toast = document.createElement('div'); toast.className='toast'; toast.setAttribute('role','status'); toast.setAttribute('aria-live','polite');
             const content = document.createElement('div'); content.className='content';
             const titulo = document.createElement('strong'); titulo.textContent = '🔴 ⚠ RELATO OBRIGATÓRIO' + (lembrete.teste ? ' · TESTE' : '');
             const os = document.createElement('p'); os.textContent = `OS ${osNaPagina()}${lembrete.cliente ? ' · ' + lembrete.cliente : ''}`;
-            const mensagem = document.createElement('p'); mensagem.textContent = `Hora de relatar! ${Number.isFinite(lembrete.minutos) ? lembrete.minutos : 30} minutos sem relato.`;
+            const mensagem = document.createElement('p'); mensagem.textContent = lembrete.teste ? 'Simulação do aviso. Nenhum relato foi publicado.' : `Hora de relatar! ${Number.isFinite(lembrete.minutos) ? lembrete.minutos : 30} minutos sem relato.`;
             const instrucao = document.createElement('p'); instrucao.className='small'; instrucao.textContent = 'Registre o andamento no campo de acompanhamento da OS.';
             const fechar = document.createElement('button'); fechar.type='button'; fechar.setAttribute('aria-label','Fechar aviso'); fechar.textContent='×';
             const barra = document.createElement('div'); barra.className='bar';
@@ -87,10 +83,10 @@
 
     // O fragmento não é enviado ao servidor; é usado apenas para acionar o toast.
     function urlComLembrete(os, lembrete) {
-        return lembrete ? `${urlOS(os)}#mr31-relato=${encodeURIComponent(JSON.stringify(lembrete))}` : urlOS(os);
+        return lembrete ? `${urlOS(os)}#mr32-relato=${encodeURIComponent(JSON.stringify(lembrete))}` : urlOS(os);
     }
     function lerLembreteURL() {
-        const prefixo = '#mr31-relato=';
+        const prefixo = '#mr32-relato=';
         if (!location.hash.startsWith(prefixo)) return;
         try {
             const lembrete = JSON.parse(decodeURIComponent(location.hash.slice(prefixo.length)));
@@ -104,7 +100,7 @@
         if (!os) return;
         const instancia = id();
         GM_addValueChangeListener(KEY.comando, (_, __, msg) => {
-            if (!msg || msg.alvo !== instancia || String(msg.os) !== osNaPagina()) return;
+            if (!msg || msg.alvo !== instancia || String(msg.os) !== osNaPagina() || !msg.lembrete?.analista || msg.lembrete.analista !== nome(GM_getValue(KEY.analista, ''))) return;
             if (Date.now() - msg.em > 4000) return;
             try {
                 window.focus(); // @grant window.focus: foco da guia pelo Tampermonkey
@@ -154,57 +150,80 @@
     }
     let filaAbertura = Promise.resolve();
     const aberturasRecentes = new Map();
-    function abrirOuFocar(os, lembrete = null) {
+    function abrirOuFocar(os, lembrete, aindaValida = () => true) {
         if (!osValida(os)) return Promise.reject(new Error('OS inválida'));
         filaAbertura = filaAbertura.catch(() => {}).then(async () => {
+            if (!aindaValida()) return false;
             const tabs = await guias();
+            if (!aindaValida()) return false;
             const candidatas = Object.values(tabs).map(t => t?.maxrelator)
                 .filter(t => t?.tipo === 'os' && String(t.os) === os);
             for (const t of candidatas) {
-                if (await solicitarFoco(t.instancia, os, lembrete)) { log('Foco solicitado para guia da OS', os); return; }
+                if (!aindaValida()) return false;
+                if (await solicitarFoco(t.instancia, os, lembrete)) { log('Foco solicitado para guia da OS', os); return true; }
             }
             // Evita abrir duas vezes enquanto uma primeira guia ainda carrega.
+            if (!aindaValida()) return false;
             const recente = aberturasRecentes.get(os);
             if (recente && Date.now() - recente.em < 10000 && !recente.tab?.closed) {
                 try { recente.tab?.focus?.(); } catch (_) {}
-                return;
+                return true;
             }
             const tab = GM_openInTab(urlComLembrete(os, lembrete), { active: true, insert: true });
             aberturasRecentes.set(os, { tab, em: Date.now() });
             for (const [chave, r] of aberturasRecentes) if (Date.now() - r.em > 30000) aberturasRecentes.delete(chave);
             log('Nova guia aberta para OS', os);
+            return true;
         });
         return filaAbertura;
     }
-    function alertaOS(alerta) {
-        nativa({ ...alerta, destacar: false });
-        // Não destaca o painel: abre/foca diretamente a OS no disparo, sem exigir clique.
-        if (osValida(alerta.os)) abrirOuFocar(String(alerta.os), alerta.lembrete).catch(e => {
-            warn('Abertura automática da OS:', e.message);
-            nativa({ title:'MaxRelator — abertura da OS', text:`Não consegui abrir a OS ${alerta.os}. Clique aqui para tentar novamente.`, tag:`mr-erro-abrir-${alerta.os}`, os:alerta.os, lembrete:alerta.lembrete });
-        });
+    // Validação de propriedade antes de abrir e novamente durante a espera da fila.
+    function pertence(r) {
+        return !!(r && configurado && ultimoPacote && Date.now() - ultimoPacote <= 45000 &&
+            nome(r.analista) === nome(configurado) && ativos.get(r.os)?.chave === r.chave);
+    }
+    async function alertaOS(r, minutos, teste = false) {
+        if (!monitorando || !pertence(r)) return false;
+        const lembrete = { id: id(), os: r.os, analista: nome(r.analista), cliente: r.cliente, minutos, teste };
+        // Nenhuma notificação nativa aqui: exclusivamente o aviso HTML dentro da OS.
+        return abrirOuFocar(r.os, lembrete, () => monitorando && pertence(r));
     }
 
-    // Conservador: só autoriza foco se a tabela correta contiver o nome exato.
-    function disponibilidade() {
-        if (!configurado) return 'não configurado';
-        const tabelas = [...document.querySelectorAll('table')].filter(t => {
+    function nomesDisponiveis() {
+        const raiz = document.getElementById('analyst');
+        const fonte = raiz || document;
+        const tabelaRaiz = raiz?.closest('table');
+        const tabelas = [...new Set([...(tabelaRaiz ? [tabelaRaiz] : []), ...fonte.querySelectorAll('table')])].filter(t => {
             const cab = [...t.querySelectorAll('th')].filter(th => th.closest('table') === t).map(th => nome(th.textContent));
             return cab.includes('ATENDENTE') && cab.includes('TEMPO');
         });
-        if (!tabelas.length) return 'não identificada';
+        if (!tabelas.length) return null;
+        const lista = new Map();
         for (const tabela of tabelas) {
-            if (/Nenhum Atendente Dispon[ií]vel/i.test(tabela.innerText || tabela.textContent || '')) continue;
-            const linhas = [...tabela.querySelectorAll('tr')].filter(tr => tr.closest('table') === tabela);
-            for (const tr of linhas) {
+            for (const tr of tabela.querySelectorAll('tr')) {
+                if (tr.closest('table') !== tabela) continue;
                 const celulas = [...tr.cells].filter(c => c.tagName === 'TD');
-                if (celulas.length >= 2 && nome(celulas[0].innerText || celulas[0].textContent) === nome(configurado)) return 'sim';
+                if (celulas.length < 2) continue;
+                const n = limpar(celulas[0].innerText || celulas[0].textContent);
+                if (!n || /nenhum atendente|atendente dispon[ií]vel/i.test(n)) continue;
+                lista.set(nome(n), n);
             }
         }
-        return 'não';
+        return [...lista.values()];
     }
-    function alertaFila(alerta) { nativa({ ...alerta, destacar: disponibilidade() === 'sim' }); }
-
+    function disponibilidade() {
+        if (!configurado) return 'não configurado';
+        if (!ultimoPacote || Date.now() - ultimoPacote > 45000) return 'aguardando dados do painel';
+        const disponiveis = nomesDisponiveis();
+        if (disponiveis === null) return 'não identificada';
+        if ([...ativos.values()].some(r => nome(r.analista) === nome(configurado))) return 'não (em atendimento)';
+        return disponiveis.some(n => nome(n) === nome(configurado)) ? 'sim' : 'não';
+    }
+    function alertaFila(alerta) {
+        if (!monitorando || disponibilidade() !== 'sim') return false;
+        nativa(alerta);
+        return true;
+    }
 
     // ─── Fila pendente: usa DOM, sem incluir o relógio na identidade ───
     // O painel exibido usa HH:mm. Alterar para MM:ss se o formato real mudar.
@@ -275,7 +294,8 @@
     let ativos = new Map(), ultimoPacote = 0;
     let configurado = limpar(GM_getValue(KEY.analista, ''));
     let monitorando = false, ocupado = false;
-    let ultimoErro = 0, pausaAte = 0;
+    let pausaAte = 0, ultimoErro = '';
+    let nomesCache = Array.isArray(GM_getValue(KEY.nomes, [])) ? GM_getValue(KEY.nomes, []) : [];
     let avisos = {};
     function carregarAvisos() {
         const v = GM_getValue(KEY.avisos, {});
@@ -386,13 +406,16 @@
                     const agora = Date.now();
                     const ultimo = lerUltimo(resp.responseText, resp.finalUrl, atual, agora);
                     atual.ultimo = ultimo;
+                    ultimoErro = '';
                     const janela = janelaAviso(ultimo, agora);
                     if (janela > 0) {
                         const marca = `${ultimo}|${janela}`;
                         if (avisos[atual.chave]?.marca !== marca) {
-                            avisos[atual.chave] = { marca, em: agora };
-                            salvarAvisos();
-                            alertaOS({ title: '🔴 ⚠ RELATO OBRIGATÓRIO', text: `Cliente: ${atual.cliente || 'Não informado'}\nOS: ${atual.os} • ${Math.floor((agora - ultimo) / MIN)} min sem relato\nA OS será aberta para relatar.`, tag: `mr-relato-${atual.os}`, os: atual.os, lembrete: { cliente: atual.cliente, minutos: Math.floor((agora - ultimo) / MIN) } });
+                            const abriu = await alertaOS(atual, Math.floor((agora - ultimo) / MIN));
+                            if (abriu) {
+                                avisos[atual.chave] = { marca, em: agora };
+                                salvarAvisos();
+                            }
                         }
                     } else {
                         atual.proxima = Math.max(agora + 1000, ultimo + LIMITE_RELATO);
@@ -401,10 +424,8 @@
                     warn('Consulta da OS', r.os, e.message);
                     // Não acusa falta de relato sem conseguir conferir o histórico.
                     pausaAte = Date.now() + 2 * MIN;
-                    if (Date.now() - ultimoErro > 5 * MIN) {
-                        ultimoErro = Date.now();
-                        nativa({title: '⚙ MaxRelator — consulta indisponível', text: 'Não foi possível conferir os relatos. Verifique o login no MaxAtendimento.', tag: 'mr-consulta-erro' });
-                    }
+                    ultimoErro = e.message;
+                    // Erros ficam no console/diagnóstico, nunca em notificações de desktop.
                     break;
                 } finally { await esperar(1500); }
             }
@@ -420,9 +441,9 @@
         navigator.locks.request('maxrelator-v3-monitor', async () => {
             monitorando = true; pendentes = null; carregarAvisos();
             configurado = limpar(GM_getValue(KEY.analista, ''));
-            timerFila = setInterval(verificarFila, 2000);
+            timerFila = setInterval(() => { verificarFila(); atualizarCadastro(); }, 2000);
             timerRelato = setInterval(verificarRelatos, 10000);
-            verificarFila(); verificarRelatos();
+            verificarFila(); atualizarCadastro(); verificarRelatos();
             log('Monitor ativo. Analista:', configurado || 'configure pelo menu do Tampermonkey');
             await new Promise(resolve => { liberarLock = resolve; });
             monitorando = false;
@@ -435,26 +456,73 @@
         configurado = limpar(v);
         for (const r of ativos.values()) r.proxima = r.de + LIMITE_RELATO;
     });
-    GM_registerMenuCommand('Configurar meu nome de analista', () => {
-        const nomes = [...new Set([...ativos.values()].map(x => x.analista))].sort((a,b) => a.localeCompare(b, 'pt-BR'));
-        const valor = prompt('Digite seu nome exatamente como aparece no painel (vazio desliga os lembretes de relato).\n\nAnalistas em atendimento:\n' + (nomes.join('\n') || 'Ainda não recebidos.'), configurado);
-        if (valor === null) return;
-        configurado = limpar(valor); GM_setValue(KEY.analista, configurado);
-        for (const r of ativos.values()) r.proxima = r.de + LIMITE_RELATO;
-        verificarRelatos();
-    });
-    GM_registerMenuCommand('Testar alerta de novo atendimento', () => alertaFila({title: '🔔 NOVO ATENDIMENTO · TESTE', text: 'Simulação: um atendimento entrou na fila.', tag: 'mr-teste-novo'}));
-    GM_registerMenuCommand('Testar alerta de 5 minutos', () => alertaFila({title: '🟠 ATENDIMENTO AGUARDANDO · TESTE', text: 'Simulação: 5 minutos na fila.', tag: 'mr-teste-5'}));
-    GM_registerMenuCommand('Testar alerta de relato e abertura da OS', () => {
-        const os = prompt('Número da OS para testar a abertura (nenhum relato será publicado):', TESTE_OS);
-        if (!os || !osValida(os.trim())) return;
-        alertaOS({ title: '🔴 ⚠ RELATO OBRIGATÓRIO · TESTE', text: `OS: ${os.trim()}\nSimulação de 30 minutos sem relato.\nA OS será aberta automaticamente.`, tag: 'mr-teste-relato', os: os.trim(), lembrete: { teste: true, minutos: 30 } });
+    function atualizarNomes() {
+        const mapa = new Map();
+        for (const n of [...nomesCache, ...[...ativos.values()].map(r => r.analista), ...(nomesDisponiveis() || [])]) {
+            if (typeof n === 'string' && nome(n)) mapa.set(nome(n), limpar(n));
+        }
+        const lista = [...mapa.values()].sort((a,b) => a.localeCompare(b, 'pt-BR'));
+        if (JSON.stringify(lista) !== JSON.stringify(nomesCache)) {
+            nomesCache = lista; GM_setValue(KEY.nomes, lista);
+        }
+        return lista;
+    }
+    // Seletor local: não altera o painel e não pede que o usuário digite seu nome.
+    function escolher({ titulo, descricao, opcoes, atual, salvar, atualizar }) {
+        if (!document.body) return;
+        document.getElementById('mr32-seletor')?.remove();
+        const host = document.createElement('div'); host.id = 'mr32-seletor';
+        Object.assign(host.style, {position:'fixed', inset:'0', zIndex:'2147483647'});
+        const sh = host.attachShadow({mode:'open'});
+        sh.innerHTML = `<style>:host{font-family:Arial,sans-serif;color:#152438} .bg{position:absolute;inset:0;background:#10192370;display:grid;place-items:center;padding:16px} .box{box-sizing:border-box;background:#fff;border-radius:12px;width:min(460px,100%);padding:24px;box-shadow:0 14px 55px #0005} h2{font-size:20px;margin:0 0 10px} p{font-size:14px;line-height:1.45;margin:0 0 17px;color:#4b5563} select{box-sizing:border-box;height:43px;width:100%;font:15px Arial;border:1px solid #94a3b8;border-radius:6px;padding:8px;background:#fff;color:#152438} .acoes{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:18px} button{font:600 13px Arial;padding:10px 14px;border:0;border-radius:6px;cursor:pointer;color:#203447;background:#e7edf3} button.ok{background:#195388;color:#fff} button:disabled{opacity:.45;cursor:default}</style><div class="bg"><section class="box" role="dialog" aria-modal="true" aria-label="MaxRelator"><h2></h2><p></p><select aria-label="Selecione uma opção"></select><div class="acoes"><button class="refresh" type="button">Atualizar lista</button><button class="cancel" type="button">Cancelar</button><button class="ok" type="button">Confirmar</button></div></section></div>`;
+        sh.querySelector('h2').textContent = titulo;
+        sh.querySelector('p').textContent = descricao;
+        const sel = sh.querySelector('select'), ok = sh.querySelector('.ok');
+        function render(lista, valor) {
+            sel.replaceChildren(new Option('Selecione...', ''));
+            for (const x of lista) sel.add(new Option(x.label, x.value));
+            if (lista.some(x => x.value === valor)) sel.value = valor;
+            ok.disabled = !sel.value;
+        }
+        render(opcoes, atual);
+        sel.onchange = () => { ok.disabled = !sel.value; };
+        sh.querySelector('.cancel').onclick = () => host.remove();
+        const refresh = sh.querySelector('.refresh');
+        refresh.hidden = !atualizar;
+        refresh.onclick = () => render(atualizar(), sel.value);
+        ok.onclick = () => { if (sel.value) { const v = sel.value; host.remove(); salvar(v); } };
+        document.body.append(host); sel.focus();
+    }
+    function opcoesAnalistas() { return atualizarNomes().map(n => ({value:n,label:n})); }
+    function selecionarAnalista() {
+        escolher({ titulo:'MaxRelator — escolha seu nome', descricao:'Selecione seu nome na lista de analistas identificados no painel. Se não aparecer, aguarde os dados e atualize a lista.', opcoes:opcoesAnalistas(), atual:nomesCache.find(n => nome(n) === nome(configurado)), atualizar:opcoesAnalistas,
+            salvar(v) { configurado = v; GM_setValue(KEY.analista, v); for (const r of ativos.values()) r.proxima = r.de + LIMITE_RELATO; verificarRelatos(); } });
+    }
+    let selecaoInicialExibida = false;
+    function atualizarCadastro() {
+        const lista = atualizarNomes();
+        if (monitorando && !configurado && !selecaoInicialExibida && lista.length && document.body && !document.hidden) {
+            selecaoInicialExibida = true; selecionarAnalista();
+        }
+    }
+    GM_registerMenuCommand('Selecionar meu nome de analista', selecionarAnalista);
+    GM_registerMenuCommand('Testar alerta de novo atendimento (disponível)', () => alertaFila({title:'🔔 NOVO ATENDIMENTO · TESTE',text:'Simulação de novo atendimento.',tag:'mr-teste-novo'}));
+    GM_registerMenuCommand('Testar alerta de 5 minutos (disponível)', () => alertaFila({title:'🟠 ATENDIMENTO AGUARDANDO · TESTE',text:'Simulação de espera de 5 minutos.',tag:'mr-teste-5'}));
+    GM_registerMenuCommand('Testar aviso central em uma OS minha', () => {
+        if (!monitorando || !configurado) return alert('Configure seu nome na guia do painel que está monitorando.');
+        const minhas = [...ativos.values()].filter(pertence);
+        if (!minhas.length) return alert('Nenhuma OS própria identificada no painel agora.');
+        escolher({titulo:'MaxRelator — teste em OS real',descricao:'Selecione uma OS atualmente atribuída a você. Apenas abre a OS e mostra o aviso de teste, sem publicar relato.',opcoes:minhas.map(r=>({value:r.os,label:`OS ${r.os} — ${r.cliente || 'Cliente não informado'}`})), salvar(os) {
+            const r = ativos.get(os);
+            if (!pertence(r)) return alert('Esta OS não está mais atribuída a você.');
+            alertaOS(r, 30, true).catch(e=>warn('Teste de abertura:',e.message));
+        }});
     });
     GM_registerMenuCommand('Diagnóstico do MaxRelator', () => {
         const segundos = ultimoPacote ? Math.round((Date.now() - ultimoPacote) / 1000) : null;
         const minhas = [...ativos.values()].filter(x => nome(x.analista) === nome(configurado));
         const detalhe = minhas.map(r => `OS ${r.os} — ${r.cliente || 'Cliente não informado'} — ${r.ultimo === null ? 'histórico ainda não conferido' : Math.max(0, Math.floor((Date.now()-r.ultimo)/MIN))+' min desde último relato/início'}`).join('\n');
-        alert(`Monitor desta guia: ${monitorando ? 'ATIVO' : 'ESPERA'}\nAnalista: ${configurado || 'não configurado'}\nDisponível: ${disponibilidade()}\nÚltimo pacote: ${segundos === null ? 'não recebido' : segundos + ' s atrás'}\nOS em atendimento: ${ativos.size}\nMinhas OS: ${[...ativos.values()].filter(x => nome(x.analista) === nome(configurado)).length}\nFila: ${pendentes === null ? 'não lida' : pendentes.length}\n\n${detalhe || 'Nenhuma OS própria identificada.'}`);
+        alert(`Monitor desta guia: ${monitorando ? 'ATIVO' : 'ESPERA'}\nAnalista: ${configurado || 'não configurado'}\nDisponível: ${disponibilidade()}\nÚltimo pacote: ${segundos === null ? 'não recebido' : segundos + ' s atrás'}\nOS em atendimento: ${ativos.size}\nMinhas OS: ${[...ativos.values()].filter(x => nome(x.analista) === nome(configurado)).length}\nÚltimo erro de consulta: ${ultimoErro || 'nenhum'}\nFila: ${pendentes === null ? 'não lida' : pendentes.length}\n\n${detalhe || 'Nenhuma OS própria identificada.'}`);
     });
     iniciarMonitor();
 })();
